@@ -1,0 +1,11 @@
+input.googleaddressfield {width: 100%; color: #333; font-weight: bold; font-size: 12px; }
+input.googleaddressfield.useMe {}
+input.googleaddressfield.useMe.hasText:focus {background-color: #fff;}
+input.googleaddressfield.selected {background-color: #fff; color: green;border: none;}
+input.googleaddressfield.selected:focus {}
+
+div.field.hide {display: none;}
+div.field.show {display: block;}
+div.field.show.geoCodingSet {display: none;}
+
+.googleaddressfield label.right {text-align: right; display: block;}
