@@ -52,7 +52,7 @@ class GoogleAddressField extends TextField {
 	 * user the [MAXWIDTH] tag to set it automatically to the width of the container.
 	 * @var String
 	 */
-	protected $googleStaticMapLink = "http://maps.googleapis.com/maps/api/staticmap?center=[ADDRESS]&zoom=17&scale=false&size=[MAXWIDTH]x300&maptype=roadmap&sensor=false&format=png&visual_refresh=true&markers=size:mid%7Ccolor:red%7Clabel:%7C[ADDRESS]";
+	protected $googleStaticMapLink = "//maps.googleapis.com/maps/api/staticmap?center=[ADDRESS]&zoom=17&scale=false&size=[MAXWIDTH]x300&maptype=roadmap&sensor=false&format=png&visual_refresh=true&markers=size:mid%7Ccolor:red%7Clabel:%7C[ADDRESS]";
 
 	/**
 	 * set to empty string to NOT show a static map
