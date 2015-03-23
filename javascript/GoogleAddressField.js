@@ -307,7 +307,7 @@ var GoogleAddressField = function(fieldName) {
 						var previousValues = [];
 						//reset field and show it...
 						var holderToSet = jQuery("#"+formField);
-						holderToSet.removeClass("geoCodingSet");
+						//holderToSet.removeClass("geoCodingSet");
 						var fieldToSet = jQuery("input[name='"+formField+"'],select[name='"+formField+"']");
 						if(fieldToSet.length > 0) {
 							fieldToSet.show().val("");
@@ -334,7 +334,7 @@ var GoogleAddressField = function(fieldName) {
 												}
 												fieldToSet.val(value.trim());
 												geocodingFieldVars.setResults("yes");
-												holderToSet.addClass("geoCodingSet");
+												//holderToSet.addClass("geoCodingSet");
 											}
 											else {
 												if(geocodingFieldVars.debug) {console.debug("- ----- ----- ----- ----- ----- ----- ----- ----- ----- data already used: "+value);}
@@ -380,7 +380,6 @@ var GoogleAddressField = function(fieldName) {
 						jQuery(el).attr("required", "required").removeAttr("data-has-required");
 					}
 				);
-				jQuery("#"+formField)
 			}
 			geocodingFieldVars.entryField.removeAttr("required");
 			geocodingFieldVars.entryFieldHolder.removeAttr("required");
