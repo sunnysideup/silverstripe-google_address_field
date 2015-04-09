@@ -167,6 +167,11 @@ var GoogleAddressField = function(fieldName) {
 		 */
 		init: function () {
 
+			if(typeof google === "undefined") {
+				jQuery(".field.geocoding").hide();
+				return ;
+			}
+
 			geocodingFieldVars.entryFieldHolder = jQuery('#'+geocodingFieldVars.fieldName);
 			geocodingFieldVars.entryField = geocodingFieldVars.entryFieldHolder.find('input[name="'+geocodingFieldVars.fieldName+'"]');
 			geocodingFieldVars.entryFieldRightLabel = geocodingFieldVars.entryFieldHolder.find('label.right');
