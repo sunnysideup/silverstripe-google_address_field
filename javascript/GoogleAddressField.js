@@ -215,7 +215,7 @@ var GoogleAddressField = function(fieldName) {
 								navigator.geolocation.getCurrentPosition(
 									function(position) {
 										var geolocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-										geocodingFieldVars.autocomplete .setBounds(new google.maps.LatLngBounds(geolocation, geolocation));
+										geocodingFieldVars.autocomplete.setBounds(new google.maps.LatLngBounds(geolocation, geolocation));
 									}
 								);
 							}
