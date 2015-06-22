@@ -136,7 +136,7 @@ var GoogleAddressField = function(fieldName) {
 		 * default witdth of static image
 		 * @Int
 		 */
-		defaultWidthOfStaticImage: 500,
+		defaultWidthOfStaticImage: 300,
 
 		/**
 		 * @string
