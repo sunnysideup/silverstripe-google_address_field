@@ -151,11 +151,12 @@ class GoogleAddressField extends TextField {
 			Requirements::themedCSS($this->cssLocation, "google_address_field");
 		}
 		$this->setAttribute("autocomplete", "off");
+		$this->setAttribute("autofill", "off");
 		//right title
 		$byPassLink = "";
 		$viewGoogleMapLink = "";
 		if($this->allowByPass) {
-			$byPassLink = "<a href=\"https://developers.google.com/maps/documentation/geocoding/\" class=\"bypassGoogleGeocoding\">"._t("GoogleAddressField.BYPASS_GOOGLE_GEOCODING", "by-pass Google GeoCoding")."</a>";
+			$byPassLink = "<a href=\"https://developers.google.com/maps/documentation/geocoding/\" class=\"bypassGoogleGeocoding\">"._t("GoogleAddressField.BYPASS_GOOGLE_GEOCODING", "by-pass Google Address Finder")."</a>";
 
 		}
 		$viewGoogleMapLink = "<a href=\"#\" class=\"viewGoogleMapLink\">"._t("GoogleAddressField.VIEW_GOOGLE_MAP", "View Map")."</a>";

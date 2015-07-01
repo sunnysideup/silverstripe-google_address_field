@@ -103,48 +103,53 @@ var GoogleAddressField = function(fieldName) {
 
 		/**
 		 * when the Coding field has text...
-		 * @string
+		 * @var string
 		 */
 		hasTextClass: "hasText",
 
 		/**
-		 * @string
+		 * @var string
 		 */
 		useMeClass: "useMe",
 
 		/**
-		 * @string
+		 * @var string
 		 */
 		selectedClass: "selected",
 
 		/**
-		 * @string
+		 * @var string
 		 */
 		bypassSelector: "a.bypassGoogleGeocoding",
 
 		/**
-		 * @string
+		 * @var string
 		 */
 		viewGoogleMapLinkSelector: "a.viewGoogleMapLink",
 
 		/**
-		 * @string
+		 * @var string
+		 */
+		classForUncompletedField: "holder-required",
+
+		/**
+		 * @var string
 		 */
 		googleStaticMapLink: "",
 
 		/**
 		 * default witdth of static image
-		 * @Int
+		 * @var Int
 		 */
 		defaultWidthOfStaticImage: 300,
 
 		/**
-		 * @string
+		 * @var string
 		 */
 		urlForViewGoogleMapLink: "http://maps.google.com/maps/search/",
 
 		/**
-		 * @string
+		 * @var string
 		 */
 		linkLabelToViewMap: "View Map",
 
@@ -156,7 +161,7 @@ var GoogleAddressField = function(fieldName) {
 
 		/**
 		 * Restrict search to country (currently only one country at the time is supported)
-		 * @String
+		 * @var String
 		 */
 		country: "",
 
@@ -397,12 +402,14 @@ var GoogleAddressField = function(fieldName) {
 			//hide fields to be completed for now...
 			for (var formField in geocodingFieldVars.relatedFields) {
 				var holder = jQuery("#"+formField);
-				holder.removeClass("show").addClass("hide");
-				var input = holder.find("select[required='required'], input[required='required']").each(
-					function(i, el) {
-						jQuery(el).attr("data-has-required", "yes").removeAttr("required");
-					}
-				);
+				if(!holder.hasClass(geocodingFieldVars.classForUncompletedField)) {
+					holder.removeClass("show").addClass("hide");
+					var input = holder.find("select[required='required'], input[required='required']").each(
+						function(i, el) {
+							jQuery(el).attr("data-has-required", "yes").removeAttr("required");
+						}
+					);
+				}
 			}
 			if(geocodingFieldVars.entryFieldHolder.is(":visible")) {
 				geocodingFieldVars.entryField.attr("required", "required");
