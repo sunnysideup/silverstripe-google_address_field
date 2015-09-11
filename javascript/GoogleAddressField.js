@@ -178,7 +178,7 @@ var GoogleAddressField = function(fieldName) {
 			}
 
 			geocodingFieldVars.entryFieldHolder = jQuery('#'+geocodingFieldVars.fieldName);
-			geocodingFieldVars.entryField = geocodingFieldVars.entryFieldHolder.find('input[name="'+geocodingFieldVars.fieldName+'"]');
+			geocodingFieldVars.entryField = geocodingFieldVars.entryFieldHolder.find('input[name="'+geocodingFieldVars.fieldName+'"], textarea[name="'+geocodingFieldVars.fieldName+'"]');
 			geocodingFieldVars.entryFieldRightLabel = geocodingFieldVars.entryFieldHolder.find('label.right');
 			geocodingFieldVars.entryFieldLeftLabel = geocodingFieldVars.entryFieldHolder.find('label.left');
 
@@ -318,7 +318,7 @@ var GoogleAddressField = function(fieldName) {
 						//reset field and show it...
 						var holderToSet = jQuery("#"+formField);
 						//holderToSet.removeClass("geoCodingSet");
-						var fieldToSet = jQuery("input[name='"+formField+"'],select[name='"+formField+"']");
+						var fieldToSet = jQuery("input[name='"+formField+"'],select[name='"+formField+"'],textarea[name='"+formField+"']");
 						if(fieldToSet.length > 0) {
 							fieldToSet.show().val("");
 							if(geocodingFieldVars.debug) {console.debug("- checking form field: "+formField+" now searching for data ...");}
@@ -340,6 +340,10 @@ var GoogleAddressField = function(fieldName) {
 												//in input field
 												if(fieldToSet.is("input")) {
 													var previousValueForThisFormField = jQuery('input[name="'+formField+'"]').val();
+													value = previousValueForThisFormField + " " + value;
+												}
+												if(fieldToSet.is("textarea")) {
+													var previousValueForThisFormField = jQuery('textarea[name="'+formField+'"]').val();
 													value = previousValueForThisFormField + " " + value;
 												}
 												fieldToSet.val(value.trim());
