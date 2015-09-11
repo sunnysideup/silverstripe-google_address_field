@@ -29,3 +29,12 @@ Installation Instructions
 In the _config/ folder of this module
 you can usually find some examples of config options (if any).
 
+3. the way to work with this field is not to make it replace existing fields, but to add it. After that you can add use the `setFieldMap` method to map your existing fields to data returned by Google. Here is a very basic example of how to place all the data into one field:
+```php
+		    $fields->insertBefore(
+			    $addressField = new GoogleAddressField("AddressLookup", "Physical Address"),
+			    "Address"
+		    );
+		    $addressField->setFieldMap(array("Address" => array("formatted_address" => "long_name")));
+```
+
