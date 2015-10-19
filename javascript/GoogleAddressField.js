@@ -18,7 +18,7 @@ var GoogleAddressField = function(fieldName) {
 		/**
 		 * @var Boolean
 		 */
-		debug: true,
+		debug: false,
 
 		/**
 		 * name of the html field (e.g. MyInputField)
