@@ -403,19 +403,21 @@ var GoogleAddressField = function(fieldName) {
 		 * hides the address fields
 		 */
 		hideFields: function(){
+			var makeItRequired = false;
 			//hide fields to be completed for now...
 			for (var formField in geocodingFieldVars.relatedFields) {
 				var holder = jQuery("#"+formField);
 				if(!holder.hasClass(geocodingFieldVars.classForUncompletedField)) {
 					holder.removeClass("show").addClass("hide");
-					var input = holder.find("select[required='required'], input[required='required']").each(
+					var input = holder.find("select[required='required'], input[required='required'], textarea[required='required']").each(
 						function(i, el) {
 							jQuery(el).attr("data-has-required", "yes").removeAttr("required");
+							makeItRequired = true;
 						}
 					);
 				}
 			}
-			if(geocodingFieldVars.entryFieldHolder.is(":visible")) {
+			if(geocodingFieldVars.entryFieldHolder.is(":visible") && makeItRequired) {
 				geocodingFieldVars.entryField.attr("required", "required");
 				geocodingFieldVars.entryFieldHolder.attr("required", "required");
 			}
