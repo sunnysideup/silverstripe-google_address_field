@@ -345,6 +345,9 @@ var GoogleAddressField = function(fieldName) {
 												previousValues.push(value);
 												if(geocodingFieldVars.debug) {console.debug("- ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** setting: "+formField+" to "+value+", using "+googleVariable+" in google address");}
 												previousValueForThisFormField = "";
+												if(googleType == "subpremise") {
+													value = value + "/";
+												}
 												//in input field
 												if(fieldToSet.is("input")) {
 													var previousValueForThisFormField = jQuery('input[name="'+formField+'"]').val();
