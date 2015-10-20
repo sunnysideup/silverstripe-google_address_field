@@ -73,7 +73,7 @@ var GoogleAddressField = function(fieldName) {
 
 		/**
 		 * based on format FormField: [GeocodingAddressType: format]
-		 *    Address1: {'street_number': 'short_name', 'route': 'long_name'},
+		 *    Address1: {'subpremise': 'short_name', 'street_number': 'short_name', 'route': 'long_name'},
 		 *    Address2: {'locality': 'long_name'},
 		 *    City: {'administrative_area_level_1': 'short_name'},
 		 *    Country: {'country': 'long_name'},
@@ -158,6 +158,13 @@ var GoogleAddressField = function(fieldName) {
 		 * @float
 		 */
 		percentageToBeCompleted: 0.25,
+
+		/**
+		 * we look for these in the address to make sure it is an actual address
+		 * not a region or something less specific than an address.
+		 * @array
+		 */
+		specificEnoughPlaceTypes: ["street_address", "route", "street_number", "subpremise", "location"],
 
 		/**
 		 * Restrict search to country (currently only one country at the time is supported)
@@ -290,7 +297,8 @@ var GoogleAddressField = function(fieldName) {
 			if(geocodingFieldVars.debug) {console.log(place);}
 			var placeIsSpecificEnough = false;
 			for (var i = 0; i < place.types.length; i++) {
-				if(place.types[i] == "street_address") {
+				type = place.types[i];
+				if(this.specificEnoughPlaceTypes.indexOf(type)) {
 					placeIsSpecificEnough = true;
 				}
 			}
