@@ -164,7 +164,7 @@ var GoogleAddressField = function(fieldName) {
 		 * not a region or something less specific than an address.
 		 * @array
 		 */
-		specificEnoughPlaceTypes: ["street_address", "route", "street_number", "subpremise", "location"],
+		specificEnoughPlaceTypes: ["street_address", "subpremise"],
 
 		/**
 		 * Restrict search to country (currently only one country at the time is supported)
@@ -298,7 +298,7 @@ var GoogleAddressField = function(fieldName) {
 			var placeIsSpecificEnough = false;
 			for (var i = 0; i < place.types.length; i++) {
 				type = place.types[i];
-				if(this.specificEnoughPlaceTypes.indexOf(type)) {
+				if(this.specificEnoughPlaceTypes.indexOf(type) > -1) {
 					placeIsSpecificEnough = true;
 				}
 			}
