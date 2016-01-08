@@ -184,8 +184,8 @@ var GoogleAddressField = function(fieldName) {
 				return ;
 			}
 
-			geocodingFieldVars.entryFieldHolder = jQuery('#'+geocodingFieldVars.fieldName);
-			geocodingFieldVars.entryField = geocodingFieldVars.entryFieldHolder.find('input[name="'+geocodingFieldVars.fieldName+'"], textarea[name="'+geocodingFieldVars.fieldName+'"]');
+			geocodingFieldVars.entryFieldHolder = jQuery('#' + geocodingFieldVars.fieldName + '_Holder');
+			geocodingFieldVars.entryField = geocodingFieldVars.entryFieldHolder.find('#' + geocodingFieldVars.fieldName);
 			geocodingFieldVars.entryFieldRightLabel = geocodingFieldVars.entryFieldHolder.find('label.right');
 			geocodingFieldVars.entryFieldLeftLabel = geocodingFieldVars.entryFieldHolder.find('label.left');
 
@@ -283,8 +283,8 @@ var GoogleAddressField = function(fieldName) {
 			geocodingFieldVars.entryFieldHolder.find(geocodingFieldVars.viewGoogleMapLinkSelector).attr("target", "_googleMap");
 			if(geocodingFieldVars.entryField.val().length > 0) {
 				//to do - to be completed!
-				geocodingFieldVars.entryField.attr("placeholder", geocodingFieldVars.entryField.val());;
-				geocodingFieldVars.entryField.val("")
+				//geocodingFieldVars.entryField.attr("placeholder", geocodingFieldVars.entryField.val());;
+				//geocodingFieldVars.entryField.val("")
 				//google.maps.event.trigger(geocodingFieldVars.autocomplete, 'place_changed');
 				//console.debug(geocodingFieldVars.autocomplete);
 			}
@@ -294,7 +294,9 @@ var GoogleAddressField = function(fieldName) {
 			var updated = false;
 			var place = geocodingFieldVars.autocomplete.getPlace();
 			geocodingFieldVars.entryField.attr("data-has-result", "no");
-			if(geocodingFieldVars.debug) {console.log(place);}
+			if(geocodingFieldVars.debug) {
+				console.log(place);
+			}
 			var placeIsSpecificEnough = false;
 			for (var i = 0; i < place.types.length; i++) {
 				type = place.types[i];
@@ -319,6 +321,11 @@ var GoogleAddressField = function(fieldName) {
 							long_name: place.formatted_address,
 							short_name: place.formatted_address,
 							types: ["formatted_address"]
+						},
+						{
+							latitude: place.geometry.location.lat(),
+							longitude: place.geometry.location.lng(),
+							types: ["location"]
 						}
 					);
 					for (var formField in geocodingFieldVars.relatedFields) {
@@ -329,21 +336,31 @@ var GoogleAddressField = function(fieldName) {
 						var fieldToSet = jQuery("input[name='"+formField+"'],select[name='"+formField+"'],textarea[name='"+formField+"']");
 						if(fieldToSet.length > 0) {
 							fieldToSet.show().val("");
-							if(geocodingFieldVars.debug) {console.debug("- checking form field: "+formField+" now searching for data ...");}
+							if(geocodingFieldVars.debug) {
+								console.debug("- checking form field: "+formField+" now searching for data ...");
+							}
 							for (var j = 0; j < place.address_components.length; j++) {
-								if(geocodingFieldVars.debug) {console.debug("- -----  ----- ----- provided information: "+place.address_components[j].long_name);}
+								if(geocodingFieldVars.debug) {
+									console.debug("- -----  ----- ----- provided information: "+place.address_components[j].long_name);
+								}
 								for (var k = 0; k < place.address_components[j].types.length; k++) {
 									var googleType = place.address_components[j].types[k];
-									if(geocodingFieldVars.debug) {console.debug("- ----- ----- ----- ----- ----- ----- found Google Info for: "+googleType);}
+									if(geocodingFieldVars.debug) {
+										console.debug("- ----- ----- ----- ----- ----- ----- found Google Info for: "+googleType);
+									}
 									//if(geocodingFieldVars.debug) {console.log(geocodingFieldVars.relatedFields[formField]);}
 									for (var fieldType in geocodingFieldVars.relatedFields[formField]) {
-										if(geocodingFieldVars.debug) {console.debug("- ----- ----- ----- ----- ----- ----- ----- ----- ----- with form field checking: "+fieldType+" is the same as google type: "+googleType);}
+										if(geocodingFieldVars.debug) {
+											console.debug("- ----- ----- ----- ----- ----- ----- ----- ----- ----- with form field checking: "+fieldType+" is the same as google type: "+googleType);
+										}
 										if (fieldType == googleType) {
 											var googleVariable = geocodingFieldVars.relatedFields[formField][fieldType];
 											var value = place.address_components[j][googleVariable];
 											if(jQuery.inArray(value, previousValues) == -1) {
 												previousValues.push(value);
-												if(geocodingFieldVars.debug) {console.debug("- ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** setting: "+formField+" to "+value+", using "+googleVariable+" in google address");}
+												if(geocodingFieldVars.debug) {
+													console.debug("- ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** setting: "+formField+" to "+value+", using "+googleVariable+" in google address");
+												}
 												previousValueForThisFormField = "";
 												if(googleType == "subpremise") {
 													value = value + "/";
@@ -362,7 +379,9 @@ var GoogleAddressField = function(fieldName) {
 												//holderToSet.addClass("geoCodingSet");
 											}
 											else {
-												if(geocodingFieldVars.debug) {console.debug("- ----- ----- ----- ----- ----- ----- ----- ----- ----- data already used: "+value);}
+												if(geocodingFieldVars.debug) {
+													console.debug("- ----- ----- ----- ----- ----- ----- ----- ----- ----- data already used: "+value);
+												}
 											}
 										}
 									}

@@ -170,7 +170,7 @@ class GoogleAddressField extends TextField {
 	 */
 	protected function getJavascript(){
 		return "
-			var GoogleAddressField".$this->id()." = new GoogleAddressField( '".Convert::raw2js($this->getName())."')
+			var GoogleAddressField".$this->id()." = new GoogleAddressField( '" . Convert::raw2js($this->getForm()->FormName()) . "_" . Convert::raw2js($this->getName()) . "')
 				.setVar('errorMessageMoreSpecific', '".Convert::raw2js(_t("GoogleAddressField.ERROR_MESSAGE_MORE_SPECIFIC", "Error: please enter a more specific location."))."')
 				.setVar('errorMessageAddressNotFound', '".Convert::raw2js(_t("GoogleAddressField.ERROR_MESSAGE_ADDRESS_NOT_FOUND", "Error: sorry, address could not be found."))."')
 				.setVar('findNewAddressText', '".Convert::raw2js(_t("GoogleAddressField.FIND_NEW_ADDRESS", "Find Alternative Address"))."')
