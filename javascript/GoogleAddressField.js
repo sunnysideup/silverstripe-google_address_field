@@ -66,6 +66,12 @@ var GoogleAddressField = function(fieldName) {
 		useSensor: false,
 
 		/**
+		 * should we clear the field on load?
+		 * @var Boolean
+		 */
+		clearOnLoad: true,
+
+		/**
 		 *
 		 * @var autocomplete object provided by Google
 		 */
@@ -283,8 +289,10 @@ var GoogleAddressField = function(fieldName) {
 			geocodingFieldVars.entryFieldHolder.find(geocodingFieldVars.viewGoogleMapLinkSelector).attr("target", "_googleMap");
 			if(geocodingFieldVars.entryField.val().length > 0) {
 				//to do - to be completed!
-				//geocodingFieldVars.entryField.attr("placeholder", geocodingFieldVars.entryField.val());;
-				//geocodingFieldVars.entryField.val("")
+				if(geocodingFieldVars.clearOnLoad){
+					geocodingFieldVars.entryField.attr("placeholder", geocodingFieldVars.entryField.val());
+					geocodingFieldVars.entryField.val("");
+				}
 				//google.maps.event.trigger(geocodingFieldVars.autocomplete, 'place_changed');
 				//console.debug(geocodingFieldVars.autocomplete);
 			}

@@ -35,6 +35,18 @@ class GoogleAddressField extends TextField {
 	public function setAllowByPass($b) {$this->allowByPass = $b;}
 
 	/**
+	*
+	* @var Boolean
+	*/
+	protected $clearOnLoad = true;
+
+	/**
+	 * Do you want the field cleared on load
+	 * @param Boolean
+	 */
+	public function setClearOnLoad($b) {$this->clearOnLoad = $b;}
+
+	/**
 	 * JS file used to run this field
 	 * @var String
 	 */
@@ -174,10 +186,11 @@ class GoogleAddressField extends TextField {
 				.setVar('errorMessageMoreSpecific', '".Convert::raw2js(_t("GoogleAddressField.ERROR_MESSAGE_MORE_SPECIFIC", "Error: please enter a more specific location."))."')
 				.setVar('errorMessageAddressNotFound', '".Convert::raw2js(_t("GoogleAddressField.ERROR_MESSAGE_ADDRESS_NOT_FOUND", "Error: sorry, address could not be found."))."')
 				.setVar('findNewAddressText', '".Convert::raw2js(_t("GoogleAddressField.FIND_NEW_ADDRESS", "Find Alternative Address"))."')
-				.setVar('useSensor', ".Convert::raw2js($this->userSensor ? "true" : "false").")
+				.setVar('useSensor', ".Convert::raw2js($this->useSensor ? "true" : "false").")
 				.setVar('relatedFields', ".Convert::raw2json($this->getFieldMap()).")
 				.setVar('googleStaticMapLink', '".Convert::raw2js($this->googleStaticMapLink)."')
 				.setVar('linkLabelToViewMap', '".Convert::raw2js(_t("GoogleAddressField.LINK_LABEL_TO_VIEW_MAP", "view map"))."')
+				.setvar('clearOnLoad', ".Convert::raw2js($this->clearOnLoad ? "true" : "false").")
 				.init();";
 	}
 
