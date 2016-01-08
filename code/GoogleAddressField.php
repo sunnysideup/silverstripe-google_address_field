@@ -190,7 +190,7 @@ class GoogleAddressField extends TextField {
 				.setVar('relatedFields', ".Convert::raw2json($this->getFieldMap()).")
 				.setVar('googleStaticMapLink', '".Convert::raw2js($this->googleStaticMapLink)."')
 				.setVar('linkLabelToViewMap', '".Convert::raw2js(_t("GoogleAddressField.LINK_LABEL_TO_VIEW_MAP", "view map"))."')
-				.setvar('clearOnLoad', ".Convert::raw2js($this->clearOnLoad ? "true" : "false").")
+				.setVar('clearOnLoad', ".Convert::raw2js($this->clearOnLoad ? "true" : "false").")
 				.init();";
 	}
 
