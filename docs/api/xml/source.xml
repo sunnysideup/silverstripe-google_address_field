@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<source xmlns="http://xml.phpdox.net/src">
-  <dir name="/var/www/_modules/google_address_field/trunk">
-    <dir name="code">
-      <file name="GoogleAddressField.php" size="5475" time="2015-03-14T10:22:23+13:00" unixtime="1426281743" sha1="650248414fea662b68d9743f635fcb81d746d172" xml="tokens/code/GoogleAddressField.php.xml"/>
-    </dir>
-  </dir>
-</source>

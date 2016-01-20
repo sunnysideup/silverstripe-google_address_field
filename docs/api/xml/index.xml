@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<index xmlns="http://xml.phpdox.net/src" basedir="/var/www/_modules/google_address_field/trunk">
-  <namespace name="">
-    <class name="GoogleAddressField" src="code/GoogleAddressField.php" description="turns a field into a geo-coding field." xml="classes/GoogleAddressField.xml"/>
-  </namespace>
-</index>

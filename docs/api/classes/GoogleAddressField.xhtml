@@ -67,14 +67,19 @@
         <ul/>
         <h2 id="synopsis">Synopsis</h2>
         <div class="synopsis">class GoogleAddressField
-                extends <a title="TextField" href="../classes/TextField.xhtml">TextField</a>
-            {<br/><ul class="none"><li>// members</li><li>protected <span title="Boolean">Boolean</span> <a href="#members">$useSensor</a>;
-                    </li><li>protected <span title="Boolean">Boolean</span> <a href="#members">$allowByPass</a>;
-                    </li><li>protected <span title="String">String</span> <a href="#members">$googleSourceJS</a>;
-                    </li><li>protected <span title="String">String</span> <a href="#members">$googleStaticMapLink</a>;
-                    </li><li>protected <span title="String">String</span> <a href="#members">$jsLocation</a>;
-                    </li><li>protected <span title="String">String</span> <a href="#members">$cssLocation</a>;
-                    </li><li>protected <span title="Array">Array</span> <a href="#members">$fieldMap</a>;
+                extends TextField
+            {<br/><ul class="none"><li>// members</li><li>protected <span title="Boolean">Boolean</span> <a href="#members">$allowByPass</a> =
+                        true;
+                    </li><li>protected <span title="String">String</span> <a href="#members">$googleSourceJS</a> =
+                        "//maps.google.com/maps/api/js?libraries=places";
+                    </li><li>protected <span title="String">String</span> <a href="#members">$googleStaticMapLink</a> =
+                        "//maps.googleapis.com/maps/api/staticmap?center=[ADDRESS]&amp;zoom=17&amp;scale=false&amp;size=[MAXWIDTH]x300&amp;maptype=roadmap&amp;format=png&amp;visual_refresh=true&amp;markers=size:mid%7Ccolor:red%7Clabel:%7C[ADDRESS]";
+                    </li><li>protected <span title="String">String</span> <a href="#members">$jsLocation</a> =
+                        "google_address_field/javascript/GoogleAddressField.js";
+                    </li><li>protected <span title="String">String</span> <a href="#members">$cssLocation</a> =
+                        "GoogleAddressField";
+                    </li><li>protected <span title="Array">Array</span> <a href="#members">$fieldMap</a> =
+                        ;
                     </li></ul><ul class="none"><li>// methods</li><li>public void <a title="GoogleAddressField" href="../classes/GoogleAddressField/setUseSensor.xhtml">setUseSensor</a>()
                     </li><li>public void <a title="GoogleAddressField" href="../classes/GoogleAddressField/setAllowByPass.xhtml">setAllowByPass</a>()
                     </li><li>public void <a title="GoogleAddressField" href="../classes/GoogleAddressField/setGoogleSourceJS.xhtml">setGoogleSourceJS</a>()
@@ -95,9 +100,7 @@
         <div class="styled">
           <h4>Extends</h4>
           <ul>
-            <li>
-              <a href="../classes/TextField.xhtml">TextField</a>
-            </li>
+            <li>TextField</li>
           </ul>
         </div>
         <h2 id="members">Members</h2>
@@ -106,25 +109,22 @@
           <ul class="members">
             <li id="allowByPass"><strong>$allowByPass</strong>
                 —
-                <a href="#">Boolean</a></li>
+                <a title="Boolean" href="../classes/Boolean.xhtml">Boolean</a></li>
             <li id="cssLocation"><strong>$cssLocation</strong>
                 —
-                <a href="#">String</a><br/><span class="indent">CSS file used in this field (can be themed!)</span></li>
+                <a title="String" href="../classes/String.xhtml">String</a><br/><span class="indent">CSS file used in this field (can be themed!)</span></li>
             <li id="fieldMap"><strong>$fieldMap</strong>
                 —
-                <a href="#">Array</a><br/><span class="indent">list of links between form fields in the current field (e.g. TextField with name City) and the result XML.</span></li>
+                <a title="Array" href="../classes/Array.xhtml">Array</a><br/><span class="indent">list of links between form fields in the current field (e.g. TextField with name City) and the result XML.</span></li>
             <li id="googleSourceJS"><strong>$googleSourceJS</strong>
                 —
-                <a href="#">String</a><br/><span class="indent">JS file used to run this field</span></li>
+                <a title="String" href="../classes/String.xhtml">String</a><br/><span class="indent">JS file used to run this field</span></li>
             <li id="googleStaticMapLink"><strong>$googleStaticMapLink</strong>
                 —
-                <a href="#">String</a><br/><span class="indent">Link to the static map.  Set to an empty string to have no static image appear.</span></li>
+                <a title="String" href="../classes/String.xhtml">String</a><br/><span class="indent">Link to the static map.  Set to an empty string to have no static image appear.</span></li>
             <li id="jsLocation"><strong>$jsLocation</strong>
                 —
-                <a href="#">String</a><br/><span class="indent">JS file used to run this field</span></li>
-            <li id="useSensor"><strong>$useSensor</strong>
-                —
-                <a href="#">Boolean</a></li>
+                <a title="String" href="../classes/String.xhtml">String</a><br/><span class="indent">JS file used to run this field</span></li>
           </ul>
         </div>
         <h2 id="methods">Methods</h2>
@@ -174,7 +174,7 @@
       </section>
     </div>
     <footer>
-      <span/>
+      <span>Generated using phpDox 0.8.1.1 - Copyright (C) 2010 - 2016 by Arne Blankerts</span>
     </footer>
   </body>
 </html>
