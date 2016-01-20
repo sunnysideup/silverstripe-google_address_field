@@ -10,12 +10,6 @@
 class GoogleAddressField extends TextField {
 
 	/**
-	 *
-	 * @var Boolean
-	 */
-	protected $useSensor = true;
-
-	/**
 	 * Do you want this annoying ... this website wants to know exactly where you are
 	 * and what you are wearing thing ... this is your VAR.
 	 * @param Boolean
@@ -52,7 +46,7 @@ class GoogleAddressField extends TextField {
 	 * user the [MAXWIDTH] tag to set it automatically to the width of the container.
 	 * @var String
 	 */
-	protected $googleStaticMapLink = "//maps.googleapis.com/maps/api/staticmap?center=[ADDRESS]&zoom=17&scale=false&size=[MAXWIDTH]x300&maptype=roadmap&sensor=false&format=png&visual_refresh=true&markers=size:mid%7Ccolor:red%7Clabel:%7C[ADDRESS]";
+	protected $googleStaticMapLink = "//maps.googleapis.com/maps/api/staticmap?center=[ADDRESS]&zoom=17&scale=false&size=[MAXWIDTH]x300&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:red%7Clabel:%7C[ADDRESS]";
 
 	/**
 	 * set to empty string to NOT show a static map
@@ -141,9 +135,6 @@ class GoogleAddressField extends TextField {
 	 */
 	function Field($properties = array()) {
 		$this->addExtraClass("text");
-		if($this->useSensor) {
-			$this->googleSourceJS .= "&sensor=true";
-		}
 		Requirements::javascript($this->googleSourceJS);
 		Requirements::javascript($this->jsLocation);
 		Requirements::customScript($this->getJavascript(), "GoogleAddressField".$this->id());
@@ -174,7 +165,6 @@ class GoogleAddressField extends TextField {
 				.setVar('errorMessageMoreSpecific', '".Convert::raw2js(_t("GoogleAddressField.ERROR_MESSAGE_MORE_SPECIFIC", "Error: please enter a more specific location."))."')
 				.setVar('errorMessageAddressNotFound', '".Convert::raw2js(_t("GoogleAddressField.ERROR_MESSAGE_ADDRESS_NOT_FOUND", "Error: sorry, address could not be found."))."')
 				.setVar('findNewAddressText', '".Convert::raw2js(_t("GoogleAddressField.FIND_NEW_ADDRESS", "Find Alternative Address"))."')
-				.setVar('useSensor', ".Convert::raw2js($this->userSensor ? "true" : "false").")
 				.setVar('relatedFields', ".Convert::raw2json($this->getFieldMap()).")
 				.setVar('googleStaticMapLink', '".Convert::raw2js($this->googleStaticMapLink)."')
 				.setVar('linkLabelToViewMap', '".Convert::raw2js(_t("GoogleAddressField.LINK_LABEL_TO_VIEW_MAP", "view map"))."')
