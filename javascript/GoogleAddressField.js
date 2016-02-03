@@ -1,188 +1,186 @@
 /**
- * This JS comes with the GoogleAddressField Field.
- *
- * It allows the user to find their address using the Google
- * GeoCoding API.
- *
- * @todo: integrate with GeoCoder for lookups of previous addresses... see http://jsfiddle.net/YphZw/
- *
- * @see: https://developers.google.com/maps/documentation/javascript/places-autocomplete
- *
- */
+* This JS comes with the GoogleAddressField Field.
+*
+* It allows the user to find their address using the Google
+* GeoCoding API.
+*
+* @todo: integrate with GeoCoder for lookups of previous addresses... see http://jsfiddle.net/YphZw/
+*
+* @see: https://developers.google.com/maps/documentation/javascript/places-autocomplete
+*
+*/
 
-
-var GoogleAddressField = function(fieldName) {
-
+function GoogleAddressField(fieldName) {
 	var geocodingFieldVars = {
 
 		/**
-		 * @var Boolean
-		 */
+		* @var Boolean
+		*/
 		debug: false,
 
 		/**
-		 * name of the html field (e.g. MyInputField)
-		 * this is provided by PHP using a small customScript
-		 *
-		 * @var String
-		 */
+		* name of the html field (e.g. MyInputField)
+		* this is provided by PHP using a small customScript
+		*
+		* @var String
+		*/
 		fieldName: fieldName,
 
 		/**
-		 * object that is being used to find the address.
-		 * basically the jquery object of the input field in html
-		 * This is set in the init method
-		 * @var jQueryObject
-		 */
+		* object that is being used to find the address.
+		* basically the jquery object of the input field in html
+		* This is set in the init method
+		* @var jQueryObject
+		*/
 		entryField: null,
 
 		/**
-		 * div holding the input
-		 * basically the jquery object of the input field in html
-		 * This is set in the init method
-		 * @var jQueryObject
-		 */
+		* div holding the input
+		* basically the jquery object of the input field in html
+		* This is set in the init method
+		* @var jQueryObject
+		*/
 		entryFieldHolder: null,
 
 		/**
-		 * Right Label
-		 * This is set in the init method
-		 * @var jQueryObject
-		 */
+		* Right Label
+		* This is set in the init method
+		* @var jQueryObject
+		*/
 		entryFieldRightLabel: null,
 
 		/**
-		 * Left Label
-		 * This is set in the init method
-		 * @var jQueryObject
-		 */
+		* Left Label
+		* This is set in the init method
+		* @var jQueryObject
+		*/
 		entryFieldLeftLabel: null,
 
 		/**
-		 * should we use the sensor on mobile
-		 * phones to help?
-		 * @var Boolean
-		 */
+		* should we use the sensor on mobile
+		* phones to help?
+		* @var Boolean
+		*/
 		useSensor: false,
 
 		/**
-		 * should we clear the field on load?
-		 * @var Boolean
-		 */
+		* should we clear the field on load?
+		* @var Boolean
+		*/
 		clearOnLoad: true,
 
 		/**
-		 *
-		 * @var autocomplete object provided by Google
-		 */
+		*
+		* @var autocomplete object provided by Google
+		*/
 		autocomplete: null,
 
 		/**
-		 * based on format FormField: [GeocodingAddressType: format]
-		 *    Address1: {'subpremise': 'short_name', 'street_number': 'short_name', 'route': 'long_name'},
-		 *    Address2: {'locality': 'long_name'},
-		 *    City: {'administrative_area_level_1': 'short_name'},
-		 *    Country: {'country': 'long_name'},
-		 *    PostcalCode: {'postal_code': 'short_name'}
-		 *
-		 * @var JSON
-		 */
+		* based on format FormField: [GeocodingAddressType: format]
+		*    Address1: {'subpremise': 'short_name', 'street_number': 'short_name', 'route': 'long_name'},
+		*    Address2: {'locality': 'long_name'},
+		*    City: {'administrative_area_level_1': 'short_name'},
+		*    Country: {'country': 'long_name'},
+		*    PostcalCode: {'postal_code': 'short_name'}
+		*
+		* @var JSON
+		*/
 		relatedFields: {},
 
 		/**
-		 *
-		 * @var String
-		 */
+		*
+		* @var String
+		*/
 		findNewAddressText: "",
 
 		/**
-		 *
-		 * @var String
-		 */
+		*
+		* @var String
+		*/
 		errorMessageMoreSpecific: "",
 
 		/**
-		 *
-		 * @var String
-		 */
+		*
+		* @var String
+		*/
 		errorMessageAddressNotFound: "",
 
 		/**
-		 * when the Coding field has text...
-		 * @var string
-		 */
+		* when the Coding field has text...
+		* @var string
+		*/
 		hasTextClass: "hasText",
 
 		/**
-		 * @var string
-		 */
+		* @var string
+		*/
 		useMeClass: "useMe",
 
 		/**
-		 * @var string
-		 */
+		* @var string
+		*/
 		selectedClass: "selected",
 
 		/**
-		 * @var string
-		 */
+		* @var string
+		*/
 		bypassSelector: "a.bypassGoogleGeocoding",
 
 		/**
-		 * @var string
-		 */
+		* @var string
+		*/
 		viewGoogleMapLinkSelector: "a.viewGoogleMapLink",
 
 		/**
-		 * @var string
-		 */
+		* @var string
+		*/
 		classForUncompletedField: "holder-required",
 
 		/**
-		 * @var string
-		 */
+		* @var string
+		*/
 		googleStaticMapLink: "",
 
 		/**
-		 * default witdth of static image
-		 * @var Int
-		 */
+		* default witdth of static image
+		* @var Int
+		*/
 		defaultWidthOfStaticImage: 300,
 
 		/**
-		 * @var string
-		 */
+		* @var string
+		*/
 		urlForViewGoogleMapLink: "http://maps.google.com/maps/search/",
 
 		/**
-		 * @var string
-		 */
+		* @var string
+		*/
 		linkLabelToViewMap: "View Map",
 
 		/**
-		 * percentage of fields that need to be completed.
-		 * @float
-		 */
+		* percentage of fields that need to be completed.
+		* @float
+		*/
 		percentageToBeCompleted: 0.25,
 
 		/**
-		 * we look for these in the address to make sure it is an actual address
-		 * not a region or something less specific than an address.
-		 * @array
-		 */
+		* we look for these in the address to make sure it is an actual address
+		* not a region or something less specific than an address.
+		* @array
+		*/
 		specificEnoughPlaceTypes: ["street_address", "subpremise"],
 
 		/**
-		 * Restrict search to country (currently only one country at the time is supported)
-		 * @var String
-		 */
+		* Restrict search to country (currently only one country at the time is supported)
+		* @var String
+		*/
 		country: "",
 
 		/**
-		 *
-		 * this method sets up all the listeners
-		 * and the basic state.
-		 */
+		*
+		* this method sets up all the listeners
+		* and the basic state.
+		*/
 		init: function () {
 
 			if(typeof google === "undefined") {
@@ -224,50 +222,50 @@ var GoogleAddressField = function(fieldName) {
 
 			//add listeners
 			geocodingFieldVars.entryField
-				.focus(
-					function(){
-						geocodingFieldVars.hideFields();
-						//use sensor ..
-						if(geocodingFieldVars.useSensor) {
-							if (navigator.geolocation) {
-								navigator.geolocation.getCurrentPosition(
-									function(position) {
-										var geolocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-										geocodingFieldVars.autocomplete.setBounds(new google.maps.LatLngBounds(geolocation, geolocation));
-									}
-								);
-							}
+			.focus(
+				function(){
+					geocodingFieldVars.hideFields();
+					//use sensor ..
+					if(geocodingFieldVars.useSensor) {
+						if (navigator.geolocation) {
+							navigator.geolocation.getCurrentPosition(
+								function(position) {
+									var geolocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+									geocodingFieldVars.autocomplete.setBounds(new google.maps.LatLngBounds(geolocation, geolocation));
+								}
+							);
 						}
+					}
+					geocodingFieldVars.updateEntryFieldStatus();
+				}
+			)
+			.focusout(
+				function(){
+					if(geocodingFieldVars.hasResults()) {
+						geocodingFieldVars.showFields();
+					}
+					geocodingFieldVars.updateEntryFieldStatus();
+				}
+			)
+			.keypress(
+				function(e){
+					var code = e.which;
+					if (code == 13 ) return false;
+				}
+			)
+			.on(
+				'input propertychange paste',
+				function(e){
+					//tab
+					if(geocodingFieldVars.hasResults()) {
+						geocodingFieldVars.clearFields();
+						geocodingFieldVars.setResults( "no");
 						geocodingFieldVars.updateEntryFieldStatus();
-					}
-				)
-				.focusout(
-					function(){
-						if(geocodingFieldVars.hasResults()) {
-							geocodingFieldVars.showFields();
-						}
-						geocodingFieldVars.updateEntryFieldStatus();
-					}
-				)
-				.keypress(
-					function(e){
-						var code = e.which;
-						if (code == 13 ) return false;
-					}
-				)
-				.on(
-					'input propertychange paste',
-					function(e){
-						//tab
-						if(geocodingFieldVars.hasResults()) {
-							geocodingFieldVars.clearFields();
-							geocodingFieldVars.setResults( "no");
-							geocodingFieldVars.updateEntryFieldStatus();
 
-						}
-						//or...if ( e.which == 13 ) e.preventDefault();
 					}
-				);
+					//or...if ( e.which == 13 ) e.preventDefault();
+				}
+			);
 			//bypass
 			geocodingFieldVars.entryFieldHolder.find(geocodingFieldVars.bypassSelector).click(
 				function(e){
@@ -410,8 +408,8 @@ var GoogleAddressField = function(fieldName) {
 				geocodingFieldVars.entryField.val(geocodingFieldVars.errorMessageMoreSpecific);
 				//reset links
 				mapLink
-					.attr("href", geocodingFieldVars.urlForViewGoogleMapLink)
-					.html("");
+				.attr("href", geocodingFieldVars.urlForViewGoogleMapLink)
+				.html("");
 			}
 			geocodingFieldVars.updateEntryFieldStatus();
 			if(geocodingFieldVars.hasResults()) {
@@ -420,8 +418,8 @@ var GoogleAddressField = function(fieldName) {
 		},
 
 		/**
-		 * shows the address fields
-		 */
+		* shows the address fields
+		*/
 		showFields: function(){
 			//hide fields to be completed for now...
 			for (var formField in geocodingFieldVars.relatedFields) {
@@ -438,8 +436,8 @@ var GoogleAddressField = function(fieldName) {
 		},
 
 		/**
-		 * hides the address fields
-		 */
+		* hides the address fields
+		*/
 		hideFields: function(){
 			var makeItRequired = false;
 			//hide fields to be completed for now...
@@ -466,9 +464,9 @@ var GoogleAddressField = function(fieldName) {
 		},
 
 		/**
-		 *
-		 * @return Boolean
-		 */
+		*
+		* @return Boolean
+		*/
 		alreadyHasValues: function(){
 			var empty = 0;
 			var count = 0;
@@ -490,8 +488,8 @@ var GoogleAddressField = function(fieldName) {
 		},
 
 		/**
-		 * removes all the data from the address fields
-		 */
+		* removes all the data from the address fields
+		*/
 		clearFields: function(){
 			//hide fields to be completed for now...
 			for (var formField in geocodingFieldVars.relatedFields) {
@@ -500,26 +498,26 @@ var GoogleAddressField = function(fieldName) {
 		},
 
 		/**
-		 * shows the user that there is a result.
-		 *
-		 * @param string
-		 */
+		* shows the user that there is a result.
+		*
+		* @param string
+		*/
 		setResults: function(resultAsYesOrNo) {
 			return  geocodingFieldVars.entryField.attr("data-has-result", resultAsYesOrNo);
 		},
 
 		/**
-		 * tells us if results have been found
-		 *
-		 * @return Boolean
-		 */
+		* tells us if results have been found
+		*
+		* @return Boolean
+		*/
 		hasResults: function() {
 			return geocodingFieldVars.entryField.attr("data-has-result") == "yes" ? true : false
 		},
 
 		/**
-		 * sets up all the various class options based on the current status
-		 */
+		* sets up all the various class options based on the current status
+		*/
 		updateEntryFieldStatus: function() {
 			var value =  geocodingFieldVars.entryField.val();
 			var hasResult =  geocodingFieldVars.hasResults();
@@ -547,9 +545,9 @@ var GoogleAddressField = function(fieldName) {
 		},
 
 		/**
-		 *
-		 * @return NULL | String
-		 */
+		*
+		* @return NULL | String
+		*/
 		getStaticMapImage: function(escapedLocation) {
 			if(geocodingFieldVars.googleStaticMapLink) {
 				var string = geocodingFieldVars.googleStaticMapLink;
@@ -567,15 +565,13 @@ var GoogleAddressField = function(fieldName) {
 				return string;
 			}
 		}
-
 	}
-
 
 	// Expose public API
 	return {
 		getVar: function( variableName ) {
-			if ( geocodingFieldVars.hasOwnProperty( variableName ) ) {
-				return geocodingFieldVars[ variableName ];
+			if (geocodingFieldVars.hasOwnProperty(variableName)) {
+				return geocodingFieldVars[variableName];
 			}
 		},
 		setVar: function(variableName, value) {
@@ -586,7 +582,5 @@ var GoogleAddressField = function(fieldName) {
 			geocodingFieldVars.init();
 			return this;
 		}
-
 	}
-
 }
