@@ -196,7 +196,7 @@ class GoogleAddressField extends TextField {
 								.setVar('linkLabelToViewMap', '".Convert::raw2js(_t("GoogleAddressField.LINK_LABEL_TO_VIEW_MAP", "view map"))."')
 								.setVar('clearOnLoad', ".Convert::raw2js($this->clearOnLoad ? "true" : "false").")
 								.init();
-							}
+						}
 					});
 				});
 			}(jQuery));
