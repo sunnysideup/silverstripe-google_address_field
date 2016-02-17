@@ -125,6 +125,11 @@ var GoogleAddressField = function(fieldName) {
 		/**
 		 * @var string
 		 */
+		returnSelector: "a.returnGoogleGeocoding",
+
+		/**
+		 * @var string
+		 */
 		viewGoogleMapLinkSelector: "a.viewGoogleMapLink",
 
 		/**
@@ -271,6 +276,17 @@ var GoogleAddressField = function(fieldName) {
 					return false;
 				}
 			);
+			//return
+			jQuery(document).on(
+				'click',
+				geocodingFieldVars.returnSelector,
+				function(e){
+					e.preventDefault();
+					geocodingFieldVars.hideFields();
+					geocodingFieldVars.entryFieldHolder.show();
+					return false;
+				}
+			);
 			if(geocodingFieldVars.alreadyHasValues()) {
 				if(geocodingFieldVars.entryFieldHolder.is(":hidden")) {
 
@@ -405,6 +421,9 @@ var GoogleAddressField = function(fieldName) {
 						jQuery(el).attr("required", "required").removeAttr("data-has-required");
 					}
 				);
+				if(jQuery(geocodingFieldVars.returnSelector).length == 0){
+					holder.prepend('<a href="https://developers.google.com/maps/documentation/geocoding/" class="returnGoogleGeocoding">Show Google Address Finder</a>');
+				}
 			}
 			geocodingFieldVars.entryField.removeAttr("required");
 			geocodingFieldVars.entryFieldHolder.removeAttr("required");
