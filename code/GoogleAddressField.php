@@ -132,14 +132,7 @@ class GoogleAddressField extends TextField {
 		$this->setAttribute("autocomplete", "off");
 		$this->setAttribute("autofill", "off");
 		//right title
-		$viewGoogleMapLink = "";
-		$viewGoogleMapLink =
-		if($this->bypassLink) {
-			$rightTitleArray[] = $this->bypassLink;
-		}
-		if($this->viewMapLink) {
-			$rightTitleArray[] = $this->viewMapLink;
-		}
+		$this->RightTitle();
 		return parent::Field($properties);
 	}
 

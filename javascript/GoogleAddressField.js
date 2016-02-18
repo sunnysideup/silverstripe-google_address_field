@@ -194,6 +194,12 @@ var GoogleAddressField = function(fieldName) {
 			geocodingFieldVars.entryFieldRightLabel = geocodingFieldVars.entryFieldHolder.find('label.right');
 			geocodingFieldVars.entryFieldLeftLabel = geocodingFieldVars.entryFieldHolder.find('label.left');
 
+
+			//move the "use geocoding link"
+			var linkToMove = "#" + geocodingFieldVars.fieldName + " " + geocodingFieldVars.returnSelector;
+			jQuery(linkToMove).insertBefore('#'+geocodingFieldVars.fieldName);
+
+
 			//clean up affected fields
 			//geocodingFieldVars.clearFields();
 			geocodingFieldVars.hideFields();
@@ -412,7 +418,6 @@ var GoogleAddressField = function(fieldName) {
 		 * shows the address fields
 		 */
 		showFields: function(){
-			//hide fields to be completed for now...
 			for (var formField in geocodingFieldVars.relatedFields) {
 				var holder = jQuery("#"+formField);
 				holder.removeClass("hide").addClass("show");
@@ -421,12 +426,10 @@ var GoogleAddressField = function(fieldName) {
 						jQuery(el).attr("required", "required").removeAttr("data-has-required");
 					}
 				);
-				if(jQuery(geocodingFieldVars.returnSelector).length == 0){
-					holder.prepend('<a href="https://developers.google.com/maps/documentation/geocoding/" class="returnGoogleGeocoding">Show Google Address Finder</a>');
-				}
 			}
 			geocodingFieldVars.entryField.removeAttr("required");
 			geocodingFieldVars.entryFieldHolder.removeAttr("required");
+			jQuery(geocodingFieldVars.entryFieldHolder).prev().show();
 		},
 
 		/**
@@ -455,6 +458,7 @@ var GoogleAddressField = function(fieldName) {
 				geocodingFieldVars.entryField.removeAttr("required");
 				geocodingFieldVars.entryFieldHolder.removeAttr("required");
 			}
+			jQuery(geocodingFieldVars.entryFieldHolder).prev().hide();
 		},
 
 		/**
