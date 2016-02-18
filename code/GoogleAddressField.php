@@ -17,18 +17,6 @@ class GoogleAddressField extends TextField {
 	public function setUseSensor($b) {$this->useSensor = $b;}
 
 	/**
-	 *
-	 * @var Boolean
-	 */
-	protected $allowByPass = true;
-
-	/**
-	 * Do you like to allow the user to by-pass the Google Coding
-	 * @param Boolean
-	 */
-	public function setAllowByPass($b) {$this->allowByPass = $b;}
-
-	/**
 	 * JS file used to run this field
 	 * @var String
 	 */
@@ -144,14 +132,14 @@ class GoogleAddressField extends TextField {
 		$this->setAttribute("autocomplete", "off");
 		$this->setAttribute("autofill", "off");
 		//right title
-		$byPassLink = "";
 		$viewGoogleMapLink = "";
-		if($this->allowByPass) {
-			$byPassLink = "<a href=\"https://developers.google.com/maps/documentation/geocoding/\" class=\"bypassGoogleGeocoding\">"._t("GoogleAddressField.BYPASS_GOOGLE_GEOCODING", "by-pass Google Address Finder")."</a>";
-
+		$viewGoogleMapLink =
+		if($this->bypassLink) {
+			$rightTitleArray[] = $this->bypassLink;
 		}
-		$viewGoogleMapLink = "<a href=\"#\" class=\"viewGoogleMapLink\">"._t("GoogleAddressField.VIEW_GOOGLE_MAP", "View Map")."</a>";
-		$this->setRightTitle($byPassLink.$viewGoogleMapLink);
+		if($this->viewMapLink) {
+			$rightTitleArray[] = $this->viewMapLink;
+		}
 		return parent::Field($properties);
 	}
 
@@ -171,5 +159,14 @@ class GoogleAddressField extends TextField {
 				.init();";
 	}
 
+	/**
+	 * @return string
+	 */
+	public function RightTitle() {
+		$rightTitle = $this->renderWith("GoogleAddressFieldRightTitle");
+		if(strlen(trim($rightTitle))) {
+			return $rightTitle;
+		}
+	}
 
 }
