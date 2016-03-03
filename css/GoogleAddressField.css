@@ -9,3 +9,19 @@ div.field.show {display: block;}
 div.field.show.geoCodingSet {display: none;}
 
 .googleaddressfield label.right {text-align: right; display: block;}
+
+.viewGoogleMapLink img {
+	float: left;
+	display: block;
+	margin: 10px auto 10px auto;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+}
+
+.googleaddress:after {
+	clear: both;
+	display: block;
+	content: "";
+	height: 0;
+	visibility: hidden;
+}
