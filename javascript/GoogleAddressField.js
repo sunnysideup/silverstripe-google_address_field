@@ -429,7 +429,7 @@ var GoogleAddressField = function(fieldName) {
 			}
 			geocodingFieldVars.entryField.removeAttr("required");
 			geocodingFieldVars.entryFieldHolder.removeAttr("required");
-			jQuery(geocodingFieldVars.entryFieldHolder).prev().show();
+			jQuery(geocodingFieldVars.entryFieldHolder).prev().css('display', 'inline-block');
 		},
 
 		/**
