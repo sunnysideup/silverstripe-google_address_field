@@ -149,6 +149,13 @@ var GoogleAddressField = function(fieldName) {
 		defaultWidthOfStaticImage: 300,
 
 		/**
+		 * default height of static image
+		 * you can override this by 
+		 * @var Int
+		 */
+		defaultHeightOfStaticImage: 300,
+
+		/**
 		 * @var string
 		 */
 		urlForViewGoogleMapLink: "http://maps.google.com/maps/search/",
@@ -549,13 +556,21 @@ var GoogleAddressField = function(fieldName) {
 				string = string.replace("[ADDRESS]", escapedLocation, "gi");
 				string = string.replace("[ADDRESS]", escapedLocation, "gi");
 				string = string.replace("[ADDRESS]", escapedLocation, "gi");
-				var maxWidth = geocodingFieldVars.entryFieldHolder.find(geocodingFieldVars.viewGoogleMapLinkSelector).closest("div.field.googleaddressfield").width();
+				var maxWidth = geocodingFieldVars.entryFieldHolder.find("input").outerWidth();
 				if(!maxWidth) {
 					maxWidth = geocodingFieldVars.defaultWidthOfStaticImage;
 				}
 				if(maxWidth) {
 					string = string.replace("[MAXWIDTH]", maxWidth, "gi");
 					string = string.replace("[MAXWIDTH]", maxWidth, "gi");
+				}
+				var maxHeight = maxWidth;
+				if(!maxHeight) {
+					maxHeight = geocodingFieldVars.defaultHeightOfStaticImage;
+				}
+				if(maxHeight) {
+					string = string.replace("[MAXHEIGHT]", maxHeight, "gi");
+					string = string.replace("[MAXHEIGHT]", maxHeight, "gi");
 				}
 				return string;
 			}
