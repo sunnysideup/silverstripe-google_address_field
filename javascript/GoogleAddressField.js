@@ -21,6 +21,13 @@ var GoogleAddressField = function(fieldName) {
 		debug: false,
 
 		/**
+		 * the default address for this form field (if any)...
+		 *
+		 * @var String
+		 */
+		defaultAddress: "",
+
+		/**
 		 * name of the html field (e.g. MyInputField)
 		 * this is provided by PHP using a small customScript
 		 *
@@ -176,7 +183,7 @@ var GoogleAddressField = function(fieldName) {
 		 * not a region or something less specific than an address.
 		 * @array
 		 */
-		specificEnoughPlaceTypes: ["street_address", "subpremise"],
+		specificEnoughPlaceTypes: ["street_address", "subpremise", "premise"],
 
 		/**
 		 * Restrict search to country (currently only one country at the time is supported)
@@ -191,6 +198,7 @@ var GoogleAddressField = function(fieldName) {
 		 */
 		init: function () {
 
+			//check if google exists...
 			if(typeof google === "undefined") {
 				jQuery(".field.geocoding").hide();
 				return ;
@@ -314,12 +322,19 @@ var GoogleAddressField = function(fieldName) {
 				//google.maps.event.trigger(geocodingFieldVars.autocomplete, 'place_changed');
 				//console.debug(geocodingFieldVars.autocomplete);
 			}
+			if(typeof geocodingFieldVars.defaultAddress === "string") {
+				geocodingFieldVars.loadDefaultAddress();
+				geocodingFieldVars.entryField.val(geocodingFieldVars.defaultAddress);
+			}
 		},
 
-		fillInAddress: function() {
+		fillInAddress: function(place) {
+			if(typeof place === 'undefined') {
+				var place = geocodingFieldVars.autocomplete.getPlace();
+			}
 			var updated = false;
-			var place = geocodingFieldVars.autocomplete.getPlace();
 			geocodingFieldVars.entryField.attr("data-has-result", "no");
+			console.debug(place);
 			if(geocodingFieldVars.debug) {console.log(place);}
 			var placeIsSpecificEnough = false;
 			for (var i = 0; i < place.types.length; i++) {
@@ -574,7 +589,27 @@ var GoogleAddressField = function(fieldName) {
 				}
 				return string;
 			}
-		}
+		},
+
+		/**
+		 * look up default address and apply it
+		 *
+		 */ 
+	loadDefaultAddress: function(){
+		var myObject = this;
+		var geocoder = new google.maps.Geocoder();
+		geocoder.geocode(
+			{ 'address': myObject.defaultAddress}, 
+			function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					if(results.length > 0) {
+						myObject.fillInAddress(results[0]);
+					}
+				}
+			}
+		);
+		return "for bar";
+	}
 
 	}
 
