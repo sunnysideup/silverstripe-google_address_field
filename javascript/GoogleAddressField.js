@@ -157,7 +157,7 @@ var GoogleAddressField = function(fieldName) {
 
 		/**
 		 * default height of static image
-		 * you can override this by 
+		 * you can override this by
 		 * @var Int
 		 */
 		defaultHeightOfStaticImage: 300,
@@ -197,15 +197,15 @@ var GoogleAddressField = function(fieldName) {
 		 * and the basic state.
 		 */
 		init: function () {
-
 			//check if google exists...
 			if(typeof google === "undefined") {
 				jQuery(".field.geocoding").hide();
 				return ;
 			}
-
+			geocodingFieldVars.entryField = jQuery('input[name="'+geocodingFieldVars.fieldName+'"]');
+			console.debug(geocodingFieldVars.entryField);
 			geocodingFieldVars.entryFieldHolder = jQuery('#'+geocodingFieldVars.fieldName);
-			geocodingFieldVars.entryField = geocodingFieldVars.entryFieldHolder.find('input[name="'+geocodingFieldVars.fieldName+'"], textarea[name="'+geocodingFieldVars.fieldName+'"]');
+			console.debug(geocodingFieldVars.entryField);
 			geocodingFieldVars.entryFieldRightLabel = geocodingFieldVars.entryFieldHolder.find('label.right');
 			geocodingFieldVars.entryFieldLeftLabel = geocodingFieldVars.entryFieldHolder.find('label.left');
 
@@ -594,12 +594,12 @@ var GoogleAddressField = function(fieldName) {
 		/**
 		 * look up default address and apply it
 		 *
-		 */ 
+		 */
 	loadDefaultAddress: function(){
 		var myObject = this;
 		var geocoder = new google.maps.Geocoder();
 		geocoder.geocode(
-			{ 'address': myObject.defaultAddress}, 
+			{ 'address': myObject.defaultAddress},
 			function(results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
 					if(results.length > 0) {
