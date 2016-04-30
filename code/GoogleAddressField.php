@@ -165,7 +165,7 @@ class GoogleAddressField extends TextField
           if($key = $this->config()->get("api_key")) {
                $googleJS += "&key=".$key;
           }
-          Requirements::javascript();
+          Requirements::javascript($googleJS);
           Requirements::javascript($this->jsLocation);
           Requirements::customScript($this->getJavascript(), 'GoogleAddressField'.$this->id());
           if ($this->cssLocation) {
