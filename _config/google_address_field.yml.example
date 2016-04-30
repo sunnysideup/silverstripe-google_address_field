@@ -1,0 +1,7 @@
+---
+Name: google_address_field_config
+After: 'framework/*','cms/*'
+---
+
+GoogleAddressField:
+  api_key: "put your api key here"
