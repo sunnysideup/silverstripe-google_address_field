@@ -199,11 +199,11 @@ var GoogleAddressField = function(fieldName) {
                 init: function () {
                         //check if google exists...
                         if(typeof google === "undefined") {
-                                jQuery(".field.geocoding").hide();
+                                jQuery(".field.googleaddress").hide();
                                 return ;
                         }
                         geocodingFieldVars.entryField = jQuery('input[name="'+geocodingFieldVars.fieldName+'"]');
-                        geocodingFieldVars.entryFieldHolder = jQuery('#'+geocodingFieldVars.fieldName);
+                        geocodingFieldVars.entryFieldHolder = jQuery(geocodingFieldVars.entryField).closest("div.field");
                         geocodingFieldVars.entryFieldRightLabel = geocodingFieldVars.entryFieldHolder.find('label.right');
                         geocodingFieldVars.entryFieldLeftLabel = geocodingFieldVars.entryFieldHolder.find('label.left');
 
