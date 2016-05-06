@@ -362,7 +362,7 @@ var GoogleAddressField = function(fieldName) {
                                         for (var formField in geocodingFieldVars.relatedFields) {
                                                 var previousValues = [];
                                                 //reset field and show it...
-                                                var holderToSet = jQuery("input[name='"+formField+"'], select[name='"+formField+"'] ").first().closest("div.field");
+                                                var holderToSet = jQuery("textarea[name='"+formField+"'], input[name='"+formField+"'], select[name='"+formField+"'] ").first().closest("div.field");
                                                 //holderToSet.removeClass("geoCodingSet");
                                                 var fieldToSet = jQuery("input[name='"+formField+"'],select[name='"+formField+"'],textarea[name='"+formField+"']");
                                                 if(fieldToSet.length > 0) {
@@ -435,9 +435,9 @@ var GoogleAddressField = function(fieldName) {
                  */
                 showFields: function(){
                         for (var formField in geocodingFieldVars.relatedFields) {
-                                var holder = jQuery("input[name='"+formField+"'], select[name='"+formField+"'] ").first().closest("div.field");
+                                var holder = jQuery("textarea[name='"+formField+"'], input[name='"+formField+"'], select[name='"+formField+"'] ").first().closest("div.field");
                                 holder.removeClass("hide").addClass("show");
-                                var input = holder.find("select[data-has-required='yes'], input[data-has-required='yes']").each(
+                                holder.find("select[data-has-required='yes'], input[data-has-required='yes']").each(
                                         function(i, el) {
                                                 jQuery(el).attr("required", "required").removeAttr("data-has-required");
                                         }
@@ -452,29 +452,29 @@ var GoogleAddressField = function(fieldName) {
                  * hides the address fields
                  */
                 hideFields: function(){
-                        var makeItRequired = false;
-                        //hide fields to be completed for now...
-                        for (var formField in geocodingFieldVars.relatedFields) {
-                                var holder = jQuery("#"+formField);
-                                if(!holder.hasClass(geocodingFieldVars.classForUncompletedField)) {
-                                        holder.removeClass("show").addClass("hide");
+                    var makeItRequired = false;
+                    //hide fields to be completed for now...
+                    for (var formField in geocodingFieldVars.relatedFields) {
+                        var holder = jQuery("textarea[name='"+formField+"'], input[name='"+formField+"'], select[name='"+formField+"'] ").first().closest("div.field");
+                        if(!holder.hasClass(geocodingFieldVars.classForUncompletedField)) {
+                            holder.removeClass("show").addClass("hide");
                             holder.find("select[required='required'], input[required='required'], textarea[required='required']").each(
-                                                function(i, el) {
-                                                        jQuery(el).attr("data-has-required", "yes").removeAttr("required");
-                                                        makeItRequired = true;
-                                                }
-                                        );
+                                function(i, el) {
+                                    jQuery(el).attr("data-has-required", "yes").removeAttr("required");
+                                    makeItRequired = true;
                                 }
+                            );
                         }
-                        if(geocodingFieldVars.entryFieldHolder.is(":visible") && makeItRequired) {
-                                geocodingFieldVars.entryField.attr("required", "required");
-                                geocodingFieldVars.entryFieldHolder.attr("required", "required");
-                        }
-                        else {
-                                geocodingFieldVars.entryField.removeAttr("required");
-                                geocodingFieldVars.entryFieldHolder.removeAttr("required");
-                        }
-                        jQuery(geocodingFieldVars.entryFieldHolder).prev().hide();
+                    }
+                    if(geocodingFieldVars.entryFieldHolder.is(":visible") && makeItRequired) {
+                        geocodingFieldVars.entryField.attr("required", "required");
+                        geocodingFieldVars.entryFieldHolder.attr("required", "required");
+                    }
+                    else {
+                        geocodingFieldVars.entryField.removeAttr("required");
+                        geocodingFieldVars.entryFieldHolder.removeAttr("required");
+                    }
+                    jQuery(geocodingFieldVars.entryFieldHolder).prev().hide();
                 },
 
                 /**
