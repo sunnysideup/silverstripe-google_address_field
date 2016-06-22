@@ -27,7 +27,7 @@ jQuery(document).ready(
                     //Do your logic with the property here
                 }
                 field.init();
-            } 
+            }
         }
     }
 )
