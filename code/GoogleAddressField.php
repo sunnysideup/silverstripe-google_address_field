@@ -43,14 +43,14 @@ class GoogleAddressField extends TextField
         $this->googleSourceJS = $s;
     }
 
-    protected $always_show_fields = false;
+    protected $alwaysShowFields = false;
 
     /**
-     * @param string
+     * @param bool
      */
-    public function setAlwaysShowFiewlds($b)
+    public function setAlwaysShowFields($b)
     {
-        $this->googleSourceJS = $s;
+        $this->alwaysShowFields = $b;
     }
 
     /**
@@ -212,6 +212,7 @@ class GoogleAddressField extends TextField
                 errorMessageAddressNotFound: \''.Convert::raw2js(_t('GoogleAddressField.ERROR_MESSAGE_ADDRESS_NOT_FOUND', 'Error: sorry, address could not be found.')).'\',
                 findNewAddressText: \''.Convert::raw2js(_t('GoogleAddressField.FIND_NEW_ADDRESS', 'Find Alternative Address')).'\',
                 relatedFields: '.Convert::raw2json($this->getFieldMap()).',
+                alwaysShowFields: '.($this->alwaysShowFields ? 'true' : 'false').',
                 googleStaticMapLink: \''.Convert::raw2js($this->googleStaticMapLink).'\',
                 linkLabelToViewMap: \''.Convert::raw2js(_t('GoogleAddressField.LINK_LABEL_TO_VIEW_MAP', 'view map')).'\',
                 defaultAddress: \''.Convert::raw2js(str_replace("'", '', $this->Value())).'\'

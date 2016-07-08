@@ -112,6 +112,11 @@ var GoogleAddressField = function(fieldName) {
         relatedFields: {},
 
         /**
+         * @var boolean
+         */ 
+        alwaysShowFields: false,
+
+        /**
          *
          * @var String
          */
@@ -221,6 +226,7 @@ var GoogleAddressField = function(fieldName) {
             //check if google exists...
             if(typeof google === "undefined") {
                 jQuery(".field.googleaddress").hide();
+                this.alwaysShowFields = true;
                 return ;
             }
             geocodingFieldVars.entryField = jQuery('input[name="'+geocodingFieldVars.fieldName+'"]');
@@ -494,6 +500,9 @@ var GoogleAddressField = function(fieldName) {
          * hides the address fields
          */
         hideFields: function(){
+            if(this.alwaysShowFields === true) {
+                return;
+            }
             var makeItRequired = false;
             //hide fields to be completed for now...
             for (var formField in geocodingFieldVars.relatedFields) {
