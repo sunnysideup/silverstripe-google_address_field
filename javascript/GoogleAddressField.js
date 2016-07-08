@@ -231,7 +231,7 @@ var GoogleAddressField = function(fieldName) {
 
             //move the "use geocoding link"
             var linkToMove = "#" +geocodingFieldVars.entryFieldHolder.attr("ID") + " " + geocodingFieldVars.returnSelector;
-            var relatedReturnLink = jQuery(linkToMove).insertBefore('#'+geocodingFieldVars.fieldName);
+            var relatedReturnLink = jQuery(linkToMove);
 
             //clean up affected fields
             //geocodingFieldVars.clearFields();

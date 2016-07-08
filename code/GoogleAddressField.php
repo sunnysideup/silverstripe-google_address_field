@@ -170,23 +170,26 @@ class GoogleAddressField extends TextField
      */
     public function Field($properties = array())
     {
-          $this->addExtraClass('text');
-          $googleJS = $this->googleSourceJS;
-          if($key = $this->config()->get("api_key")) {
-               $googleJS += "&key=".$key;
-          }
-          Requirements::javascript($googleJS);
-          Requirements::javascript($this->jsLocation);
-          Requirements::customScript($this->getJavascript(), 'GoogleAddressField'.$this->id());
-          if ($this->cssLocation) {
+        $this->addExtraClass('text');
+        $googleJS = $this->googleSourceJS;
+        if($key = $this->config()->get("api_key")) {
+           $googleJS .= "&key=".$key;
+        }
+        Requirements::javascript($googleJS = $this->googleSourceJS);
+        Requirements::javascript($this->jsLocation);
+        Requirements::customScript(
+            $this->getJavascript(),
+            'GoogleAddressField'.$this->id()
+        );
+        if ($this->cssLocation) {
             Requirements::themedCSS($this->cssLocation, 'google_address_field');
-          }
-          $this->setAttribute('autocomplete', 'off');
-          $this->setAttribute('autofill', 'off');
-          //right title
-          $this->RightTitle();
+        }
+        $this->setAttribute('autocomplete', 'off');
+        $this->setAttribute('autofill', 'off');
+        //right title
+        $this->RightTitle();
 
-          return parent::Field($properties);
+        return parent::Field($properties);
     }
 
     /**
