@@ -12,7 +12,7 @@ class GoogleAddressField extends TextField
 
     /**
      * @var string
-     */ 
+     */
     private static $api_key = "";
 
     /**
@@ -39,6 +39,16 @@ class GoogleAddressField extends TextField
      * @param string
      */
     public function setGoogleSourceJS($s)
+    {
+        $this->googleSourceJS = $s;
+    }
+
+    protected $always_show_fields = false;
+
+    /**
+     * @param string
+     */
+    public function setAlwaysShowFiewlds($b)
     {
         $this->googleSourceJS = $s;
     }
@@ -190,7 +200,7 @@ class GoogleAddressField extends TextField
         if(typeof GoogleAddressFieldOptions === "undefined") {
             GoogleAddressFieldOptions = [];
         }
-        
+
         GoogleAddressFieldOptions.push(
             {
                 id: \''.$this->id().'\',
