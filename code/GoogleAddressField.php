@@ -14,6 +14,10 @@ class GoogleAddressField extends TextField
      * @var string
      */
     private static $api_key = "";
+    /**
+     * @var string
+     */
+    private static $api_version = "3.24";
 
     /**
      * Do you want this annoying ...
@@ -26,21 +30,6 @@ class GoogleAddressField extends TextField
     public function setUseSensor($b)
     {
         $this->useSensor = $b;
-    }
-
-    /**
-     * JS file used to run this field.
-     *
-     * @var string
-     */
-    protected $googleSourceJS = '//maps.google.com/maps/api/js?libraries=places';
-
-    /**
-     * @param string
-     */
-    public function setGoogleSourceJS($s)
-    {
-        $this->googleSourceJS = $s;
     }
 
     protected $alwaysShowFields = false;
@@ -171,11 +160,12 @@ class GoogleAddressField extends TextField
     public function Field($properties = array())
     {
         $this->addExtraClass('text');
-        $googleJS = $this->googleSourceJS;
-        if($key = $this->config()->get("api_key")) {
-           $googleJS .= "&key=".$key;
-        }
-        Requirements::javascript($googleJS = $this->googleSourceJS);
+        $googleJS =
+        "//maps.googleapis.com/maps/api/js"
+        ."?v=".$this->config()->get("api_version")
+        ."&libraries=places"
+        ."&key=".$this->config()->get("api_key");
+        Requirements::javascript($googleJS);
         Requirements::javascript($this->jsLocation);
         Requirements::customScript(
             $this->getJavascript(),
