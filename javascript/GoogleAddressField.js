@@ -39,7 +39,7 @@ var GoogleAddressField = function(fieldName) {
         /**
          * @var Boolean
          */
-        debug: false,
+        debug: true,
 
         /**
          * the default address for this form field (if any)...
@@ -113,7 +113,7 @@ var GoogleAddressField = function(fieldName) {
 
         /**
          * @var boolean
-         */ 
+         */
         alwaysShowFields: false,
 
         /**
@@ -371,6 +371,7 @@ var GoogleAddressField = function(fieldName) {
             }
             geocodingFieldVars.entryField.attr("data-has-result", "no");
             if(geocodingFieldVars.debug) {console.log(place);}
+            //if(geocodingFieldVars.debug) {console.log(geocodingFieldVars.autocomplete);}
             var placeIsSpecificEnough = false;
             if(typeof place !== 'undefined') {
                 for (var i = 0; i < place.types.length; i++) {
