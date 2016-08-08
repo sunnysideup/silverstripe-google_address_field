@@ -39,7 +39,7 @@ var GoogleAddressField = function(fieldName) {
         /**
          * @var Boolean
          */
-        debug: true,
+        debug: false,
 
         /**
          * the default address for this form field (if any)...
@@ -225,6 +225,7 @@ var GoogleAddressField = function(fieldName) {
         init: function () {
             //check if google exists...
             if(typeof google === "undefined") {
+                console.debug('google map library is not loaded!');
                 jQuery(".field.googleaddress").hide();
                 this.alwaysShowFields = true;
                 return ;
@@ -233,7 +234,6 @@ var GoogleAddressField = function(fieldName) {
             geocodingFieldVars.entryFieldHolder = jQuery(geocodingFieldVars.entryField).closest("div.field");
             geocodingFieldVars.entryFieldRightLabel = geocodingFieldVars.entryFieldHolder.find('label.right');
             geocodingFieldVars.entryFieldLeftLabel = geocodingFieldVars.entryFieldHolder.find('label.left');
-
 
             //move the "use geocoding link"
             var linkToMove = "#" +geocodingFieldVars.entryFieldHolder.attr("ID") + " " + geocodingFieldVars.returnSelector;
