@@ -200,7 +200,7 @@ class GoogleAddressField extends TextField
                 name: \''.$this->getName().'\',
                 errorMessageMoreSpecific: \''.Convert::raw2js(_t('GoogleAddressField.ERROR_MESSAGE_MORE_SPECIFIC', 'Error: please enter a more specific location.')).'\',
                 errorMessageAddressNotFound: \''.Convert::raw2js(_t('GoogleAddressField.ERROR_MESSAGE_ADDRESS_NOT_FOUND', 'Error: sorry, address could not be found.')).'\',
-                findNewAddressText: \''.Convert::raw2js(_t('GoogleAddressField.FIND_NEW_ADDRESS', 'Find Alternative Address')).'\',
+                findNewAddressText: \''.Convert::raw2js(_t('GoogleAddressField.FIND_NEW_ADDRESS', 'Find Different Address')).'\',
                 relatedFields: '.Convert::raw2json($this->getFieldMap()).',
                 alwaysShowFields: '.($this->alwaysShowFields ? 'true' : 'false').',
                 googleStaticMapLink: \''.Convert::raw2js($this->googleStaticMapLink).'\',
