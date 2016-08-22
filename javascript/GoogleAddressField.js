@@ -114,7 +114,7 @@ var GoogleAddressField = function(fieldName) {
         /**
          * @var boolean
          */
-        alwaysShowFields: false,
+        alwaysShowFields: true,
 
         /**
          *
