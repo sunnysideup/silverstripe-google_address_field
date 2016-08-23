@@ -171,11 +171,20 @@ class GoogleAddressField extends TextField
             $this->getJavascript(),
             'GoogleAddressField'.$this->id()
         );
+
         if ($this->cssLocation) {
             Requirements::themedCSS($this->cssLocation, 'google_address_field');
         }
         $this->setAttribute('autocomplete', 'off');
         $this->setAttribute('autofill', 'off');
+        $this->setAttribute('data-errorMessageMoreSpecific', Convert::raw2att(_t('GoogleAddressField.ERROR_MESSAGE_MORE_SPECIFIC', 'Error: please enter a more specific location.')));
+        $this->setAttribute('data-errorMessageAddressNotFound', Convert::raw2att(_t('GoogleAddressField.ERROR_MESSAGE_ADDRESS_NOT_FOUND', 'Error: sorry, address could not be found.')));
+        $this->setAttribute('data-findNewAddressText', Convert::raw2att(_t('GoogleAddressField.FIND_NEW_ADDRESS', 'Find Different Address')));
+        $this->setAttribute('data-relatedFields', Convert::raw2att(Convert::raw2json($this->getFieldMap())));
+        $this->setAttribute('data-alwaysShowFields', ($this->alwaysShowFields ? 'true' : 'false'));
+        $this->setAttribute('data-googleStaticMapLink', Convert::raw2att($this->googleStaticMapLink));
+        $this->setAttribute('data-linkLabelToViewMap', Convert::raw2att(_t('GoogleAddressField.LINK_LABEL_TO_VIEW_MAP', 'view map')));
+        $this->setAttribute('data-defaultAddress', Convert::raw2att(str_replace("'", '', $this->Value())));
         //right title
         $this->RightTitle();
 
@@ -189,25 +198,7 @@ class GoogleAddressField extends TextField
      */
     protected function getJavascript()
     {
-        return '
-        if(typeof GoogleAddressFieldOptions === "undefined") {
-            GoogleAddressFieldOptions = [];
-        }
-
-        GoogleAddressFieldOptions.push(
-            {
-                id: \''.$this->id().'\',
-                name: \''.$this->getName().'\',
-                errorMessageMoreSpecific: \''.Convert::raw2js(_t('GoogleAddressField.ERROR_MESSAGE_MORE_SPECIFIC', 'Error: please enter a more specific location.')).'\',
-                errorMessageAddressNotFound: \''.Convert::raw2js(_t('GoogleAddressField.ERROR_MESSAGE_ADDRESS_NOT_FOUND', 'Error: sorry, address could not be found.')).'\',
-                findNewAddressText: \''.Convert::raw2js(_t('GoogleAddressField.FIND_NEW_ADDRESS', 'Find Different Address')).'\',
-                relatedFields: '.Convert::raw2json($this->getFieldMap()).',
-                alwaysShowFields: '.($this->alwaysShowFields ? 'true' : 'false').',
-                googleStaticMapLink: \''.Convert::raw2js($this->googleStaticMapLink).'\',
-                linkLabelToViewMap: \''.Convert::raw2js(_t('GoogleAddressField.LINK_LABEL_TO_VIEW_MAP', 'view map')).'\',
-                defaultAddress: \''.Convert::raw2js(str_replace("'", '', $this->Value())).'\'
-            }
-        );';
+        return '';
     }
     /**
      * @return string

@@ -14,23 +14,64 @@
 
 jQuery(document).ready(
     function(){
-        if(typeof GoogleAddressFieldOptions !== "undefined") {
-            for(var i = 0; i < GoogleAddressFieldOptions.length; i++) {
-                var options = GoogleAddressFieldOptions[i];
-                var field = new GoogleAddressField(options.name);
-                for (var key in options) {
-                    if (!options.hasOwnProperty(key)) {
-                        //The current property is not a direct property of p
-                        continue;
-                    }
-                    field.setVar(key, options[key]);
-                    //Do your logic with the property here
-                }
-                field.init();
+        jQuery('input.text.googleaddress').each(
+            function(i, el) {
+                GoogleAddressFieldInstatiator.init(jQuery(el));
             }
+        );
+        GoogleAddressFieldInstatiator.attachInCMS()
+    }
+);
+
+GoogleAddressFieldInstatiator = {
+    init: function(elements) {
+        elements.each(
+            function() {
+                if(jQuery(this).attr('data-instantiated') === 'done') {
+                } else {
+                    var options = jQuery(this).data();
+                    options['name'] = jQuery(this).attr('name');
+                    jQuery(this).attr('data-instantiated', 'done');
+                    var field = new GoogleAddressField(options['name']);
+                    for (var key in options) {
+                        if(key === 'relatedfields') {
+                            var value = options[key].replace(/&quot;/g, '\"');
+                            value = JSON.parse(value); // this is how you parse a string into JSON
+                        } else {
+                            var value  = options[key];
+                        }
+
+                        if ( ! options.hasOwnProperty(key)) {
+                            continue;
+                        }
+                        field.setVar(key, value);
+                    }
+                    field.init();
+                }
+            }
+        );
+    },
+    attachInCMS: function() {
+        if(typeof jQuery.entwine !=='undefine' ) {
+            jQuery.entwine(
+                function(jQuery) {
+                    jQuery('input.text.googleaddress').entwine(
+                        {
+                            onmatch: function() {
+                                jQuery('input.text.googleaddress').each(
+                                    function(i, el) {
+                                        GoogleAddressFieldInstatiator.init(jQuery(el));
+                                    }
+                                );
+                            }
+                        }
+                    );
+                }
+            );
         }
     }
-)
+}
+
 
 var GoogleAddressField = function(fieldName) {
 
@@ -506,7 +547,9 @@ var GoogleAddressField = function(fieldName) {
             }
             var makeItRequired = false;
             //hide fields to be completed for now...
+            console.debug(geocodingFieldVars.relatedFields);
             for (var formField in geocodingFieldVars.relatedFields) {
+
                 var fieldToSet = jQuery("input[name='"+formField+"'],select[name='"+formField+"'],textarea[name='"+formField+"']");
                 var holderToSet = jQuery(fieldToSet).closest("div.field");
                 if(fieldToSet.attr("type") !== "hidden") {
@@ -529,7 +572,6 @@ var GoogleAddressField = function(fieldName) {
                 geocodingFieldVars.entryField.removeAttr("required");
                 geocodingFieldVars.entryFieldHolder.removeAttr("required");
             }
-            jQuery(geocodingFieldVars.entryFieldHolder).prev().hide();
         },
 
         /**
@@ -676,7 +718,13 @@ var GoogleAddressField = function(fieldName) {
             }
         },
         setVar: function(variableName, value) {
-            geocodingFieldVars[variableName] = value;
+            for (var key in geocodingFieldVars) {
+                if ( geocodingFieldVars.hasOwnProperty( key ) ) {
+                    if ( key.toLowerCase() == variableName) {
+                        geocodingFieldVars[key] = value;
+                    }
+                }
+            }
             return this;
         },
         init: function(){
