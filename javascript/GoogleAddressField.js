@@ -23,7 +23,7 @@ jQuery(document).ready(
     }
 );
 
-GoogleAddressFieldInstatiator = {
+var GoogleAddressFieldInstatiator = {
     init: function(elements) {
         elements.each(
             function() {
@@ -52,7 +52,7 @@ GoogleAddressFieldInstatiator = {
         );
     },
     attachInCMS: function() {
-        if(typeof jQuery.entwine !=='undefine' ) {
+        if(typeof jQuery.entwine !=='undefined' ) {
             jQuery.entwine(
                 function(jQuery) {
                     jQuery('input.text.googleaddress').entwine(
