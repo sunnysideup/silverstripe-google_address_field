@@ -1,1 +1,0 @@
-$Title - <% loop $Items %>$Title<% if not Last %> - <% else %> - {$Top.Title}<% end_if %><% end_loop %>
