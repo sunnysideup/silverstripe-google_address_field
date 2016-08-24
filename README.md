@@ -19,7 +19,6 @@ Requirements
 see composer.json
 
 
-
 Installation Instructions
 -----------------------------------------------
 1. Find out how to add modules to SS and add module as per usual.
@@ -37,4 +36,28 @@ you can usually find some examples of config options (if any).
 		    );
 		    $addressField->setFieldMap(array("Address" => array("formatted_address" => "long_name")));
 ```
+
+Conflict with fastclick.js
+-----------------------------------------------
+If you are using fastclick.js on your website please note that it will cause a conflict with the google address lookup field that prevents addresses from being selectable on iOS devices.
+The following code can be used to resolve this conflict:
+```php
+            var needsClick = FastClick.prototype.needsClick;
+            FastClick.prototype.needsClick = function(target) {
+                if ( (target.className || '').indexOf('pac-item') > -1 ) {
+                    return true;
+                }
+                else if ( (target.parentNode.className || '').indexOf('pac-item') > -1) {
+                    return true;
+                }
+                else {
+                    return needsClick.apply(this, arguments);
+                }
+            };
+            FastClick.attach(document.body);
+```
+
+
+
+
 

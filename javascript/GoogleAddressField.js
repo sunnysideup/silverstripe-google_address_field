@@ -23,7 +23,7 @@ jQuery(document).ready(
     }
 );
 
-GoogleAddressFieldInstatiator = {
+var GoogleAddressFieldInstatiator = {
     init: function(elements) {
         elements.each(
             function() {
