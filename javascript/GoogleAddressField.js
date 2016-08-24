@@ -547,7 +547,6 @@ var GoogleAddressField = function(fieldName) {
             }
             var makeItRequired = false;
             //hide fields to be completed for now...
-            console.debug(geocodingFieldVars.relatedFields);
             for (var formField in geocodingFieldVars.relatedFields) {
 
                 var fieldToSet = jQuery("input[name='"+formField+"'],select[name='"+formField+"'],textarea[name='"+formField+"']");
