@@ -19,6 +19,20 @@ class GoogleAddressField extends TextField
      */
     private static $api_version = "3.24";
 
+    public static function js_requirements()
+    {
+        $googleJS =
+        "//maps.googleapis.com/maps/api/js"
+        ."?v=".Config::inst()->get('GoogleAddressField', "api_version")
+        ."&libraries=places"
+        ."&key=".Config::inst()->get('GoogleAddressField', "api_key");
+        return array(
+            $googleJS,
+            'google_address_field/javascript/GoogleAddressField.js'
+        );
+    }
+
+
     /**
      * Do you want this annoying ...
      * this website wants to know exactly where you are
@@ -59,21 +73,6 @@ class GoogleAddressField extends TextField
     public function setGoogleStaticMapLink($s)
     {
         $this->googleStaticMapLink = $s;
-    }
-
-    /**
-     * JS file used to run this field.
-     *
-     * @var string
-     */
-    protected $jsLocation = 'google_address_field/javascript/GoogleAddressField.js';
-
-    /**
-     * @param string
-     */
-    public function setJsLocation($s)
-    {
-        $this->jsLocation = $s;
     }
 
     /**
@@ -160,13 +159,9 @@ class GoogleAddressField extends TextField
     public function Field($properties = array())
     {
         $this->addExtraClass('text');
-        $googleJS =
-        "//maps.googleapis.com/maps/api/js"
-        ."?v=".$this->config()->get("api_version")
-        ."&libraries=places"
-        ."&key=".$this->config()->get("api_key");
-        Requirements::javascript($googleJS);
-        Requirements::javascript($this->jsLocation);
+        foreach(self::js_requirements() as $jsFile) {
+            Requirements::javascript($jsFile);
+        }
         Requirements::customScript(
             $this->getJavascript(),
             'GoogleAddressField'.$this->id()

@@ -52,7 +52,7 @@ GoogleAddressFieldInstatiator = {
         );
     },
     attachInCMS: function() {
-        if(typeof jQuery.entwine !=='undefine' ) {
+        if(typeof jQuery.entwine !=='undefined' ) {
             jQuery.entwine(
                 function(jQuery) {
                     jQuery('input.text.googleaddress').entwine(
