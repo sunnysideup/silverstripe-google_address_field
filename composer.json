@@ -1,22 +1,31 @@
 {
-	"name": "sunnysideup/google_address_field",
-	"type": "silverstripe-module",
-	"description": "Provide a form field for the Silverstripe CMS that allows geocoding address prediction (autocomplete) and quick lookup of addresses using the Google API",
-	"homepage": "https://github.com/sunnysideup/silverstripe-google_adddress_field",
-	"keywords": ["silverstripe", "geocoding", "address", "form", "field", "form field", "google", "maps", "find address", "autocomplete"],
-	"license": "Sunny Side Up (BSD-3-Clause and CUSTOM)",
-	"authors":[
-		{
-			"name": "Nicolaas Francken",
-			"homepage": "https://github.com/sunnysideup",
-			"email" : "modules@sunnysideup.co.nz",
-			"role" : "lead developer"
-		}
-	],
-	"require":{
-		"silverstripe/framework": "~3.1"
-	},
-	"extra": {
-		"installer-name": "google_address_field"
-	}
+    "name": "sunnysideup/google_address_field",
+    "type": "silverstripe-module",
+    "description": "Provide a form field for the Silverstripe CMS that allows geocoding address prediction (autocomplete) and quick lookup of addresses using the Google API",
+    "keywords": [
+        "silverstripe",
+        "geocoding",
+        "address",
+        "form",
+        "field",
+        "form field",
+        "google",
+        "maps",
+        "find address",
+        "autocomplete"
+    ],
+    "license": "Sunny Side Up (BSD-3-Clause and CUSTOM)",
+    "authors": [
+        {
+            "name": "Nicolaas Francken",
+            "email": "modules@sunnysideup.co.nz",
+            "role": "lead developer"
+        }
+    ],
+    "require": {
+        "silverstripe/framework": "~3.1"
+    },
+    "extra": {
+        "installer-name": "google_address_field"
+    }
 }
