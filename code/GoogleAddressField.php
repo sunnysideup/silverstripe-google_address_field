@@ -63,7 +63,7 @@ class GoogleAddressField extends TextField
      *
      * @var string
      */
-    protected $googleStaticMapLink = '//maps.googleapis.com/maps/api/staticmap?center=[ADDRESS]&zoom=17&scale=false&size=[MAXWIDTH]x[MAXHEIGHT]&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:red%7Clabel:%7C[ADDRESS]&key='.Config::inst()->get('GoogleAddressField', "api_key");
+    protected $googleStaticMapLink = '//maps.googleapis.com/maps/api/staticmap?center=[ADDRESS]&zoom=17&scale=false&size=[MAXWIDTH]x[MAXHEIGHT]&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:red%7Clabel:%7C[ADDRESS]&key=' . Config::inst()->get('GoogleAddressField', "api_key");
 
     /**
      * set to empty string to NOT show a static map.
