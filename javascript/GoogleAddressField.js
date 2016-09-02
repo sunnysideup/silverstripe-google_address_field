@@ -216,6 +216,7 @@ var GoogleAddressField = function(fieldName) {
          */
         googleStaticMapLink: "",
 
+
         /**
          * default witdth of static image
          * @var Int
