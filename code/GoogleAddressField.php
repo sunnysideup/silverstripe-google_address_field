@@ -187,7 +187,7 @@ class GoogleAddressField extends TextField
         $this->setAttribute('data-findNewAddressText', Convert::raw2att(_t('GoogleAddressField.FIND_NEW_ADDRESS', 'Find Different Address')));
         $this->setAttribute('data-relatedFields', Convert::raw2att(Convert::raw2json($this->getFieldMap())));
         $this->setAttribute('data-alwaysShowFields', ($this->alwaysShowFields ? 'true' : 'false'));
-        $this->setAttribute('data-googleStaticMapLink', Convert::raw2att($this->googleStaticMapLink));
+        $this->setAttribute('data-googleStaticMapLink', $this->getGoogleStaticMapLink());
         $this->setAttribute('data-linkLabelToViewMap', Convert::raw2att(_t('GoogleAddressField.LINK_LABEL_TO_VIEW_MAP', 'view map')));
         $this->setAttribute('data-defaultAddress', Convert::raw2att(str_replace("'", '', $this->Value())));
         //right title
