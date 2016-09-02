@@ -80,7 +80,7 @@ class GoogleAddressField extends TextField
      *
      * @return string
      */
-    public function getGoogleStaticMapLink($s)
+    public function getGoogleStaticMapLink()
     {
         return $this->googleStaticMapLink . '&amp;key='.Config::inst()->get('GoogleAddressField', "api_key");
     }
