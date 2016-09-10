@@ -156,6 +156,53 @@ class GoogleAddressField extends TextField
     }
 
     /**
+     * list of links between
+     * form fields in the current field (e.g. TextField with name City)
+     * and the result XML.
+     * When the results are returned this field will fill the form
+     * fields with XML data from the results using this array
+     * Format is:
+     * [formFieldName] => array(
+     *   resultType1 => 'long_name',
+     *   resultType2 => 'long_name',
+     *   resultType2 => 'short_name',
+     *   etc...
+     * )
+     * e.g.
+     * <code php>
+     *     "BillingRegion" => array("administrative_area_level_1" => "long_name", "country" => "short_name")
+     * </code>.
+     *
+     * @var array
+     */
+    protected $specificEnoughPlaceTypes = array();
+
+    /**
+     * @param array
+     */
+    public function setSpecificEnoughPlaceTypes($a)
+    {
+        $this->specificEnoughPlaceTypes = $a;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function addSpecificEnoughPlaceTypes($type)
+    {
+        $this->specificEnoughPlaceTypes[] = $type;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSpecificEnoughPlaceTypes()
+    {
+        return $this->specificEnoughPlaceTypes;
+    }
+
+
+    /**
      * @return bool
      */
     public function hasData()
@@ -189,6 +236,9 @@ class GoogleAddressField extends TextField
         $this->setAttribute('data-alwaysShowFields', ($this->alwaysShowFields ? 'true' : 'false'));
         $this->setAttribute('data-googleStaticMapLink', $this->getGoogleStaticMapLink());
         $this->setAttribute('data-linkLabelToViewMap', Convert::raw2att(_t('GoogleAddressField.LINK_LABEL_TO_VIEW_MAP', 'view map')));
+        if($this->getSpecificEnoughPlaceTypes() && count($this->getSpecificEnoughPlaceTypes()) > 0) {
+            $this->setAttribute('data-specificEnoughPlaceTypes', Convert::raw2att(Convert::raw2json($this->getSpecificEnoughPlaceTypes())));
+        }
         $this->setAttribute('data-defaultAddress', Convert::raw2att(str_replace("'", '', $this->Value())));
         //right title
         $this->RightTitle();

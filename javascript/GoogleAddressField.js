@@ -34,7 +34,7 @@ var GoogleAddressFieldInstatiator = {
                     jQuery(this).attr('data-instantiated', 'done');
                     var field = new GoogleAddressField(options['name']);
                     for (var key in options) {
-                        if(key === 'relatedfields') {
+                        if(key === 'relatedfields' || key === 'specificenoughplacetypes') {
                             var value = options[key].replace(/&quot;/g, '\"');
                             value = JSON.parse(value); // this is how you parse a string into JSON
                         } else {
@@ -416,10 +416,17 @@ var GoogleAddressField = function(fieldName) {
             //if(geocodingFieldVars.debug) {console.log(geocodingFieldVars.autocomplete);}
             var placeIsSpecificEnough = false;
             if(typeof place !== 'undefined') {
-                for (var i = 0; i < place.types.length; i++) {
-                    var type = place.types[i];
-                    if(this.specificEnoughPlaceTypes.indexOf(type) > -1) {
-                        placeIsSpecificEnough = true;
+                var addressComponents = place.address_components;
+                if(typeof addressComponents === 'undefined') {
+                    addressComponents = place.types;
+                }
+                for (var i = 0; i < addressComponents.length; i++) {
+                    var types = addressComponents[i].types;
+                    for (var j = 0; j < types.length; j++) {
+                        var type = types[j];
+                        if(this.specificEnoughPlaceTypes.indexOf(type) > -1) {
+                            placeIsSpecificEnough = true;
+                        }
                     }
                 }
                 var mapLink = geocodingFieldVars.entryFieldHolder.find(geocodingFieldVars.viewGoogleMapLinkSelector);
