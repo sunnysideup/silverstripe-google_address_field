@@ -216,12 +216,25 @@ class GoogleAddressField extends TextField
 
     protected $restrictToCountryCode = '';
     
+    /**
+     * @param string $code - e.g. NZ
+     */     
     public function setRestrictToCountryCode($code)
     {
         $this->restrictToCountryCode = $code;
         
         return $this;
     }
+    
+    /**
+     * @return string
+     */ 
+    public function getRestrictToCountryCode($code)
+    {
+        return $this->restrictToCountryCode;
+    }
+
+
 
     /**
      * @return bool
