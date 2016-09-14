@@ -257,7 +257,7 @@ var GoogleAddressField = function(fieldName) {
          * Restrict search to country (currently only one country at the time is supported)
          * @var String
          */
-        country: "",
+        restrictToCountryCode: "",
 
         /**
          *
@@ -293,8 +293,8 @@ var GoogleAddressField = function(fieldName) {
             //set up auto-complete stuff
             var fieldID = geocodingFieldVars.entryField.attr("id");
             var config = { types: [ 'address' ] };
-            if(geocodingFieldVars.country){
-                config.componentRestrictions = geocodingFieldVars.country;
+            if(geocodingFieldVars.restrictToCountryCode){
+                config.componentRestrictions = {'country' : geocodingFieldVars.restrictToCountryCode};
             }
             geocodingFieldVars.autocomplete = new google.maps.places.Autocomplete(
                 document.getElementById(fieldID),
