@@ -49,6 +49,7 @@ class GoogleAddressField extends TextField
     public function setUseSensor($b)
     {
         $this->useSensor = $b;
+        return $this;
     }
 
     protected $alwaysShowFields = false;
@@ -59,6 +60,7 @@ class GoogleAddressField extends TextField
     public function setAlwaysShowFields($b)
     {
         $this->alwaysShowFields = $b;
+        return $this;
     }
 
     /**
@@ -78,6 +80,7 @@ class GoogleAddressField extends TextField
     public function setGoogleStaticMapLink($s)
     {
         $this->googleStaticMapLink = $s;
+        return $this;
     }
 
     /**
@@ -103,6 +106,7 @@ class GoogleAddressField extends TextField
     public function setCssLocation($s)
     {
         $this->cssLocation = $s;
+        return $this;
     }
 
     /**
@@ -133,6 +137,7 @@ class GoogleAddressField extends TextField
     public function setFieldMap($a)
     {
         $this->fieldMap = $a;
+        return $this;
     }
 
     /**
@@ -142,6 +147,7 @@ class GoogleAddressField extends TextField
     public function addFieldMapEntry($formField, $arrayOfGeoData)
     {
         $this->fieldMap[$formField] = $arrayOfGeoData;
+        return $this;
     }
 
     /**
@@ -188,6 +194,7 @@ class GoogleAddressField extends TextField
     public function setSpecificEnoughPlaceTypes($a)
     {
         $this->specificEnoughPlaceTypes = $a;
+        return $this;
     }
 
     /**
@@ -196,6 +203,7 @@ class GoogleAddressField extends TextField
     public function addSpecificEnoughPlaceTypes($type)
     {
         $this->specificEnoughPlaceTypes[] = $type;
+        return $this;
     }
 
     /**
@@ -206,6 +214,14 @@ class GoogleAddressField extends TextField
         return $this->specificEnoughPlaceTypes;
     }
 
+    protected $restrictToCountryCode = '';
+    
+    public function setRestrictToCountryCode($code)
+    {
+        $this->restrictToCountryCode = $code;
+        
+        return $this;
+    }
 
     /**
      * @return bool
@@ -240,6 +256,9 @@ class GoogleAddressField extends TextField
         $this->setAttribute('data-relatedFields', Convert::raw2att(Convert::raw2json($this->getFieldMap())));
         $this->setAttribute('data-alwaysShowFields', ($this->alwaysShowFields ? 'true' : 'false'));
         $this->setAttribute('data-googleStaticMapLink', $this->getGoogleStaticMapLink());
+        if($code = $this->getRestrictToCountryCode()) {
+            $this->setAttribute('data-restrictToCountryCode', $code);    
+        }
         $this->setAttribute('data-linkLabelToViewMap', Convert::raw2att(_t('GoogleAddressField.LINK_LABEL_TO_VIEW_MAP', 'view map')));
         if($this->getSpecificEnoughPlaceTypes() && count($this->getSpecificEnoughPlaceTypes()) > 0) {
             $this->setAttribute('data-specificEnoughPlaceTypes', Convert::raw2att(Convert::raw2json($this->getSpecificEnoughPlaceTypes())));
