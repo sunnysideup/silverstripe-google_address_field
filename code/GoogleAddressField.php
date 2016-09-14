@@ -33,11 +33,11 @@ class GoogleAddressField extends TextField
     }
 
     /**
-     * 
+     *
      * @var bool
-     */ 
+     */
     protected static $useSensor = false;
-    
+
     /**
      * Do you want this annoying ...
      * this website wants to know exactly where you are
@@ -215,21 +215,21 @@ class GoogleAddressField extends TextField
     }
 
     protected $restrictToCountryCode = '';
-    
+
     /**
      * @param string $code - e.g. NZ
-     */     
+     */
     public function setRestrictToCountryCode($code)
     {
         $this->restrictToCountryCode = $code;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
-     */ 
-    public function getRestrictToCountryCode($code)
+     */
+    public function getRestrictToCountryCode()
     {
         return $this->restrictToCountryCode;
     }
@@ -270,7 +270,7 @@ class GoogleAddressField extends TextField
         $this->setAttribute('data-alwaysShowFields', ($this->alwaysShowFields ? 'true' : 'false'));
         $this->setAttribute('data-googleStaticMapLink', $this->getGoogleStaticMapLink());
         if($code = $this->getRestrictToCountryCode()) {
-            $this->setAttribute('data-restrictToCountryCode', $code);    
+            $this->setAttribute('data-restrictToCountryCode', $code);
         }
         $this->setAttribute('data-linkLabelToViewMap', Convert::raw2att(_t('GoogleAddressField.LINK_LABEL_TO_VIEW_MAP', 'view map')));
         if($this->getSpecificEnoughPlaceTypes() && count($this->getSpecificEnoughPlaceTypes()) > 0) {

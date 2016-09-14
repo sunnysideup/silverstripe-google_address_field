@@ -298,7 +298,7 @@ var GoogleAddressField = function(fieldName) {
             }
             geocodingFieldVars.autocomplete = new google.maps.places.Autocomplete(
                 document.getElementById(fieldID),
-                { types: [ 'address' ] }
+                config
             );
             google.maps.event.addListener(
                 geocodingFieldVars.autocomplete,
