@@ -32,7 +32,12 @@ class GoogleAddressField extends TextField
         );
     }
 
-
+    /**
+     * 
+     * @var bool
+     */ 
+    protected static $useSensor = false;
+    
     /**
      * Do you want this annoying ...
      * this website wants to know exactly where you are
