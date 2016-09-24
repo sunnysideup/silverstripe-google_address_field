@@ -250,14 +250,14 @@ var GoogleAddressField = function(fieldName) {
          * @see: https://developers.google.com/maps/documentation/javascript/places-autocomplete#add_autocomplete
          * @type {String}
          */
-        type_to_be_returned: 'address',
+        typeToBeReturned: 'address',
 
         /**
-         * make sure to match with `type_to_be_returned`
+         * make sure to match with `typeToBeReturned`
          * @see: https://developers.google.com/maps/documentation/geocoding/intro
          * @type string
          */
-        componentType: 'street_address',
+        typeToBeReturnedGeoCoder: 'street_address',
 
         /**
          * Restrict search to country (currently only one country at the time is supported)
@@ -298,7 +298,7 @@ var GoogleAddressField = function(fieldName) {
 
             //set up auto-complete stuff
             var fieldID = geocodingFieldVars.entryField.attr("id");
-            var config = { type: geocodingFieldVars.type_to_be_returned };
+            var config = { type: geocodingFieldVars.typeToBeReturned };
             if(geocodingFieldVars.restrictToCountryCode){
                 config.componentRestrictions = {'country' : geocodingFieldVars.restrictToCountryCode};
             }
@@ -395,7 +395,7 @@ var GoogleAddressField = function(fieldName) {
                 //google.maps.event.trigger(geocodingFieldVars.autocomplete, 'place_changed');
                 //console.debug(geocodingFieldVars.autocomplete);
             }
-            if(typeof geocodingFieldVars.defaultAddress === "string") {
+            if(typeof geocodingFieldVars.defaultAddress === "string" && geocodingFieldVars.defaultAddress.length > 0) {
                 geocodingFieldVars.loadDefaultAddress();
                 geocodingFieldVars.entryField.val(geocodingFieldVars.defaultAddress);
             }
@@ -702,8 +702,10 @@ var GoogleAddressField = function(fieldName) {
         loadDefaultAddress: function(){
             var myObject = this;
             var geocoder = new google.maps.Geocoder();
+            var config = {};
+            config[this.typeToBeReturnedGeoCoder] = myObject.defaultAddress;
             geocoder.geocode(
-                { this.componentType: myObject.defaultAddress},
+                config,
                 function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
                         if(results.length > 0) {
@@ -712,7 +714,6 @@ var GoogleAddressField = function(fieldName) {
                     }
                 }
             );
-            return "for bar";
         }
 
     }
