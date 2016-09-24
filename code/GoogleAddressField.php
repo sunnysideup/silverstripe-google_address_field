@@ -14,16 +14,11 @@ class GoogleAddressField extends TextField
      * @var string
      */
     private static $api_key = "";
-    /**
-     * @var string
-     */
-    private static $api_version = "3.24";
 
     public static function js_requirements()
     {
         $googleJS =
-        "//maps.googleapis.com/maps/api/js"
-        ."?v=".Config::inst()->get('GoogleAddressField', "api_version")
+        "//maps.googleapis.com/maps/api/js?"
         ."&libraries=places"
         ."&key=".Config::inst()->get('GoogleAddressField', "api_key");
         return array(

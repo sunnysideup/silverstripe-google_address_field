@@ -34,7 +34,7 @@ var GoogleAddressFieldInstatiator = {
                     jQuery(this).attr('data-instantiated', 'done');
                     var field = new GoogleAddressField(options['name']);
                     for (var key in options) {
-                        if(key === 'relatedfields' || key === 'specificenoughplacetypes') {
+                        if(key === 'relatedfields') {
                             var value = options[key].replace(/&quot;/g, '\"');
                             value = JSON.parse(value); // this is how you parse a string into JSON
                         } else {
@@ -78,14 +78,14 @@ var GoogleAddressField = function(fieldName) {
     var geocodingFieldVars = {
 
         /**
-         * @var Boolean
+         * @type Boolean
          */
         debug: false,
 
         /**
          * the default address for this form field (if any)...
          *
-         * @var String
+         * @type String
          */
         defaultAddress: "",
 
@@ -93,7 +93,7 @@ var GoogleAddressField = function(fieldName) {
          * name of the html field (e.g. MyInputField)
          * this is provided by PHP using a small customScript
          *
-         * @var String
+         * @type String
          */
         fieldName: fieldName,
 
@@ -101,7 +101,7 @@ var GoogleAddressField = function(fieldName) {
          * object that is being used to find the address.
          * basically the jquery object of the input field in html
          * This is set in the init method
-         * @var jQueryObject
+         * @type jQueryObject
          */
         entryField: null,
 
@@ -109,34 +109,34 @@ var GoogleAddressField = function(fieldName) {
          * div holding the input
          * basically the jquery object of the input field in html
          * This is set in the init method
-         * @var jQueryObject
+         * @type jQueryObject
          */
         entryFieldHolder: null,
 
         /**
          * Right Label
          * This is set in the init method
-         * @var jQueryObject
+         * @type jQueryObject
          */
         entryFieldRightLabel: null,
 
         /**
          * Left Label
          * This is set in the init method
-         * @var jQueryObject
+         * @type jQueryObject
          */
         entryFieldLeftLabel: null,
 
         /**
          * should we use the sensor on mobile
          * phones to help?
-         * @var Boolean
+         * @type Boolean
          */
         useSensor: false,
 
         /**
          *
-         * @var autocomplete object provided by Google
+         * @type autocomplete object provided by Google
          */
         autocomplete: null,
 
@@ -148,95 +148,95 @@ var GoogleAddressField = function(fieldName) {
          *    Country: {'country': 'long_name'},
          *    PostcalCode: {'postal_code': 'short_name'}
          *
-         * @var JSON
+         * @type JSON
          */
         relatedFields: {},
 
         /**
-         * @var boolean
+         * @type boolean
          */
         alwaysShowFields: true,
 
         /**
          *
-         * @var String
+         * @type String
          */
         findNewAddressText: "",
 
         /**
          *
-         * @var String
+         * @type String
          */
         errorMessageMoreSpecific: "",
 
         /**
          *
-         * @var String
+         * @type String
          */
         errorMessageAddressNotFound: "",
 
         /**
          * when the Coding field has text...
-         * @var string
+         * @type string
          */
         hasTextClass: "hasText",
 
         /**
-         * @var string
+         * @type string
          */
         useMeClass: "useMe",
 
         /**
-         * @var string
+         * @type string
          */
         selectedClass: "selected",
 
         /**
-         * @var string
+         * @type string
          */
         bypassSelector: "a.bypassGoogleGeocoding",
 
         /**
-         * @var string
+         * @type string
          */
         returnSelector: "a.returnGoogleGeocoding",
 
         /**
-         * @var string
+         * @type string
          */
         viewGoogleMapLinkSelector: "a.viewGoogleMapLink",
 
         /**
-         * @var string
+         * @type string
          */
         classForUncompletedField: "holder-required",
 
         /**
-         * @var string
+         * @type string
          */
         googleStaticMapLink: "",
 
 
         /**
          * default witdth of static image
-         * @var Int
+         * @type Int
          */
         defaultWidthOfStaticImage: 300,
 
         /**
          * default height of static image
          * you can override this by
-         * @var Int
+         * @type Int
          */
         defaultHeightOfStaticImage: 300,
 
         /**
-         * @var string
+         * @type string
          */
         urlForViewGoogleMapLink: "http://maps.google.com/maps/search/",
 
         /**
-         * @var string
+         * @type string
          */
         linkLabelToViewMap: "View Map",
 
@@ -247,15 +247,21 @@ var GoogleAddressField = function(fieldName) {
         percentageToBeCompleted: 0.25,
 
         /**
-         * we look for these in the address to make sure it is an actual address
-         * not a region or something less specific than an address.
-         * @array
+         * @see: https://developers.google.com/maps/documentation/javascript/places-autocomplete#add_autocomplete
+         * @type {String}
          */
-        specificEnoughPlaceTypes: ["street_address", "subpremise", "premise"],
+        type_to_be_returned: 'address',
+
+        /**
+         * make sure to match with `type_to_be_returned`
+         * @see: https://developers.google.com/maps/documentation/geocoding/intro
+         * @type string
+         */
+        componentType: 'street_address',
 
         /**
          * Restrict search to country (currently only one country at the time is supported)
-         * @var String
+         * @type String
          */
         restrictToCountryCode: "",
 
@@ -278,7 +284,7 @@ var GoogleAddressField = function(fieldName) {
             geocodingFieldVars.entryFieldLeftLabel = geocodingFieldVars.entryFieldHolder.find('label.left');
 
             //move the "use geocoding link"
-            var linkToMove = "#" +geocodingFieldVars.entryFieldHolder.attr("ID") + " " + geocodingFieldVars.returnSelector;
+            var linkToMove = "#" + geocodingFieldVars.entryFieldHolder.attr("ID") + " " + geocodingFieldVars.returnSelector;
             var relatedReturnLink = jQuery(linkToMove);
 
             //clean up affected fields
@@ -292,7 +298,7 @@ var GoogleAddressField = function(fieldName) {
 
             //set up auto-complete stuff
             var fieldID = geocodingFieldVars.entryField.attr("id");
-            var config = { types: [ 'address' ] };
+            var config = { type: geocodingFieldVars.type_to_be_returned };
             if(geocodingFieldVars.restrictToCountryCode){
                 config.componentRestrictions = {'country' : geocodingFieldVars.restrictToCountryCode};
             }
@@ -424,9 +430,6 @@ var GoogleAddressField = function(fieldName) {
                     var types = addressComponents[i].types;
                     for (var j = 0; j < types.length; j++) {
                         var type = types[j];
-                        if(this.specificEnoughPlaceTypes.indexOf(type) > -1) {
-                            placeIsSpecificEnough = true;
-                        }
                     }
                 }
                 var mapLink = geocodingFieldVars.entryFieldHolder.find(geocodingFieldVars.viewGoogleMapLinkSelector);
@@ -582,7 +585,8 @@ var GoogleAddressField = function(fieldName) {
         },
 
         /**
-         *
+         * do the fields to be completed already have
+         * values
          * @return Boolean
          */
         alreadyHasValues: function(){
@@ -702,7 +706,7 @@ var GoogleAddressField = function(fieldName) {
             var myObject = this;
             var geocoder = new google.maps.Geocoder();
             geocoder.geocode(
-                { 'address': myObject.defaultAddress},
+                { this.componentType: myObject.defaultAddress},
                 function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
                         if(results.length > 0) {
