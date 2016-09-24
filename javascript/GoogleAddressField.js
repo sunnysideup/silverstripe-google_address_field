@@ -426,11 +426,8 @@ var GoogleAddressField = function(fieldName) {
                 if(typeof addressComponents === 'undefined') {
                     addressComponents = place.types;
                 }
-                for (var i = 0; i < addressComponents.length; i++) {
-                    var types = addressComponents[i].types;
-                    for (var j = 0; j < types.length; j++) {
-                        var type = types[j];
-                    }
+                if(typeof addressComponents !== 'undefined') {
+                    placeIsSpecificEnough = true;
                 }
                 var mapLink = geocodingFieldVars.entryFieldHolder.find(geocodingFieldVars.viewGoogleMapLinkSelector);
                 if(placeIsSpecificEnough) {
