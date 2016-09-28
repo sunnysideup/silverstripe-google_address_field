@@ -173,6 +173,12 @@ var GoogleAddressField = function(fieldName) {
          *
          * @type String
          */
+        selectedOptionNotAllowed: "",
+        
+        /**
+         *
+         * @type String
+         */
         errorMessageAddressNotFound: "",
 
         /**
@@ -474,6 +480,7 @@ var GoogleAddressField = function(fieldName) {
                                                             previousValues.push(value);
                                                             if(geocodingFieldVars.debug) {console.debug("- ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** setting: "+formField+" to "+value+", using "+googleVariable+" in google address");}
                                                             previousValueForThisFormField = "";
+                                                            value = value.trim()
                                                             if(googleType == "subpremise") {
                                                                 value = value + "/";
                                                             }
@@ -486,7 +493,29 @@ var GoogleAddressField = function(fieldName) {
                                                                 var previousValueForThisFormField = jQuery('textarea[name="'+formField+'"]').val();
                                                                 value = previousValueForThisFormField + " " + value;
                                                             }
-                                                            fieldToSet.val(value.trim());
+                                                            if(fieldToSet.is("select")) {
+                                                                //check available options
+                                                                //compare value to be set against available options
+                                                                //if value to be set does not exist, show error message
+                                                                //else do nothing
+                                                                var match = false;
+                                                                $(fieldToSet).find('option').each(
+                                                                    function() {
+                                                                        var option = jQuery(this).val();
+                                                                        if(option == value){
+                                                                            match = true;
+                                                                        }
+                                                                    }
+                                                                );                  
+                                                                if(! match) {
+                                                                    var id = jQuery(fieldToSet).attr('id');
+                                                                    var label = jQuery('label[for="'+id+'"');
+                                                                    var labelString = jQuery(label).text();
+                                                                    alert(geocodingFieldVars.selectedOptionNotAllowed + " " + labelString + ".");
+                                                                    jQuery(fieldToSet).focus();
+                                                                }
+                                                            }
+                                                            fieldToSet.val(value);
                                                             geocodingFieldVars.setResults("yes");
                                                             //holderToSet.addClass("geoCodingSet");
                                                         }
