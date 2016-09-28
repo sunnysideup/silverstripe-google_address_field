@@ -174,7 +174,7 @@ var GoogleAddressField = function(fieldName) {
          * @type String
          */
         selectedOptionNotAllowed: "",
-        
+
         /**
          *
          * @type String
@@ -257,13 +257,6 @@ var GoogleAddressField = function(fieldName) {
          * @type {String}
          */
         typeToBeReturned: 'address',
-
-        /**
-         * make sure to match with `typeToBeReturned`
-         * @see: https://developers.google.com/maps/documentation/geocoding/intro
-         * @type string
-         */
-        typeToBeReturnedGeoCoder: 'street_address',
 
         /**
          * Restrict search to country (currently only one country at the time is supported)
@@ -506,7 +499,7 @@ var GoogleAddressField = function(fieldName) {
                                                                             match = true;
                                                                         }
                                                                     }
-                                                                );                  
+                                                                );
                                                                 if(! match) {
                                                                     var id = jQuery(fieldToSet).attr('id');
                                                                     var label = jQuery('label[for="'+id+'"');
@@ -732,7 +725,7 @@ var GoogleAddressField = function(fieldName) {
             var myObject = this;
             var geocoder = new google.maps.Geocoder();
             var config = {};
-            config[this.typeToBeReturnedGeoCoder] = myObject.defaultAddress;
+            config['address'] = myObject.defaultAddress;
             geocoder.geocode(
                 config,
                 function(results, status) {

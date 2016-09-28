@@ -174,18 +174,6 @@ class GoogleAddressField extends TextField
         return $this;
     }
 
-    protected $typeToBeReturnedGeoCoder = 'street_address';
-
-    /**
-     * @param string $code - e.g. address
-     */
-    public function setTypeToBeReturnedGeoCoder($type)
-    {
-        $this->typeToBeReturnedGeoCoder = $type;
-
-        return $this;
-    }
-
 
     protected $restrictToCountryCode = '';
 
@@ -244,7 +232,6 @@ class GoogleAddressField extends TextField
         $this->setAttribute('data-alwaysShowFields', ($this->alwaysShowFields ? 'true' : 'false'));
         $this->setAttribute('data-googleStaticMapLink', $this->getGoogleStaticMapLink());
         $this->setAttribute('data-typeToBeReturned', $this->typeToBeReturned);
-        $this->setAttribute('data-typeToBeReturnedGeoCoder', $this->typeToBeReturnedGeoCoder);
         if($code = $this->getRestrictToCountryCode()) {
             $this->setAttribute('data-restrictToCountryCode', $code);
         }
