@@ -31,7 +31,7 @@ class GoogleAddressField extends TextField
      *
      * @var bool
      */
-    protected static $useSensor = false;
+    protected $useSensor = true;
 
     /**
      * Do you want this annoying ...
@@ -230,6 +230,7 @@ class GoogleAddressField extends TextField
         $this->setAttribute('data-findNewAddressText', Convert::raw2att(_t('GoogleAddressField.FIND_NEW_ADDRESS', 'Find Different Address')));
         $this->setAttribute('data-relatedFields', Convert::raw2att(Convert::raw2json($this->getFieldMap())));
         $this->setAttribute('data-alwaysShowFields', ($this->alwaysShowFields ? 'true' : 'false'));
+        $this->setAttribute('data-useSensor', ($this->useSensor ? 'true' : 'false'));
         $this->setAttribute('data-googleStaticMapLink', $this->getGoogleStaticMapLink());
         $this->setAttribute('data-typeToBeReturned', $this->typeToBeReturned);
         if($code = $this->getRestrictToCountryCode()) {

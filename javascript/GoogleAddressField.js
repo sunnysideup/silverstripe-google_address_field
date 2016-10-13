@@ -40,7 +40,12 @@ var GoogleAddressFieldInstatiator = {
                         } else {
                             var value  = options[key];
                         }
-
+                        if(value === 'false') {
+                            value = false;
+                        }
+                        if(value === 'true') {
+                            value = true;
+                        }
                         if ( ! options.hasOwnProperty(key)) {
                             continue;
                         }
