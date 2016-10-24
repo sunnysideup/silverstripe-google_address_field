@@ -31,7 +31,7 @@ class GoogleAddressField extends TextField
      *
      * @var bool
      */
-    protected $useSensor = true;
+    protected $useSensor = false;
 
     /**
      * Do you want this annoying ...
