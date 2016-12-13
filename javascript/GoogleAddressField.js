@@ -302,13 +302,13 @@ var GoogleAddressField = function(fieldName) {
 
             //set up auto-complete stuff
             var fieldID = geocodingFieldVars.entryField.attr("id");
-            var config = { type: geocodingFieldVars.typeToBeReturned };
+            var autocompleteConfig = { type: geocodingFieldVars.typeToBeReturned };
             if(geocodingFieldVars.restrictToCountryCode){
                 config.componentRestrictions = {country: geocodingFieldVars.restrictToCountryCode };
             }
             geocodingFieldVars.autocomplete = new google.maps.places.Autocomplete(
                 document.getElementById(fieldID),
-                config
+                autocompleteConfig
             );
 
             google.maps.event.addListener(
@@ -409,7 +409,7 @@ var GoogleAddressField = function(fieldName) {
 
                 // geocodingFieldVars.autocomplete = new google.maps.places.Autocomplete(
                 //     input,
-                //     config
+                //     autocompleteConfig
                 // );
 
               }
