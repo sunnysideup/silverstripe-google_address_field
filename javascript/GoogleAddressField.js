@@ -302,12 +302,13 @@ var GoogleAddressField = function(fieldName) {
 
             //set up auto-complete stuff
             var fieldID = geocodingFieldVars.entryField.attr("id");
-            var autocompleteConfig = { type: geocodingFieldVars.typeToBeReturned };
+            var autocompleteConfig = { types: [geocodingFieldVars.typeToBeReturned] };
             if(geocodingFieldVars.restrictToCountryCode){
-                config.componentRestrictions = {country: geocodingFieldVars.restrictToCountryCode };
+                autocompleteConfig.componentRestrictions = {country: geocodingFieldVars.restrictToCountryCode };
             }
+            var fieldForAutocomplete = document.getElementById(fieldID);
             geocodingFieldVars.autocomplete = new google.maps.places.Autocomplete(
-                document.getElementById(fieldID),
+                fieldForAutocomplete,
                 autocompleteConfig
             );
 
@@ -327,7 +328,7 @@ var GoogleAddressField = function(fieldName) {
                         geocodingFieldVars.hideFields();
                         //use sensor ..
                         if(geocodingFieldVars.useSensor) {
-                            if (navigator.geolocation && 1 == 2) {
+                            if (navigator.geolocation) {
                                 navigator.geolocation.getCurrentPosition(
                                     function(position) {
                                         var geolocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -373,13 +374,10 @@ var GoogleAddressField = function(fieldName) {
              * to do ....
              * make the hack below work with rest of code!
              */
-            var pac_input = document.getElementById(fieldID);
-
             (
                 function pacSelectFirst(input) {
                     // store the original event binding function
                     var _addEventListener = (input.addEventListener) ? input.addEventListener : input.attachEvent;
-
                     function addEventListenerWrapper(type, listener) {
                         // Simulate a 'down arrow' keypress on hitting 'return' when no pac suggestion is selected,
                         // and then trigger the original listener.
@@ -401,19 +399,17 @@ var GoogleAddressField = function(fieldName) {
                             };
                         }
 
-                    _addEventListener.apply(input, [type, listener]);
+                        _addEventListener.apply(input, [type, listener]);
+                    }
+
+                    input.addEventListener = addEventListenerWrapper;
+                    input.attachEvent = addEventListenerWrapper;
+                    // geocodingFieldVars.autocomplete = new google.maps.places.Autocomplete(
+                    //     input,
+                    //     autocompleteConfig
+                    // );
                 }
-
-                input.addEventListener = addEventListenerWrapper;
-                input.attachEvent = addEventListenerWrapper;
-
-                // geocodingFieldVars.autocomplete = new google.maps.places.Autocomplete(
-                //     input,
-                //     autocompleteConfig
-                // );
-
-              }
-            )(pac_input);
+            )(fieldForAutocomplete);
 
             //bypass
             geocodingFieldVars.entryFieldHolder.find(geocodingFieldVars.bypassSelector).click(
