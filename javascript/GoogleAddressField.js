@@ -302,13 +302,14 @@ var GoogleAddressField = function(fieldName) {
 
             //set up auto-complete stuff
             var fieldID = geocodingFieldVars.entryField.attr("id");
-            var config = { type: geocodingFieldVars.typeToBeReturned };
+            var autocompleteConfig = { types: [geocodingFieldVars.typeToBeReturned] };
             if(geocodingFieldVars.restrictToCountryCode){
-                config.componentRestrictions = {'country' : geocodingFieldVars.restrictToCountryCode};
+                autocompleteConfig.componentRestrictions = {country: geocodingFieldVars.restrictToCountryCode };
             }
+            var fieldForAutocomplete = document.getElementById(fieldID);
             geocodingFieldVars.autocomplete = new google.maps.places.Autocomplete(
-                document.getElementById(fieldID),
-                config
+                fieldForAutocomplete,
+                autocompleteConfig
             );
 
             google.maps.event.addListener(
@@ -373,43 +374,43 @@ var GoogleAddressField = function(fieldName) {
              * to do ....
              * make the hack below work with rest of code!
              */
-            var pac_input = document.getElementById(fieldID);
+            (
+                function pacSelectFirst(input) {
+                    // store the original event binding function
+                    var _addEventListener = (input.addEventListener) ? input.addEventListener : input.attachEvent;
+                    function addEventListenerWrapper(type, listener) {
+                        // Simulate a 'down arrow' keypress on hitting 'return' when no pac suggestion is selected,
+                        // and then trigger the original listener.
+                        if (type == "keydown") {
+                            var orig_listener = listener;
+                            listener = function(event) {
+                                var suggestion_selected = jQuery(".pac-item-selected").length > 0;
+                                if (event.which == 13 && !suggestion_selected) {
+                                    var simulated_downarrow = jQuery.Event(
+                                        "keydown",
+                                        {
+                                        keyCode: 40,
+                                        which: 40
+                                        }
+                                    );
+                                    orig_listener.apply(input, [simulated_downarrow]);
+                                }
 
-            (function pacSelectFirst(input) {
-                // store the original event binding function
-                var _addEventListener = (input.addEventListener) ? input.addEventListener : input.attachEvent;
+                                orig_listener.apply(input, [event]);
+                            };
+                        }
 
-                function addEventListenerWrapper(type, listener) {
-                    // Simulate a 'down arrow' keypress on hitting 'return' when no pac suggestion is selected,
-                    // and then trigger the original listener.
-                    if (type == "keydown") {
-                        var orig_listener = listener;
-                        listener = function(event) {
-                            var suggestion_selected = jQuery(".pac-item-selected").length > 0;
-                            if (event.which == 13 && !suggestion_selected) {
-                                var simulated_downarrow = jQuery.Event(
-                                    "keydown",
-                                    {
-                                    keyCode: 40,
-                                    which: 40
-                                    }
-                                );
-                                orig_listener.apply(input, [simulated_downarrow]);
-                            }
-
-                            orig_listener.apply(input, [event]);
-                        };
+                        _addEventListener.apply(input, [type, listener]);
                     }
 
-                    _addEventListener.apply(input, [type, listener]);
+                    input.addEventListener = addEventListenerWrapper;
+                    input.attachEvent = addEventListenerWrapper;
+                    // geocodingFieldVars.autocomplete = new google.maps.places.Autocomplete(
+                    //     input,
+                    //     autocompleteConfig
+                    // );
                 }
-
-                input.addEventListener = addEventListenerWrapper;
-                input.attachEvent = addEventListenerWrapper;
-
-                var autocomplete = new google.maps.places.Autocomplete(input);
-
-            })(pac_input);
+            )(fieldForAutocomplete);
 
             //bypass
             geocodingFieldVars.entryFieldHolder.find(geocodingFieldVars.bypassSelector).click(

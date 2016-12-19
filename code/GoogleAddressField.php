@@ -211,7 +211,7 @@ class GoogleAddressField extends TextField
     public function Field($properties = array())
     {
         $this->addExtraClass('text');
-        foreach(self::js_requirements() as $jsFile) {
+        foreach (self::js_requirements() as $jsFile) {
             Requirements::javascript($jsFile);
         }
         Requirements::customScript(
@@ -233,7 +233,7 @@ class GoogleAddressField extends TextField
         $this->setAttribute('data-useSensor', ($this->useSensor ? 'true' : 'false'));
         $this->setAttribute('data-googleStaticMapLink', $this->getGoogleStaticMapLink());
         $this->setAttribute('data-typeToBeReturned', $this->typeToBeReturned);
-        if($code = $this->getRestrictToCountryCode()) {
+        if ($code = $this->getRestrictToCountryCode()) {
             $this->setAttribute('data-restrictToCountryCode', $code);
         }
         $this->setAttribute('data-linkLabelToViewMap', Convert::raw2att(_t('GoogleAddressField.LINK_LABEL_TO_VIEW_MAP', 'view map')));

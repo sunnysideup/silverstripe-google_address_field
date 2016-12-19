@@ -3,7 +3,9 @@
     "type": "silverstripe-module",
     "description": "Provide a form field for the Silverstripe CMS that allows geocoding address prediction (autocomplete) and quick lookup of addresses using the Google API",
     "keywords": [
-        "silverstripe",
+        "Silverstripe-CMS",
+        "CMS",
+        "Silverstripe",
         "geocoding",
         "address",
         "form",
@@ -23,7 +25,8 @@
         }
     ],
     "require": {
-        "silverstripe/framework": "~3.1"
+        "silverstripe/framework": "~3.1",
+        "silverstripe/cms": "~3.1"
     },
     "extra": {
         "installer-name": "google_address_field"
