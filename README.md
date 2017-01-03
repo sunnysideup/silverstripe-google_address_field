@@ -1,63 +1,72 @@
-Google Address Field
-================================================================================
-
-
+# Silverstripe google address field module
 [![Build Status](https://travis-ci.org/sunnysideup/silverstripe-google_address_field.svg?branch=master)](https://travis-ci.org/sunnysideup/silverstripe-google_address_field)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sunnysideup/silverstripe-google_address_field/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sunnysideup/silverstripe-google_address_field/?branch=master)
+[![codecov.io](https://codecov.io/github/sunnysideup/silverstripe-google_address_field/coverage.svg?branch=master)](https://codecov.io/github/sunnysideup/silverstripe-google_address_field?branch=master)
+![helpfulrobot](https://helpfulrobot.io/sunnysideup/google_address_field/badge)
 
-Provides an Auto-Complete field for addresses using the Google API.
-
-see:
- * [Example](https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform)
-
-* [Documentation](https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms)
-
-
-Developer
------------------------------------------------
-Nicolaas Francken [at] sunnysideup.co.nz
+[![Latest Stable Version](https://poser.pugx.org/sunnysideup/google_address_field/version)](https://packagist.org/packages/sunnysideup/google_address_field)
+[![License](https://poser.pugx.org/sunnysideup/google_address_field/license)](https://packagist.org/packages/sunnysideup/google_address_field)
+[![Monthly Downloads](https://poser.pugx.org/sunnysideup/google_address_field/d/monthly)](https://packagist.org/packages/sunnysideup/google_address_field)
 
 
-Requirements
------------------------------------------------
-see composer.json
+## Documentation
 
 
-Installation Instructions
------------------------------------------------
-1. Add module as per usual.
 
-2. Review configs and add entries to `mysite/\_config/google_address_field.yml`
-(or similar) as necessary.
-In the `\_config/` folder of this module
-you can usually find some examples of config options (if any).
+ * [Developer Docs](docs/en/INDEX.md)
+ * [User Guide](docs/en/userguide.md)
+ * [API](http://ssmods.com/apis/google_address_field/docs/en/api/)
 
-3. The way this field works is that it replaces existing fields, but to add it. After that you can  use the `setFieldMap` method to map your existing fields to data returned by Google. Here is a very basic example on how to place all the data into one field:
-```php
-    $fields->insertBefore(
-        $addressField = new GoogleAddressField("AddressLookup", "Physical Address"),
-        "Address"
-    );
-    $addressField->setFieldMap(array("Address" => array("formatted_address" => "long_name")));
+## Requirements
+
+
+
+see [composer.json](composer.json) for details
+
+### Suggested Modules
+
+
+
+see [composer.json](composer.json) for details
+
+
+## Installation
+
+
+```
+composer require sunnysideup/google_address_field
 ```
 
-4. In the JS you can turn on `debug` which will show a wealth of information in the console (F12 is your friend).
+### Configuration
 
-Conflict with fastclick.js
------------------------------------------------
-If you are using fastclick.js on your website please note that it will cause a conflict with the google address lookup field that prevents addresses from being selectable on iOS devices.
-The following code can be used to resolve this conflict:
-```php
-            var needsClick = FastClick.prototype.needsClick;
-            FastClick.prototype.needsClick = function(target) {
-                if ( (target.className || '').indexOf('pac-item') > -1 ) {
-                    return true;
-                }
-                else if ( (target.parentNode.className || '').indexOf('pac-item') > -1) {
-                    return true;
-                }
-                else {
-                    return needsClick.apply(this, arguments);
-                }
-            };
-            FastClick.attach(document.body);
-```
+
+
+In the `_config` folder you will find the `google_address_field.yml.example`
+file that shows options for the configuration of this module.
+
+We recommend that you:
+
+  1. copy these `google_address_field.yml.example` files into your
+`mysite/_config` folder
+  2. remove the .example extension
+  3. delete the lines you not care about, and
+  4. adjust the configurations that you would like to use.
+
+
+## Contributing
+
+
+
+We welcome any contributions. See [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
+
+## Paid assistance
+
+
+
+You can pay us to create an improved / adapted version of this module for your own projects.  Please contact us if you like to find out more: [www.sunnysideup.co.nz](http://www.sunnysideup.co.nz)
+
+## Author
+
+
+
+Sunny Side Up Ltd.
