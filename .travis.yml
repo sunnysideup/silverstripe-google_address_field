@@ -32,7 +32,7 @@ before_script:
 #Execute tests
 script:
   # Execute tests with no coverage.  This is the fastest option
- - vendor/bin/phpunit {short_module_name_goes_here}/tests/
+ - vendor/bin/phpunit google_address_field/tests/
  #- php framework/cli-script.php dev/build
 
 
