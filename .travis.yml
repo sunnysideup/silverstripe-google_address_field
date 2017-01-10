@@ -7,16 +7,14 @@ addons:
     packages:
       - tidy
 
-before_install:
-  - pip install --user codecov
+#before_install:
+  #- pip install --user codecov
 
 env:
   global:
     - DB=MYSQL CORE_RELEASE=3.5.1
-
     # Turn coverage off by default, as it's expensive time wise
     - COVERAGE=0
-    - MODULE_PATH=framework    
 
 matrix:
   allow_failures:
@@ -29,14 +27,15 @@ before_script:
   - phpenv rehash
   - composer self-update || true
   - git clone git://github.com/silverstripe-labs/silverstripe-travis-support.git ~/travis-support
-  - php ~/travis-support/travis_setup.php --source `pwd` --target ~/builds/ss --require "silverstripe/comments" --require "silverstripe/widgets"
+  - php ~/travis-support/travis_setup.php --source `pwd` -
   - cd ~/builds/ss
-
-#Execute tests with or without coverage
+  - composer update
+  
+#Execute tests
 script:
   # Execute tests with no coverage.  This is the fastest option
-  #- vendor/bin/phpunit fram/tests/; fi"
- - php framework/cli-script.php dev/build
+ - vendor/bin/phpunit {short_module_name_goes_here}/tests/
+ #- php framework/cli-script.php dev/build
 
 
 # configure notifications (email, IRC, campfire etc)
