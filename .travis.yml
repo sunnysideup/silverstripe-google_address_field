@@ -16,6 +16,7 @@ env:
 
     # Turn coverage off by default, as it's expensive time wise
     - COVERAGE=0
+    - MODULE_PATH=framework    
 
 matrix:
   allow_failures:
@@ -34,14 +35,10 @@ before_script:
 #Execute tests with or without coverage
 script:
   # Execute tests with no coverage.  This is the fastest option
-  - "if [ \"$COVERAGE\" = \"0\" ]; then vendor/bin/phpunit $MODULE_PATH/tests/; fi"
+  #- vendor/bin/phpunit fram/tests/; fi"
+ - php framework/cli-script.php dev/build
 
-  # Execute tests with coverage.  Do this for a small
-  - "if [ \"$COVERAGE\" = \"1\" ]; then vendor/bin/phpunit --coverage-clover=coverage.clover $MODULE_PATH/tests/; fi"
 
-#Upload coverage even if there is a failure
-after_script:
-  - "if [ \"$COVERAGE\" = \"1\" ]; then mv coverage.clover ~/build/$TRAVIS_REPO_SLUG/; fi"
-  - cd ~/build/$TRAVIS_REPO_SLUG
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - "if [ \"$COVERAGE\" = \"1\" ]; then travis_retry codecov && travis_retry php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi"
+# configure notifications (email, IRC, campfire etc)
+notifications:
+  email: ssuerrors@gmail.com
