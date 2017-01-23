@@ -442,7 +442,7 @@ var GoogleAddressField = function(fieldName) {
             geocodingFieldVars.entryFieldHolder.find(geocodingFieldVars.viewGoogleMapLinkSelector).attr("target", "_googleMap");
             if(geocodingFieldVars.entryField.val().length > 0) {
                 //to do - to be completed!
-                geocodingFieldVars.entryField.attr("placeholder", geocodingFieldVars.entryField.val());;
+                geocodingFieldVars.entryField.attr("placeholder", geocodingFieldVars.entryField.val());
                 geocodingFieldVars.entryField.val("")
                 //google.maps.event.trigger(geocodingFieldVars.autocomplete, 'place_changed');
                 //console.debug(geocodingFieldVars.autocomplete);
@@ -561,7 +561,7 @@ var GoogleAddressField = function(fieldName) {
                                                                     jQuery(fieldToSet).focus();
                                                                 }
                                                             }
-                                                            fieldToSet.val(value);
+                                                            fieldToSet.val(value.trim());
                                                             geocodingFieldVars.setResults("yes");
                                                             //holderToSet.addClass("geoCodingSet");
                                                         }
