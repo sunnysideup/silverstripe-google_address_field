@@ -1,27 +1,11 @@
-input.googleaddressfield {width: 100%; color: #333; font-weight: bold; font-size: 12px; }
-input.googleaddressfield.useMe {}
-input.googleaddressfield.useMe.hasText:focus {background-color: #fff;}
-input.googleaddressfield.selected {background-color: #fff; color: green;border: none;}
-input.googleaddressfield.selected:focus {}
+.googleaddress.field label.right .returnGoogleGeocoding,
+.googleaddress.field.selected .bypassGoogleGeocoding {display: none;}
+
+.googleaddress.field.field-is-hidden * {display: none;}
+.googleaddress.field.field-is-hidden label.right {display: block;}
+.googleaddress.field.field-is-hidden label.right * {display: none;}
+.googleaddress.field.field-is-hidden label.right .returnGoogleGeocoding {display: block;}
 
 div.field.hide {display: none;}
 div.field.show {display: block;}
 div.field.show.geoCodingSet {display: none;}
-
-.googleaddressfield label.right {text-align: right; display: block;}
-
-.viewGoogleMapLink img {
-	float: left;
-	display: block;
-	margin: 10px auto 10px auto;
-	border: 1px solid #ccc;
-	border-radius: 10px;
-}
-
-.googleaddress:after {
-	clear: both;
-	display: block;
-	content: "";
-	height: 0;
-	visibility: hidden;
-}

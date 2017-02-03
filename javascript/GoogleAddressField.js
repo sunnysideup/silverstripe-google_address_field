@@ -225,6 +225,11 @@ var GoogleAddressField = function(fieldName) {
         /**
          * @type string
          */
+        byPassClass: "field-is-hidden",
+
+        /**
+         * @type string
+         */
         googleStaticMapLink: "",
 
 
@@ -286,10 +291,6 @@ var GoogleAddressField = function(fieldName) {
             geocodingFieldVars.entryFieldHolder = jQuery(geocodingFieldVars.entryField).closest("div.field");
             geocodingFieldVars.entryFieldRightLabel = geocodingFieldVars.entryFieldHolder.find('label.right');
             geocodingFieldVars.entryFieldLeftLabel = geocodingFieldVars.entryFieldHolder.find('label.left');
-
-            //move the "use geocoding link"
-            var linkToMove = "#" + geocodingFieldVars.entryFieldHolder.attr("ID") + " " + geocodingFieldVars.returnSelector;
-            var relatedReturnLink = jQuery(linkToMove);
 
             //clean up affected fields
             //geocodingFieldVars.clearFields();
@@ -413,20 +414,23 @@ var GoogleAddressField = function(fieldName) {
             )(fieldForAutocomplete);
 
             //bypass
-            geocodingFieldVars.entryFieldHolder.find(geocodingFieldVars.bypassSelector).click(
+            geocodingFieldVars.entryFieldHolder.on(
+                'click',
+                geocodingFieldVars.bypassSelector,
                 function(e){
                     e.preventDefault();
                     geocodingFieldVars.showFields();
-                    geocodingFieldVars.entryFieldHolder.hide();
+                    geocodingFieldVars.entryFieldHolder.addClass(geocodingFieldVars.byPassClass);
                     return false;
                 }
             );
-            //return
-            jQuery(relatedReturnLink).click(
+            //return from bypass
+            jQuery(geocodingFieldVars.returnSelector).on(
+                'click',
                 function(e){
                     e.preventDefault();
                     geocodingFieldVars.hideFields();
-                    geocodingFieldVars.entryFieldHolder.show();
+                    geocodingFieldVars.entryFieldHolder.removeClass(geocodingFieldVars.byPassClass);
                     return false;
                 }
             );
@@ -719,18 +723,17 @@ var GoogleAddressField = function(fieldName) {
             var hasResult =  geocodingFieldVars.hasResults();
             var hasText = value.length > 1;
             if(hasResult) {
-                geocodingFieldVars.entryField.addClass(geocodingFieldVars.selectedClass);
-                geocodingFieldVars.entryField.removeClass(geocodingFieldVars.useMeClass);
+                geocodingFieldVars.entryFieldHolder.addClass(geocodingFieldVars.selectedClass);
+                geocodingFieldVars.entryFieldHolder.removeClass(geocodingFieldVars.useMeClass);
                 //swap links:
                 geocodingFieldVars.entryFieldHolder.find(geocodingFieldVars.viewGoogleMapLinkSelector).show();
-                geocodingFieldVars.entryFieldHolder.find(geocodingFieldVars.bypassSelector).hide();
+
             }
             else{
-                geocodingFieldVars.entryField.removeClass(geocodingFieldVars.selectedClass);
-                geocodingFieldVars.entryField.addClass(geocodingFieldVars.useMeClass);
+                geocodingFieldVars.entryFieldHolder.removeClass(geocodingFieldVars.selectedClass);
+                geocodingFieldVars.entryFieldHolder.addClass(geocodingFieldVars.useMeClass);
                 //swap links:
                 geocodingFieldVars.entryFieldHolder.find(geocodingFieldVars.viewGoogleMapLinkSelector).hide();
-                geocodingFieldVars.entryFieldHolder.find(geocodingFieldVars.bypassSelector).show();
             }
             if(hasText) {
                 geocodingFieldVars.entryField.addClass(geocodingFieldVars.hasTextClass);
