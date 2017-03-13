@@ -15,7 +15,7 @@
 
  * [Developer Docs](docs/en/INDEX.md)
  * [User Guide](docs/en/userguide.md)
- * [API](http://ssmods.com/apis/google_address_field/docs/en/api/)
+ * [API Docs](http://docs.ssmods.com/sunnysideup/google_address_field)
 
 ## Requirements
 
