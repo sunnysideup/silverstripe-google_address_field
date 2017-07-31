@@ -167,7 +167,7 @@ class GoogleAddressField extends TextField
     /**
      * @param string $code - e.g. address
      */
-    public function setTypeToBeReturned($ype)
+    public function setTypeToBeReturned($type)
     {
         $this->typeToBeReturned = $type;
 
