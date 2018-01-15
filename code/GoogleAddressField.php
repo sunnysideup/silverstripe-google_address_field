@@ -10,21 +10,35 @@
 class GoogleAddressField extends TextField
 {
 
+    private static $google_map_api_location = '//maps.googleapis.com/maps/api/js';
+
+    private static $field_js_location = 'google_address_field/javascript/GoogleAddressField.js';
+
     /**
      * @var string
      */
     private static $api_key = "";
 
+    /**
+     * return a list of requirements
+     * @return [type] [description]
+     */
     public static function js_requirements()
     {
-        $googleJS =
-        "//maps.googleapis.com/maps/api/js?"
-        ."&libraries=places"
-        ."&key=".Config::inst()->get('GoogleAddressField', "api_key");
-        return array(
-            $googleJS,
-            'google_address_field/javascript/GoogleAddressField.js'
-        );
+        $array = [];
+        $api = Config::inst()->get('GoogleAddressField', 'google_map_api_location');
+        $js = Config::inst()->get('GoogleAddressField', 'field_js_location');
+        if($api) {
+            $array[] = $api
+            .'?'
+            .'&libraries=places'
+            .'&key='.Config::inst()->get('GoogleAddressField', 'api_key');
+        }
+        if($js) {
+            $array[] = $js;
+        }
+
+        return $array;
     }
 
     /**
