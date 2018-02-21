@@ -16,7 +16,7 @@
         "find address",
         "autocomplete"
     ],
-    "license": null,
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Nicolaas Francken",
