@@ -1,12 +1,15 @@
 <?php
+
 class GoogleAddressFieldTest extends SapphireTest
 {
     protected $usesDatabase = false;
 
     protected $requiredExtensions = array();
 
-    public function testMyMethod()
+    public function TestDevBuild()
     {
-        $this->assertEquals(1, 1);
+        $exitStatus = shell_exec('php framework/cli-script.php dev/build flush=all  > dev/null; echo $?');
+        $exitStatus = intval(trim($exitStatus));
+        $this->assertEquals(0, $exitStatus);
     }
 }
