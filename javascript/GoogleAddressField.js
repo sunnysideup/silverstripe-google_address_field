@@ -146,6 +146,18 @@ var GoogleAddressField = function(fieldName) {
         autocomplete: null,
 
         /**
+         *
+         * @type autocompleteService object provided by Google
+         */
+        autocompleteService: null,
+
+        /**
+         *
+         * @type autocompleteService object provided by Google
+         */
+        placesService: null,
+
+        /**
          * based on format FormField: [GeocodingAddressType: format]
          *    Address1: {'subpremise': 'short_name', 'street_number': 'short_name', 'route': 'long_name'},
          *    Address2: {'locality': 'long_name'},
@@ -313,6 +325,11 @@ var GoogleAddressField = function(fieldName) {
                 autocompleteConfig
             );
 
+            geocodingFieldVars.autocompleteService = new google.maps.places.AutocompleteService();
+            geocodingFieldVars.placesService = new google.maps.places.PlacesService(geocodingFieldVars.entryField.get(0));
+
+
+
             google.maps.event.addListener(
                 geocodingFieldVars.autocomplete,
                 'place_changed',
@@ -445,6 +462,12 @@ var GoogleAddressField = function(fieldName) {
             }
             geocodingFieldVars.entryFieldHolder.find(geocodingFieldVars.viewGoogleMapLinkSelector).attr("target", "_googleMap");
             if(geocodingFieldVars.entryField.val().length > 0) {
+                geocodingFieldVars.autocompleteService.getQueryPredictions(
+                    {
+                        input: geocodingFieldVars.entryField.val()
+                    },
+                    geocodingFieldVars.getfirstResult
+                );
                 //to do - to be completed!
                 geocodingFieldVars.entryField.attr("placeholder", geocodingFieldVars.entryField.val());
                 geocodingFieldVars.entryField.val("")
@@ -468,7 +491,7 @@ var GoogleAddressField = function(fieldName) {
                 );
         },
 
-        fillInAddress: function() {
+        fillInAddress: function(place) {
             var updated = false;
             if(typeof place === 'undefined') {
                 var place = geocodingFieldVars.autocomplete.getPlace();
@@ -772,6 +795,27 @@ var GoogleAddressField = function(fieldName) {
             }
         },
 
+
+        getfirstResult: function(predictions, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK)
+            {
+                var result = predictions[0];
+                geocodingFieldVars.placesService.getDetails(
+                    {
+                        placeId:
+                        result.place_id
+                    },
+                    geocodingFieldVars.loadExistingAddress
+                );
+            }
+        },
+
+        loadExistingAddress: function(place, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK)
+            {
+                geocodingFieldVars.fillInAddress(place);
+            }
+        },
 
         /**
          * look up default address and apply it
