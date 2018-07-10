@@ -61,3 +61,10 @@ The following code can be used to resolve this conflict:
             };
             FastClick.attach(document.body);
 ```
+API Key
+-----------------------------------------------
+
+To use this project you will need to make sure you API key is enabled for the following services:
+-Geocoder
+-Maps
+-PlacesService
