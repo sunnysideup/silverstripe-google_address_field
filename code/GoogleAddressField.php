@@ -235,8 +235,8 @@ class GoogleAddressField extends TextField
         if ($this->cssLocation) {
             Requirements::themedCSS($this->cssLocation, 'google_address_field');
         }
-        $this->setAttribute('autocomplete', 'off');
-        $this->setAttribute('autofill', 'off');
+        $this->setAttribute('autocomplete', 'false');
+        $this->setAttribute('autofill', 'false');
         $this->setAttribute('data-selectedOptionNotAllowed', Convert::raw2att(_t('GoogleAddressField.SELECTED_OPTION_NOT_ALLOWED', 'ERROR: You have selected an invalid')));
         $this->setAttribute('data-errorMessageMoreSpecific', Convert::raw2att(_t('GoogleAddressField.ERROR_MESSAGE_MORE_SPECIFIC', 'Error: please enter a more specific location.')));
         $this->setAttribute('data-errorMessageAddressNotFound', Convert::raw2att(_t('GoogleAddressField.ERROR_MESSAGE_ADDRESS_NOT_FOUND', 'Error: sorry, address could not be found.')));
