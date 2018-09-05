@@ -13,6 +13,11 @@ class GoogleAddressField extends TextField
 
     private static $field_js_location = 'google_address_field/javascript/GoogleAddressField.js';
 
+
+    //when autocomplete returns a place we check if the type is an allowed type and if not
+    //provide the user an alert to let them know their address may not have been correctly autocompleted
+    private static $allowed_types = ['street_address'];
+
     /**
      * @var string
      */
@@ -264,6 +269,17 @@ class GoogleAddressField extends TextField
      */
     protected function getJavascript()
     {
+        $allowed_types = Config::inst()->get('GoogleAddressField', 'allowed_types');
+
+        if($allowed_types){
+            return '
+                if(typeof GoogleAddressFieldStatics === "undefined") {
+                    var GoogleAddressFieldStatics = {};
+                }
+                GoogleAddressFieldStatics.allowedTypes = '.json_encode($allowed_types).';
+            ';
+        }
+
         return '';
     }
     /**

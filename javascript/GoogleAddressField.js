@@ -299,6 +299,13 @@ var GoogleAddressField = function(fieldName) {
                 this.alwaysShowFields = true;
                 return ;
             }
+            if(typeof GoogleAddressFieldStatics !== "undefined") {
+                for (var key in GoogleAddressFieldStatics){
+                    if (GoogleAddressFieldStatics.hasOwnProperty(key)) {
+                        geocodingFieldVars[key] = GoogleAddressFieldStatics[key];
+                    }
+                }
+            }
             geocodingFieldVars.entryField = jQuery('input[name="'+geocodingFieldVars.fieldName+'"]');
             geocodingFieldVars.entryFieldHolder = jQuery(geocodingFieldVars.entryField).closest("div.field");
             geocodingFieldVars.entryFieldRightLabel = geocodingFieldVars.entryFieldHolder.find('label.right');
@@ -497,7 +504,7 @@ var GoogleAddressField = function(fieldName) {
                 var place = geocodingFieldVars.autocomplete.getPlace();
             }
             geocodingFieldVars.entryField.attr("data-has-result", "no");
-            if(geocodingFieldVars.debug) {console.log(place);}
+            if(geocodingFieldVars.debug) {console.log(place); }
             //if(geocodingFieldVars.debug) {console.log(geocodingFieldVars.autocomplete);}
             var placeIsSpecificEnough = false;
             if(typeof place !== 'undefined') {
@@ -606,6 +613,11 @@ var GoogleAddressField = function(fieldName) {
                                 }
                             }
                             geocodingFieldVars.entryFieldLeftLabel.text(geocodingFieldVars.findNewAddressText);
+                        }
+                        if(typeof place.types !== 'undefined') {
+                            if(!geocodingFieldVars.allowedTypes.contains(place.types)){
+                                alert('A partial match has been found but may not be correct. Please double check your address has been filled out correctly before proceeding to the next checkout step.');
+                            }
                         }
                     }
                     else {
@@ -865,4 +877,13 @@ var GoogleAddressField = function(fieldName) {
 
     }
 
+}
+
+Array.prototype.contains = function(array) {
+    return array.every(
+        function(item) {
+            return this.indexOf(item) !== -1;
+        },
+        this
+    );
 }
