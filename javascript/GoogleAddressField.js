@@ -616,7 +616,7 @@ var GoogleAddressField = function(fieldName) {
                         }
                         if(typeof place.types !== 'undefined') {
                             if(!geocodingFieldVars.allowedTypes.contains(place.types)){
-                                alert('A partial match has been found but may not be correct. Please double check your address has been filled out correctly before proceeding to the next checkout step.');
+                                alert('Please ensure your address details are correct as google could not find your exact location.');
                             }
                         }
                     }
