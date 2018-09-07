@@ -614,6 +614,10 @@ var GoogleAddressField = function(fieldName) {
                             }
                             geocodingFieldVars.entryFieldLeftLabel.text(geocodingFieldVars.findNewAddressText);
                         }
+
+                        geocodingFieldVars.entryField.val('');
+                        geocodingFieldVars.entryField.attr('placeholder', '');
+
                         if(typeof place.types !== 'undefined') {
                             if(!geocodingFieldVars.allowedTypes.contains(place.types)){
                                 alert('Please ensure your address details are correct as google could not find your exact location.');
