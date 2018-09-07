@@ -652,14 +652,22 @@ var GoogleAddressField = function(fieldName) {
             }
         },
 
+        hasScrolled: false,
+
         /**
          * shows the address fields
          */
         showFields: function(){
+            var firstField = '';
+            var count = 0;
             for (var formField in geocodingFieldVars.relatedFields) {
                 var fieldToSet = jQuery("input[name='"+formField+"'],select[name='"+formField+"'],textarea[name='"+formField+"']");
                 var holderToSet = jQuery(fieldToSet).closest("div.field");
                 if(fieldToSet.attr("type") !== "hidden") {
+                    if(count < 1){
+                        firstField = fieldToSet;
+                        count++;
+                    }
                     holderToSet.removeClass("hide").addClass("show");
                     var input = holderToSet.find("select[data-has-required='yes'], input[data-has-required='yes']").each(
                         function(i, el) {
@@ -667,6 +675,17 @@ var GoogleAddressField = function(fieldName) {
                         }
                     );
                 }
+            }
+
+            if(firstField.length){
+                //make sure the autofilled fields are visible
+                jQuery('html, body').animate(
+                    {
+                        scrollTop: geocodingFieldVars.entryField.offset().top
+                    },
+                    500
+                );
+                firstField.focus();
             }
 
             geocodingFieldVars.entryField.removeAttr("required");
