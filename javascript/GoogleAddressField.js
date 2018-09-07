@@ -638,6 +638,13 @@ var GoogleAddressField = function(fieldName) {
                         if(typeof place.types !== 'undefined') {
                             if(!geocodingFieldVars.allowedTypes.contains(place.types)){
                                 alert('Please ensure your address details are correct as google could not find your exact location.');
+                                setTimeout(
+                                    function(){
+                                        //make sure the fields are shown
+                                        geocodingFieldVars.showFields();
+                                    },
+                                    0
+                                );
                             }
                         }
                     }
