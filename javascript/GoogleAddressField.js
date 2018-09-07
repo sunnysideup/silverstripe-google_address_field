@@ -618,11 +618,6 @@ var GoogleAddressField = function(fieldName) {
                         geocodingFieldVars.entryField.val('');
                         geocodingFieldVars.entryField.attr('placeholder', '');
 
-                        if(typeof place.types !== 'undefined') {
-                            if(!geocodingFieldVars.allowedTypes.contains(place.types)){
-                                alert('Please ensure your address details are correct as google could not find your exact location.');
-                            }
-                        }
                     }
                     else {
                         geocodingFieldVars.entryField.val(geocodingFieldVars.errorMessageAddressNotFound);
@@ -638,6 +633,14 @@ var GoogleAddressField = function(fieldName) {
                 geocodingFieldVars.updateEntryFieldStatus();
                 if(geocodingFieldVars.hasResults()) {
                     geocodingFieldVars.showFields();
+                    //this is done last to make sure that if the alert is shown then the filled in fields filled won't be hidden
+                    if(typeof place !== 'undefined') {
+                        if(typeof place.types !== 'undefined') {
+                            if(!geocodingFieldVars.allowedTypes.contains(place.types)){
+                                alert('Please ensure your address details are correct as google could not find your exact location.');
+                            }
+                        }
+                    }
                 }
             }
         },
