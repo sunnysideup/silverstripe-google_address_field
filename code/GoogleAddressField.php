@@ -271,7 +271,7 @@ class GoogleAddressField extends TextField
     {
         $allowed_types = Config::inst()->get('GoogleAddressField', 'allowed_types');
 
-        if($allowed_types){
+        if ($allowed_types) {
             return '
                 if(typeof GoogleAddressFieldStatics === "undefined") {
                     var GoogleAddressFieldStatics = {};
