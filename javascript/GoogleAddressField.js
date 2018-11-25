@@ -548,6 +548,17 @@ var GoogleAddressField = function(fieldName) {
                                         if(geocodingFieldVars.debug) {console.debug("- -----  ----- ----- provided information: "+place.address_components[j].long_name);}
                                         for (var k = 0; k < place.address_components[j].types.length; k++) {
                                             var googleType = place.address_components[j].types[k];
+                                            //make sure the street number in the address components is the same as the number entered by in the autocomplete field
+                                            if(googleType == 'street_number' && geocodingFieldVars.getStreetNumberFromInput()){
+                                                var inputStreetNumber = geocodingFieldVars.getStreetNumberFromInput();
+                                                if(inputStreetNumber != place.address_components[j].long_name){
+                                                    place.address_components[j].long_name = inputStreetNumber;
+                                                }
+                                                if(inputStreetNumber != place.address_components[j].short_name){
+                                                    place.address_components[j].short_name = inputStreetNumber;
+                                                }
+                                            }
+                                            
                                             if(geocodingFieldVars.debug) {console.debug("- ----- ----- ----- ----- ----- ----- found Google Info for: "+googleType);}
                                             //if(geocodingFieldVars.debug) {console.log(geocodingFieldVars.relatedFields[formField]);}
                                             for (var fieldType in geocodingFieldVars.relatedFields[formField]) {
@@ -652,7 +663,14 @@ var GoogleAddressField = function(fieldName) {
             }
         },
 
-        hasScrolled: false,
+        getStreetNumberFromInput: function(){
+            var streetNumber = '';
+            var input = geocodingFieldVars.entryField.val();
+            if(input.indexOf(' ')){
+                streetNumber = input.substr(0, input.indexOf(' '));
+            }
+            return streetNumber;
+        },
 
         /**
          * shows the address fields
