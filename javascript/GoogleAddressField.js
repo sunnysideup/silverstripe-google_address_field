@@ -306,6 +306,7 @@ var GoogleAddressField = function(fieldName) {
                     }
                 }
             }
+
             geocodingFieldVars.entryField = jQuery('input[name="'+geocodingFieldVars.fieldName+'"]');
             geocodingFieldVars.entryFieldHolder = jQuery(geocodingFieldVars.entryField).closest("div.field");
             geocodingFieldVars.entryFieldRightLabel = geocodingFieldVars.entryFieldHolder.find('label.right');
@@ -558,7 +559,7 @@ var GoogleAddressField = function(fieldName) {
                                                     place.address_components[j].short_name = inputStreetNumber;
                                                 }
                                             }
-                                            
+
                                             if(geocodingFieldVars.debug) {console.debug("- ----- ----- ----- ----- ----- ----- found Google Info for: "+googleType);}
                                             //if(geocodingFieldVars.debug) {console.log(geocodingFieldVars.relatedFields[formField]);}
                                             for (var fieldType in geocodingFieldVars.relatedFields[formField]) {
@@ -676,6 +677,8 @@ var GoogleAddressField = function(fieldName) {
          * shows the address fields
          */
         showFields: function(){
+            var form = geocodingFieldVars.entryField.closest("form");
+            var formValid = true;
             var firstField = '';
             var count = 0;
             for (var formField in geocodingFieldVars.relatedFields) {
@@ -695,7 +698,20 @@ var GoogleAddressField = function(fieldName) {
                 }
             }
 
-            if(firstField.length){
+            //check if form is valid
+            jQuery(form).find('input, select, textarea').each(
+                function(i, el){
+                    console.log(el);
+                    console.log(el.checkValidity());
+                    formValid = el.checkValidity();
+                    if(! formValid){
+                        return false;
+                    }
+                }
+            );
+
+            //if the first exists and the form is valid, then we can scroll to the filled in address fields
+            if(firstField.length && formValid){
                 //make sure the autofilled fields are visible
                 jQuery('html, body').animate(
                     {
