@@ -701,8 +701,6 @@ var GoogleAddressField = function(fieldName) {
             //check if form is valid
             jQuery(form).find('input, select, textarea').each(
                 function(i, el){
-                    console.log(el);
-                    console.log(el.checkValidity());
                     formValid = el.checkValidity();
                     if(! formValid){
                         return false;
