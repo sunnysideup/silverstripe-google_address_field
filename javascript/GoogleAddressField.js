@@ -679,16 +679,12 @@ var GoogleAddressField = function(fieldName) {
         showFields: function(){
             var form = geocodingFieldVars.entryField.closest("form");
             var formValid = true;
-            var firstField = '';
-            var count = 0;
+            var focusField = '';
             for (var formField in geocodingFieldVars.relatedFields) {
                 var fieldToSet = jQuery("input[name='"+formField+"'],select[name='"+formField+"'],textarea[name='"+formField+"']");
                 var holderToSet = jQuery(fieldToSet).closest("div.field");
                 if(fieldToSet.attr("type") !== "hidden") {
-                    if(count < 1){
-                        firstField = fieldToSet;
-                        count++;
-                    }
+                    focusField = fieldToSet;
                     holderToSet.removeClass("hide").addClass("show");
                     var input = holderToSet.find("select[data-has-required='yes'], input[data-has-required='yes']").each(
                         function(i, el) {
@@ -698,27 +694,13 @@ var GoogleAddressField = function(fieldName) {
                 }
             }
 
-            //check if form is valid
-            jQuery(form).find('input, select, textarea').each(
-                function(i, el){
-                    formValid = el.checkValidity();
-                    if(! formValid){
-                        return false;
-                    }
-                }
-            );
-
-            //if the first exists and the form is valid, then we can scroll to the filled in address fields
-            if(firstField.length && formValid){
-                //make sure the autofilled fields are visible
-                jQuery('html, body').animate(
-                    {
-                        scrollTop: geocodingFieldVars.entryField.offset().top
-                    },
-                    500
-                );
-                firstField.focus();
+            //focus on the last field so the user sees there filled in addresses
+            //this is neccessary because the google address field is emptied after an address is selected
+            //and when the viewMap link/image is loaded the other address fields can get push out of sight
+            if(focusField.length){
+                focusField.focus();
             }
+
 
             geocodingFieldVars.entryField.removeAttr("required");
             geocodingFieldVars.entryFieldHolder.removeAttr("required");
