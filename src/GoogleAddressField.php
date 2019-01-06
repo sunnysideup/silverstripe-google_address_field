@@ -1,4 +1,12 @@
 <?php
+
+namespace Sunnysideup\GoogleAddressField;
+
+use TextField;
+use Config;
+use Requirements;
+use Convert;
+
 /**
  * turns a field into a geo-coding field.
  *
