@@ -1,6 +1,6 @@
 {
     "name": "sunnysideup/google_address_field",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "description": "Provide a form field for the Silverstripe CMS that allows geocoding address prediction (autocomplete) and quick lookup of addresses using the Google API",
     "keywords": [
         "Silverstripe-CMS",
