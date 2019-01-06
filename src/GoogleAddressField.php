@@ -2,10 +2,16 @@
 
 namespace Sunnysideup\GoogleAddressField;
 
-use TextField;
-use Config;
-use Requirements;
-use Convert;
+
+
+
+
+use SilverStripe\Core\Config\Config;
+use Sunnysideup\GoogleAddressField\GoogleAddressField;
+use SilverStripe\View\Requirements;
+use SilverStripe\Core\Convert;
+use SilverStripe\Forms\TextField;
+
 
 /**
  * turns a field into a geo-coding field.
@@ -38,13 +44,13 @@ class GoogleAddressField extends TextField
     public static function js_requirements()
     {
         $array = [];
-        $api = Config::inst()->get('GoogleAddressField', 'google_map_api_location');
-        $js = Config::inst()->get('GoogleAddressField', 'field_js_location');
+        $api = Config::inst()->get(GoogleAddressField::class, 'google_map_api_location');
+        $js = Config::inst()->get(GoogleAddressField::class, 'field_js_location');
         if ($api) {
             $array[] = $api
             .'?'
             .'&libraries=places'
-            .'&key='.Config::inst()->get('GoogleAddressField', 'api_key');
+            .'&key='.Config::inst()->get(GoogleAddressField::class, 'api_key');
         }
         if ($js) {
             $array[] = $js;
@@ -111,7 +117,7 @@ class GoogleAddressField extends TextField
      */
     public function getGoogleStaticMapLink()
     {
-        return $this->googleStaticMapLink . '&amp;key='.Config::inst()->get('GoogleAddressField', "api_key");
+        return $this->googleStaticMapLink . '&amp;key='.Config::inst()->get(GoogleAddressField::class, "api_key");
     }
 
     /**
@@ -119,7 +125,7 @@ class GoogleAddressField extends TextField
      *
      * @var string
      */
-    protected $cssLocation = 'GoogleAddressField';
+    protected $cssLocation = GoogleAddressField::class;
 
     /**
      * @param string
@@ -242,7 +248,7 @@ class GoogleAddressField extends TextField
         }
         Requirements::customScript(
             $this->getJavascript(),
-            'GoogleAddressField'.$this->id()
+            GoogleAddressField::class.$this->id()
         );
 
         if ($this->cssLocation) {
@@ -277,7 +283,7 @@ class GoogleAddressField extends TextField
      */
     protected function getJavascript()
     {
-        $allowed_types = Config::inst()->get('GoogleAddressField', 'allowed_types');
+        $allowed_types = Config::inst()->get(GoogleAddressField::class, 'allowed_types');
 
         if ($allowed_types) {
             return '
