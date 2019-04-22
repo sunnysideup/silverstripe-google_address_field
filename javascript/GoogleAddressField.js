@@ -694,13 +694,6 @@ var GoogleAddressField = function(fieldName) {
                 }
             }
 
-            //focus on the last field so the user sees there filled in addresses
-            //this is neccessary because the google address field is emptied after an address is selected
-            //and when the viewMap link/image is loaded the other address fields can get push out of sight
-            if(focusField.length){
-                focusField.focus();
-            }
-
 
             geocodingFieldVars.entryField.removeAttr("required");
             geocodingFieldVars.entryFieldHolder.removeAttr("required");
