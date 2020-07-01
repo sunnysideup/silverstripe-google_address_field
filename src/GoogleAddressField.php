@@ -25,7 +25,7 @@ class GoogleAddressField extends TextField
 {
     private static $google_map_api_location = '//maps.googleapis.com/maps/api/js';
 
-    private static $field_js_location = 'google_address_field/javascript/GoogleAddressField.js';
+    private static $field_js_location = 'sunnysideup/google_address_field: client/javascript/GoogleAddressField.js';
 
 
     //when autocomplete returns a place we check if the type is an allowed type and if not
@@ -45,7 +45,8 @@ class GoogleAddressField extends TextField
     {
         $array = [];
         $api = Config::inst()->get(GoogleAddressField::class, 'google_map_api_location');
-        $js = Config::inst()->get(GoogleAddressField::class, 'field_js_location');
+        $js_location = Config::inst()->get(GoogleAddressField::class, 'field_js_location');
+        $js = ModuleResourceLoader::singleton()->resolveURL($js_location);
         if ($api) {
             $array[] = $api
             .'?'
