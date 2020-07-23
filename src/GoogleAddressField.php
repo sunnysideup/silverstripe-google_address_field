@@ -7,11 +7,10 @@ namespace Sunnysideup\GoogleAddressField;
 
 
 use SilverStripe\Core\Config\Config;
-use Sunnysideup\GoogleAddressField\GoogleAddressField;
 use SilverStripe\View\Requirements;
 use SilverStripe\Core\Convert;
+use SilverStripe\Core\Manifest\ModuleResourceLoader;
 use SilverStripe\Forms\TextField;
-
 
 /**
  * turns a field into a geo-coding field.
@@ -253,7 +252,8 @@ class GoogleAddressField extends TextField
         );
 
         if ($this->cssLocation) {
-            Requirements::themedCSS($this->cssLocation, 'google_address_field');
+            //UPGRADE TO DO: fix this
+            //Requirements::themedCSS($this->cssLocation, 'google_address_field');
         }
         $this->setAttribute('autocomplete', 'false');
         $this->setAttribute('autofill', 'false');
@@ -302,7 +302,7 @@ class GoogleAddressField extends TextField
      */
     public function RightTitle()
     {
-        $rightTitle = $this->renderWith('GoogleAddressFieldRightTitle');
+        $rightTitle = $this->renderWith('Sunnysideup/GoogleAddressField/GoogleAddressFieldRightTitle');
         if (strlen(trim($rightTitle))) {
             return $rightTitle;
         }
