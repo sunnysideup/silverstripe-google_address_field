@@ -2,15 +2,11 @@
 
 namespace Sunnysideup\GoogleAddressField;
 
-
-
-
-
 use SilverStripe\Core\Config\Config;
-use SilverStripe\View\Requirements;
 use SilverStripe\Core\Convert;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
 use SilverStripe\Forms\TextField;
+use SilverStripe\View\Requirements;
 
 /**
  * turns a field into a geo-coding field.
@@ -22,73 +18,12 @@ use SilverStripe\Forms\TextField;
  **/
 class GoogleAddressField extends TextField
 {
-    private static $google_map_api_location = '//maps.googleapis.com/maps/api/js';
-
-    private static $field_js_location = 'sunnysideup/google_address_field: client/javascript/GoogleAddressField.js';
-
-
-    //when autocomplete returns a place we check if the type is an allowed type and if not
-    //provide the user an alert to let them know their address may not have been correctly autocompleted
-    private static $allowed_types = ['street_address'];
-
     /**
-     * @var string
-     */
-    private static $api_key = "";
-
-    /**
-     * return a list of requirements
-     * @return [type] [description]
-     */
-    public static function js_requirements()
-    {
-        $array = [];
-        $api = Config::inst()->get(GoogleAddressField::class, 'google_map_api_location');
-        $js_location = Config::inst()->get(GoogleAddressField::class, 'field_js_location');
-        $js = ModuleResourceLoader::singleton()->resolveURL($js_location);
-        if ($api) {
-            $array[] = $api
-            .'?'
-            .'&libraries=places'
-            .'&key='.Config::inst()->get(GoogleAddressField::class, 'api_key');
-        }
-        if ($js) {
-            $array[] = $js;
-        }
-
-        return $array;
-    }
-
-    /**
-     *
      * @var bool
      */
     protected $useSensor = false;
 
-    /**
-     * Do you want this annoying ...
-     * this website wants to know exactly where you are
-     * and what you are wearing thing ...
-     * then this is your VAR.
-     *
-     * @param bool
-     */
-    public function setUseSensor($b)
-    {
-        $this->useSensor = $b;
-        return $this;
-    }
-
     protected $alwaysShowFields = false;
-
-    /**
-     * @param bool
-     */
-    public function setAlwaysShowFields($b)
-    {
-        $this->alwaysShowFields = $b;
-        return $this;
-    }
 
     /**
      * Link to the static map.  Set to an empty string to have no static image appear.
@@ -100,41 +35,11 @@ class GoogleAddressField extends TextField
     protected $googleStaticMapLink = '//maps.googleapis.com/maps/api/staticmap?center=[ADDRESS]&amp;zoom=17&amp;scale=false&amp;size=[MAXWIDTH]x[MAXHEIGHT]&amp;maptype=roadmap&amp;format=png&amp;visual_refresh=true&amp;markers=size:mid%7Ccolor:red%7Clabel:%7C[ADDRESS]';
 
     /**
-     * set to empty string to NOT show a static map.
-     *
-     * @param string
-     */
-    public function setGoogleStaticMapLink($s)
-    {
-        $this->googleStaticMapLink = $s;
-        return $this;
-    }
-
-    /**
-     * get to empty string to NOT show a static map.
-     *
-     * @return string
-     */
-    public function getGoogleStaticMapLink()
-    {
-        return $this->googleStaticMapLink . '&amp;key='.Config::inst()->get(GoogleAddressField::class, "api_key");
-    }
-
-    /**
      * CSS file used in this field (can be themed!).
      *
      * @var string
      */
     protected $cssLocation = GoogleAddressField::class;
-
-    /**
-     * @param string
-     */
-    public function setCssLocation($s)
-    {
-        $this->cssLocation = $s;
-        return $this;
-    }
 
     /**
      * list of links between
@@ -156,10 +61,103 @@ class GoogleAddressField extends TextField
      *
      * @var array
      */
-    protected $fieldMap = array();
+    protected $fieldMap = [];
+
+    protected $typeToBeReturned = 'address';
+
+    protected $restrictToCountryCode = '';
+
+    private static $google_map_api_location = '//maps.googleapis.com/maps/api/js';
+
+    private static $field_js_location = 'sunnysideup/google_address_field: client/javascript/GoogleAddressField.js';
+
+    //when autocomplete returns a place we check if the type is an allowed type and if not
+    //provide the user an alert to let them know their address may not have been correctly autocompleted
+    private static $allowed_types = ['street_address'];
 
     /**
-     * @param array
+     * @var string
+     */
+    private static $api_key = '';
+
+    /**
+     * return a list of requirements
+     * @return [type] [description]
+     */
+    public static function js_requirements()
+    {
+        $array = [];
+        $api = Config::inst()->get(GoogleAddressField::class, 'google_map_api_location');
+        $js_location = Config::inst()->get(GoogleAddressField::class, 'field_js_location');
+        $js = ModuleResourceLoader::singleton()->resolveURL($js_location);
+        if ($api) {
+            $array[] = $api
+            . '?'
+            . '&libraries=places'
+            . '&key=' . Config::inst()->get(GoogleAddressField::class, 'api_key');
+        }
+        if ($js) {
+            $array[] = $js;
+        }
+
+        return $array;
+    }
+
+    /**
+     * Do you want this annoying ...
+     * this website wants to know exactly where you are
+     * and what you are wearing thing ...
+     * then this is your VAR.
+     *
+     * @param $b
+     */
+    public function setUseSensor($b)
+    {
+        $this->useSensor = $b;
+        return $this;
+    }
+
+    /**
+     * @param $b
+     */
+    public function setAlwaysShowFields($b)
+    {
+        $this->alwaysShowFields = $b;
+        return $this;
+    }
+
+    /**
+     * set to empty string to NOT show a static map.
+     *
+     * @param $s
+     */
+    public function setGoogleStaticMapLink($s)
+    {
+        $this->googleStaticMapLink = $s;
+        return $this;
+    }
+
+    /**
+     * get to empty string to NOT show a static map.
+     *
+     * @return string
+     */
+    public function getGoogleStaticMapLink()
+    {
+        return $this->googleStaticMapLink . '&amp;key=' . Config::inst()->get(GoogleAddressField::class, 'api_key');
+    }
+
+    /**
+     * @param $s
+     */
+    public function setCssLocation($s)
+    {
+        $this->cssLocation = $s;
+        return $this;
+    }
+
+    /**
+     * @param $a
      */
     public function setFieldMap($a)
     {
@@ -193,11 +191,8 @@ class GoogleAddressField extends TextField
         return $this->fieldMap;
     }
 
-
-    protected $typeToBeReturned = 'address';
-
     /**
-     * @param string $code - e.g. address
+     * @param string $type - e.g. address
      */
     public function setTypeToBeReturned($type)
     {
@@ -205,9 +200,6 @@ class GoogleAddressField extends TextField
 
         return $this;
     }
-
-
-    protected $restrictToCountryCode = '';
 
     /**
      * @param string $code - e.g. NZ
@@ -227,8 +219,6 @@ class GoogleAddressField extends TextField
         return $this->restrictToCountryCode;
     }
 
-
-
     /**
      * @return bool
      */
@@ -240,7 +230,7 @@ class GoogleAddressField extends TextField
     /**
      * @return string
      */
-    public function Field($properties = array())
+    public function Field($properties = [])
     {
         $this->addExtraClass('text');
         foreach (self::js_requirements() as $jsFile) {
@@ -248,7 +238,7 @@ class GoogleAddressField extends TextField
         }
         Requirements::customScript(
             $this->getJavascript(),
-            GoogleAddressField::class.$this->id()
+            GoogleAddressField::class . $this->id()
         );
 
         if ($this->cssLocation) {
@@ -278,6 +268,17 @@ class GoogleAddressField extends TextField
     }
 
     /**
+     * @return string
+     */
+    public function RightTitle()
+    {
+        $rightTitle = $this->renderWith('Sunnysideup/GoogleAddressField/GoogleAddressFieldRightTitle');
+        if (strlen(trim($rightTitle))) {
+            return $rightTitle;
+        }
+    }
+
+    /**
      * retuns the customised Javascript for the form field.
      *
      * @return string
@@ -291,20 +292,10 @@ class GoogleAddressField extends TextField
                 if(typeof GoogleAddressFieldStatics === "undefined") {
                     var GoogleAddressFieldStatics = {};
                 }
-                GoogleAddressFieldStatics.allowedTypes = '.json_encode($allowed_types).';
+                GoogleAddressFieldStatics.allowedTypes = ' . json_encode($allowed_types) . ';
             ';
         }
 
         return '';
-    }
-    /**
-     * @return string
-     */
-    public function RightTitle()
-    {
-        $rightTitle = $this->renderWith('Sunnysideup/GoogleAddressField/GoogleAddressFieldRightTitle');
-        if (strlen(trim($rightTitle))) {
-            return $rightTitle;
-        }
     }
 }
