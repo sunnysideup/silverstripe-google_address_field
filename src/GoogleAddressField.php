@@ -39,7 +39,7 @@ class GoogleAddressField extends TextField
      *
      * @var string
      */
-    protected $cssLocation = GoogleAddressField::class;
+    protected $themedCssLocation = 'GoogleAddressField';
 
     /**
      * list of links between
@@ -152,7 +152,7 @@ class GoogleAddressField extends TextField
      */
     public function setCssLocation($s)
     {
-        $this->cssLocation = $s;
+        $this->themedCssLocation = $s;
         return $this;
     }
 
@@ -241,9 +241,8 @@ class GoogleAddressField extends TextField
             GoogleAddressField::class . $this->id()
         );
 
-        if ($this->cssLocation) {
-            //UPGRADE TO DO: fix this
-            //Requirements::themedCSS($this->cssLocation, 'google_address_field');
+        if ($this->themedCssLocation) {
+            Requirements::themedCSS($this->themedCssLocation);
         }
         $this->setAttribute('autocomplete', 'false');
         $this->setAttribute('autofill', 'false');
