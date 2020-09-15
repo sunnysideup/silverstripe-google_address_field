@@ -39,7 +39,7 @@ class GoogleAddressField extends TextField
      *
      * @var string
      */
-    protected $themedCssLocation = 'GoogleAddressField';
+    protected $themedCssLocation = 'client/css/GoogleAddressField';
 
     /**
      * list of links between
