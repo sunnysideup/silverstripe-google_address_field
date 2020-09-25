@@ -82,7 +82,7 @@ class GoogleAddressField extends TextField
 
     /**
      * return a list of requirements
-     * @return [type] [description]
+     * @return  
      */
     public static function js_requirements()
     {
