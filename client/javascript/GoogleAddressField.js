@@ -835,7 +835,7 @@ var GoogleAddressField = function(fieldName) {
                 string = string.replace("[ADDRESS]", escapedLocation, "gi");
                 string = string.replace("[ADDRESS]", escapedLocation, "gi");
                 string = string.replace("[ADDRESS]", escapedLocation, "gi");
-                var maxWidth = geocodingFieldVars.entryFieldHolder.find("input").outerWidth();				if(!maxWidth) {
+                var maxWidth = geocodingFieldVars.entryFieldHolder.find("input").outerWidth();                if(!maxWidth) {
                     maxWidth = geocodingFieldVars.defaultWidthOfStaticImage;
                 }
                 if(maxWidth) {
