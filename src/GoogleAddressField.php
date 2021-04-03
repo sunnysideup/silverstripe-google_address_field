@@ -15,7 +15,7 @@ use SilverStripe\View\Requirements;
  * @package: forms
  * @sub-package: geocoding
  * @inspiration: http://gmaps-samples-v3.googlecode.com/svn/trunk/places/autocomplete-addressform.html
- **/
+ */
 class GoogleAddressField extends TextField
 {
     /**
@@ -81,7 +81,7 @@ class GoogleAddressField extends TextField
     private static $api_key = '';
 
     /**
-     * return a list of requirements
+     * return a list of requirements.
      */
     public static function js_requirements(): array
     {
@@ -111,12 +111,14 @@ class GoogleAddressField extends TextField
     public function setUseSensor(bool $b): self
     {
         $this->useSensor = $b;
+
         return $this;
     }
 
     public function setAlwaysShowFields(bool $b): self
     {
         $this->alwaysShowFields = $b;
+
         return $this;
     }
 
@@ -126,6 +128,7 @@ class GoogleAddressField extends TextField
     public function setGoogleStaticMapLink(string $s): self
     {
         $this->googleStaticMapLink = $s;
+
         return $this;
     }
 
@@ -140,18 +143,21 @@ class GoogleAddressField extends TextField
     public function setCssLocation(string $s): self
     {
         $this->themedCssLocation = $s;
+
         return $this;
     }
 
     public function setFieldMap(array $a): self
     {
         $this->fieldMap = $a;
+
         return $this;
     }
 
     public function addFieldMapEntry(string $formField, array $arrayOfGeoData): self
     {
         $this->fieldMap[$formField] = $arrayOfGeoData;
+
         return $this;
     }
 
@@ -192,7 +198,7 @@ class GoogleAddressField extends TextField
     }
 
     /**
-     * @param mixed            $properties
+     * @param mixed $properties
      *
      * @return string
      */
@@ -238,6 +244,7 @@ class GoogleAddressField extends TextField
         if (strlen(trim($rightTitle))) {
             return $rightTitle;
         }
+
         return null;
     }
 
