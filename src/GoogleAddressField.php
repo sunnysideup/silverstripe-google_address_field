@@ -82,9 +82,8 @@ class GoogleAddressField extends TextField
 
     /**
      * return a list of requirements
-     * @return array
      */
-    public static function js_requirements() : array
+    public static function js_requirements(): array
     {
         $array = [];
         $api = Config::inst()->get(GoogleAddressField::class, 'google_map_api_location');
@@ -108,17 +107,14 @@ class GoogleAddressField extends TextField
      * this website wants to know exactly where you are
      * and what you are wearing thing ...
      * then this is your VAR.
-     *
      */
-    public function setUseSensor(bool $b) : self
+    public function setUseSensor(bool $b): self
     {
         $this->useSensor = $b;
         return $this;
     }
 
-    /**
-     */
-    public function setAlwaysShowFields(bool $b) : self
+    public function setAlwaysShowFields(bool $b): self
     {
         $this->alwaysShowFields = $b;
         return $this;
@@ -126,9 +122,8 @@ class GoogleAddressField extends TextField
 
     /**
      * set to empty string to NOT show a static map.
-     *
      */
-    public function setGoogleStaticMapLink(string $s) : self
+    public function setGoogleStaticMapLink(string $s): self
     {
         $this->googleStaticMapLink = $s;
         return $this;
@@ -136,89 +131,72 @@ class GoogleAddressField extends TextField
 
     /**
      * get to empty string to NOT show a static map.
-     *
      */
-    public function getGoogleStaticMapLink() : string
+    public function getGoogleStaticMapLink(): string
     {
         return $this->googleStaticMapLink . '&amp;key=' . Config::inst()->get(GoogleAddressField::class, 'api_key');
     }
 
-    /**
-     */
-    public function setCssLocation(string $s) : self
+    public function setCssLocation(string $s): self
     {
         $this->themedCssLocation = $s;
         return $this;
     }
 
-    /**
-     */
-    public function setFieldMap(array $a) : self
+    public function setFieldMap(array $a): self
     {
         $this->fieldMap = $a;
         return $this;
     }
 
-    /**
-     */
-    public function addFieldMapEntry(string $formField, array $arrayOfGeoData) : self
+    public function addFieldMapEntry(string $formField, array $arrayOfGeoData): self
     {
         $this->fieldMap[$formField] = $arrayOfGeoData;
         return $this;
     }
 
-    /**
-     */
-    public function removeFieldMapEntry(string $formField) : self
+    public function removeFieldMapEntry(string $formField): self
     {
         unset($this->fieldMap[$formField]);
 
         return $this;
     }
 
-    /**
-     */
-    public function getFieldMap() : array
+    public function getFieldMap(): array
     {
         return $this->fieldMap;
     }
 
-    /**
-     */
-    public function setTypeToBeReturned(string $type) : self
+    public function setTypeToBeReturned(string $type): self
     {
         $this->typeToBeReturned = $type;
 
         return $this;
     }
 
-    /**
-     */
-    public function setRestrictToCountryCode(string $code) : self
+    public function setRestrictToCountryCode(string $code): self
     {
         $this->restrictToCountryCode = $code;
 
         return $this;
     }
 
-    /**
-     */
-    public function getRestrictToCountryCode() : string
+    public function getRestrictToCountryCode(): string
     {
         return $this->restrictToCountryCode;
     }
 
-    /**
-     */
-    public function hasData() : bool
+    public function hasData(): bool
     {
         return false;
     }
 
     /**
+     * @param mixed            $properties
+     *
      * @return string
      */
-    public function Field(?array $properties = [])
+    public function Field($properties = [])
     {
         $this->addExtraClass('text');
         foreach (self::js_requirements() as $jsFile) {
@@ -254,10 +232,7 @@ class GoogleAddressField extends TextField
         return parent::Field($properties);
     }
 
-    /**
-     * @return string|null
-     */
-    public function RightTitle() : ?string
+    public function RightTitle(): ?string
     {
         $rightTitle = $this->renderWith('Sunnysideup/GoogleAddressField/GoogleAddressFieldRightTitle');
         if (strlen(trim($rightTitle))) {
