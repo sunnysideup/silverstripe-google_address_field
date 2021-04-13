@@ -6,6 +6,8 @@ use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Convert;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
 use SilverStripe\Forms\TextField;
+use SilverStripe\ORM\FieldType\DBField;
+use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\View\Requirements;
 
 /**
@@ -238,11 +240,11 @@ class GoogleAddressField extends TextField
         return parent::Field($properties);
     }
 
-    public function RightTitle(): ?string
+    public function RightTitle(): ?DBHTMLText
     {
         $rightTitle = $this->renderWith('Sunnysideup/GoogleAddressField/GoogleAddressFieldRightTitle');
         if (strlen(trim($rightTitle))) {
-            return $rightTitle;
+            return DBField::create_field('HTMLText', $rightTitle);
         }
 
         return null;
