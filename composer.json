@@ -30,7 +30,11 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "extra": [],
+    "extra": {
+        "expose": [
+            "client"
+        ]
+    },
     "autoload": {
         "psr-4": {
             "Sunnysideup\\GoogleAddressField\\": "src/"
