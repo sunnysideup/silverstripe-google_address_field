@@ -229,7 +229,8 @@ class GoogleAddressField extends TextField
         $this->setAttribute('data-useSensor', ($this->useSensor ? 'true' : 'false'));
         $this->setAttribute('data-googleStaticMapLink', $this->getGoogleStaticMapLink());
         $this->setAttribute('data-typeToBeReturned', $this->typeToBeReturned);
-        if ($code = $this->getRestrictToCountryCode()) {
+        $code = $this->getRestrictToCountryCode();
+        if ($code) {
             $this->setAttribute('data-restrictToCountryCode', $code);
         }
         $this->setAttribute('data-linkLabelToViewMap', Convert::raw2att(_t('GoogleAddressField.LINK_LABEL_TO_VIEW_MAP', 'view map')));
