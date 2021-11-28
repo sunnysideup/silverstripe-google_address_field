@@ -6,8 +6,8 @@
 .googleaddress.field.field-is-hidden label.right * {display: none;}
 .googleaddress.field.field-is-hidden label.right .returnGoogleGeocoding {display: inline;}
 
-.googleaddress .static-image-holder {clear: both; display: block; border: 1px solid #000; max-width: 100%;}
-.googleaddress .static-image-holder img {max-width: 100%;}
+.googleaddress .static-image-holder {clear: both; display: block; border: 1px solid #ababab; max-width: 100%;}
+.googleaddress .static-image-holder img {max-width: 100%; width: 100%;}
 
 div.field.hide {display: none;}
 div.field.show {display: block;}
