@@ -200,9 +200,9 @@ class GoogleAddressField extends TextField
     }
 
     /**
-     * @param mixed $properties
+     * @param array $properties
      *
-     * @return string
+     * @return DBHTMLText
      */
     public function Field($properties = [])
     {
@@ -238,14 +238,19 @@ class GoogleAddressField extends TextField
         //right title
         $this->RightTitle();
 
+        /** @return DBHTMLText */
         return parent::Field($properties);
     }
 
-    public function RightTitle(): ?DBHTMLText
+    /**
+     * parent returns strings....
+     */
+    public function RightTitle()
     {
         $rightTitle = $this->renderWith('Sunnysideup/GoogleAddressField/GoogleAddressFieldRightTitle');
         $obj = null;
         if (strlen(trim($rightTitle))) {
+            /** @var DBHTMLText $obj */
             $obj = DBHTMLText::create_field('HTMLText', $rightTitle);
         }
 
