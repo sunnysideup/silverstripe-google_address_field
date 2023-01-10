@@ -244,11 +244,12 @@ class GoogleAddressField extends TextField
     public function RightTitle(): ?DBHTMLText
     {
         $rightTitle = $this->renderWith('Sunnysideup/GoogleAddressField/GoogleAddressFieldRightTitle');
+        $obj = null;
         if (strlen(trim($rightTitle))) {
-            return DBField::create_field('HTMLText', $rightTitle);
+            $obj = DBHTMLText::create_field('HTMLText', $rightTitle);
         }
 
-        return null;
+        return $obj;
     }
 
     /**
