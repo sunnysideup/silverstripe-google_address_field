@@ -6,7 +6,6 @@ use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Convert;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
 use SilverStripe\Forms\TextField;
-use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\View\Requirements;
 
@@ -238,7 +237,7 @@ class GoogleAddressField extends TextField
         //right title
         $this->RightTitle();
 
-        /** @return DBHTMLText */
+        // @return DBHTMLText
         return parent::Field($properties);
     }
 
