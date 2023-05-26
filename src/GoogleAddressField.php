@@ -12,7 +12,7 @@ use SilverStripe\View\Requirements;
 /**
  * turns a field into a geo-coding field.
  *
- * @authors: Nicolaas [at] Sunny Side Up .co.nz
+ * @author: Nicolaas [at] Sunny Side Up .co.nz
  * @package: forms
  * @sub-package: geocoding
  * @inspiration: http://gmaps-samples-v3.googlecode.com/svn/trunk/places/autocomplete-addressform.html
