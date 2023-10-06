@@ -223,7 +223,7 @@ class GoogleAddressField extends TextField
         $this->setAttribute('data-errorMessageMoreSpecific', Convert::raw2att(_t('GoogleAddressField.ERROR_MESSAGE_MORE_SPECIFIC', 'Error: please enter a more specific location.')));
         $this->setAttribute('data-errorMessageAddressNotFound', Convert::raw2att(_t('GoogleAddressField.ERROR_MESSAGE_ADDRESS_NOT_FOUND', 'Error: sorry, address could not be found.')));
         $this->setAttribute('data-findNewAddressText', Convert::raw2att(_t('GoogleAddressField.FIND_NEW_ADDRESS', 'Find Different Address')));
-        $this->setAttribute('data-relatedFields', Convert::raw2att(Convert::raw2json($this->getFieldMap())));
+        $this->setAttribute('data-relatedFields', Convert::raw2att(json_encode($this->getFieldMap())));
         $this->setAttribute('data-alwaysShowFields', ($this->alwaysShowFields ? 'true' : 'false'));
         $this->setAttribute('data-useSensor', ($this->useSensor ? 'true' : 'false'));
         $this->setAttribute('data-googleStaticMapLink', $this->getGoogleStaticMapLink());
