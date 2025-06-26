@@ -68,7 +68,7 @@ class GoogleAddressField extends TextField
 
     protected $restrictToCountryCode = '';
 
-    private static $google_map_api_location = '//maps.googleapis.com/maps/api/js';
+    private static $google_map_api_location = 'https://maps.googleapis.com/maps/api/js';
 
     private static $field_js_location = 'sunnysideup/google_address_field: client/javascript/GoogleAddressField.js';
 
@@ -92,9 +92,9 @@ class GoogleAddressField extends TextField
         $js = ModuleResourceLoader::singleton()->resolveURL($js_location);
         if ($api) {
             $array[] = $api
-            . '?'
-            . '&libraries=places'
-            . '&key=' . Config::inst()->get(GoogleAddressField::class, 'api_key');
+                . '?'
+                . '&libraries=places'
+                . '&key=' . Config::inst()->get(GoogleAddressField::class, 'api_key');
         }
         if ($js) {
             $array[] = $js;
