@@ -9,7 +9,6 @@
  * @see: https://developers.google.com/maps/documentation/javascript/places-autocomplete
  *
  */
-
 window.kickstartGoogleAddressField = function () {
   jQuery('input.text.googleaddress').each(function (i, el) {
     GoogleAddressFieldInstatiator.init(jQuery(el))
