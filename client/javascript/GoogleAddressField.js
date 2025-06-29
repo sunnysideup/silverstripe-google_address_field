@@ -15,12 +15,13 @@ window.kickstartGoogleAddressField = function () {
   })
 }
 
-jQuery(document).ready(function () {
-  jQuery('input.text.googleaddress').each(function (i, el) {
-    GoogleAddressFieldInstatiator.init(jQuery(el))
-  })
-  GoogleAddressFieldInstatiator.attachInCMS()
-})
+// jQuery(document).ready(function () {
+//   jQuery('input.text.googleaddress').each(function (i, el) {
+//     console.log(el)
+//     GoogleAddressFieldInstatiator.init(jQuery(el))
+//   })
+//   GoogleAddressFieldInstatiator.attachInCMS()
+// })
 
 var GoogleAddressFieldInstatiator = {
   init: function (elements) {
@@ -979,6 +980,7 @@ var GoogleAddressField = function (fieldName) {
           maxWidth = geocodingFieldVars.defaultWidthOfStaticImage
         }
         if (maxWidth) {
+          maxWidth = Math.round(maxWidth)
           string = string.replace('[MAXWIDTH]', maxWidth, 'gi')
           string = string.replace('[MAXWIDTH]', maxWidth, 'gi')
         }
@@ -987,6 +989,7 @@ var GoogleAddressField = function (fieldName) {
           maxHeight = geocodingFieldVars.defaultHeightOfStaticImage
         }
         if (maxHeight) {
+          maxHeight = Math.round(maxHeight)
           string = string.replace('[MAXHEIGHT]', maxHeight, 'gi')
           string = string.replace('[MAXHEIGHT]', maxHeight, 'gi')
         }
