@@ -682,7 +682,7 @@ var GoogleAddressField = function (fieldName) {
                                       labelString +
                                       '.'
                                   )
-                                  jQuery(fieldToSet).focus()
+                                  // jQuery(fieldToSet).focus()
                                 }
                               }
                               fieldToSet.val(value.trim())
@@ -759,6 +759,8 @@ var GoogleAddressField = function (fieldName) {
       return streetNumber
     },
 
+    fieldsShownOnLoad: false,
+
     /**
      * shows the address fields
      */
@@ -795,7 +797,8 @@ var GoogleAddressField = function (fieldName) {
       // focus on the last field so the user sees there filled in addresses
       // this is neccessary because the google address field is emptied after an address is selected
       // and when the viewMap link/image is loaded the other address fields can get push out of sight
-      if (focusField.length) {
+      if (focusField.length && this.fieldsShownOnLoad) {
+        this.fieldsShownOnLoad = true
         focusField.focus()
       }
 
