@@ -207,7 +207,7 @@ class GoogleAddressField extends TextField
     {
         $this->addExtraClass('text');
         foreach (self::js_requirements() as $jsFile) {
-            Requirements::javascript($jsFile);
+            Requirements::javascript($jsFile, ['async' => true,]);
         }
         Requirements::customScript(
             $this->getJavascript(),
