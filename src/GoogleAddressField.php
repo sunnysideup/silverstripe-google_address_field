@@ -229,7 +229,7 @@ class GoogleAddressField extends TextField
         $this->setAttribute('data-googleStaticMapLink', $this->getGoogleStaticMapLink());
         $this->setAttribute('data-typeToBeReturned', $this->typeToBeReturned);
         $code = $this->getRestrictToCountryCode();
-        if ($code) {
+        if ($code !== '' && $code !== '0') {
             $this->setAttribute('data-restrictToCountryCode', $code);
         }
         $this->setAttribute('data-linkLabelToViewMap', Convert::raw2att(_t('GoogleAddressField.LINK_LABEL_TO_VIEW_MAP', 'view map')));
@@ -248,7 +248,7 @@ class GoogleAddressField extends TextField
     {
         $rightTitle = $this->renderWith('Sunnysideup/GoogleAddressField/GoogleAddressFieldRightTitle');
         $obj = null;
-        if (strlen(trim($rightTitle))) {
+        if (strlen(trim($rightTitle)) !== 0) {
             /** @var DBHTMLText $obj */
             $obj = DBHTMLText::create_field('HTMLText', $rightTitle);
         }
