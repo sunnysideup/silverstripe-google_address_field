@@ -2,6 +2,7 @@
 
 namespace Sunnysideup\GoogleAddressField;
 
+use Override;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Convert;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
@@ -96,6 +97,7 @@ class GoogleAddressField extends TextField
                 . '&libraries=places'
                 . '&key=' . Config::inst()->get(GoogleAddressField::class, 'api_key');
         }
+
         if ($js) {
             $array[] = $js;
         }
@@ -193,6 +195,7 @@ class GoogleAddressField extends TextField
         return $this->restrictToCountryCode;
     }
 
+    #[Override]
     public function hasData(): bool
     {
         return false;
@@ -203,12 +206,14 @@ class GoogleAddressField extends TextField
      *
      * @return DBHTMLText
      */
+    #[Override]
     public function Field($properties = [])
     {
         $this->addExtraClass('text');
         foreach (self::js_requirements() as $jsFile) {
             Requirements::javascript($jsFile, ['async' => true]);
         }
+
         Requirements::customScript(
             $this->getJavascript(),
             GoogleAddressField::class . $this->id()
@@ -217,6 +222,7 @@ class GoogleAddressField extends TextField
         if ($this->themedCssLocation) {
             Requirements::themedCSS($this->themedCssLocation);
         }
+
         $this->setAttribute('autocomplete', 'false');
         $this->setAttribute('autofill', 'false');
         $this->setAttribute('data-selectedOptionNotAllowed', Convert::raw2att(_t('GoogleAddressField.SELECTED_OPTION_NOT_ALLOWED', 'ERROR: You have selected an invalid')));
@@ -232,6 +238,7 @@ class GoogleAddressField extends TextField
         if ($code !== '' && $code !== '0') {
             $this->setAttribute('data-restrictToCountryCode', $code);
         }
+
         $this->setAttribute('data-linkLabelToViewMap', Convert::raw2att(_t('GoogleAddressField.LINK_LABEL_TO_VIEW_MAP', 'view map')));
         $this->setAttribute('data-defaultAddress', Convert::raw2att(str_replace("'", '', (string) $this->Value())));
         //right title
@@ -244,6 +251,7 @@ class GoogleAddressField extends TextField
     /**
      * parent returns strings....
      */
+    #[Override]
     public function RightTitle()
     {
         $rightTitle = $this->renderWith('Sunnysideup/GoogleAddressField/GoogleAddressFieldRightTitle');

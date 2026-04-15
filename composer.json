@@ -1,44 +1,44 @@
 {
-  "name": "sunnysideup/google_address_field",
-  "type": "silverstripe-vendormodule",
-  "description": "Provide a form field for the Silverstripe CMS that allows geocoding address prediction (autocomplete) and quick lookup of addresses using the Google API",
-  "keywords": [
-    "Silverstripe-CMS",
-    "CMS",
-    "Silverstripe",
-    "geocoding",
-    "address",
-    "form",
-    "field",
-    "form field",
-    "google map",
-    "googlemap",
-    "map",
-    "maps",
-    "find address",
-    "autocomplete"
-  ],
-  "license": "BSD-3-Clause",
-  "authors": [
-    {
-      "name": "Nicolaas Francken",
-      "email": "modules@sunnysideup.co.nz",
-      "role": "lead developer"
+    "name": "sunnysideup/google_address_field",
+    "type": "silverstripe-vendormodule",
+    "description": "Provide a form field for the Silverstripe CMS that allows geocoding address prediction (autocomplete) and quick lookup of addresses using the Google API",
+    "keywords": [
+        "Silverstripe-CMS",
+        "CMS",
+        "Silverstripe",
+        "geocoding",
+        "address",
+        "form",
+        "field",
+        "form field",
+        "google map",
+        "googlemap",
+        "map",
+        "maps",
+        "find address",
+        "autocomplete"
+    ],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Nicolaas Francken",
+            "email": "modules@sunnysideup.co.nz",
+            "role": "lead developer"
+        }
+    ],
+    "require": {
+        "silverstripe/framework": "^6.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "expose": [
+            "client"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "Sunnysideup\\GoogleAddressField\\": "src/"
+        }
     }
-  ],
-  "require": {
-    "silverstripe/framework": "^4.0 || ^5.0"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "extra": {
-    "expose": [
-      "client"
-    ]
-  },
-  "autoload": {
-    "psr-4": {
-      "Sunnysideup\\GoogleAddressField\\": "src/"
-    }
-  }
 }
