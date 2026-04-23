@@ -96,6 +96,7 @@ class GoogleAddressField extends TextField
                 . '&libraries=places'
                 . '&key=' . Config::inst()->get(GoogleAddressField::class, 'api_key');
         }
+
         if ($js) {
             $array[] = $js;
         }
@@ -209,6 +210,7 @@ class GoogleAddressField extends TextField
         foreach (self::js_requirements() as $jsFile) {
             Requirements::javascript($jsFile, ['async' => true]);
         }
+
         Requirements::customScript(
             $this->getJavascript(),
             GoogleAddressField::class . $this->id()
@@ -217,6 +219,7 @@ class GoogleAddressField extends TextField
         if ($this->themedCssLocation) {
             Requirements::themedCSS($this->themedCssLocation);
         }
+
         $this->setAttribute('autocomplete', 'false');
         $this->setAttribute('autofill', 'false');
         $this->setAttribute('data-selectedOptionNotAllowed', Convert::raw2att(_t('GoogleAddressField.SELECTED_OPTION_NOT_ALLOWED', 'ERROR: You have selected an invalid')));
@@ -232,6 +235,7 @@ class GoogleAddressField extends TextField
         if ($code !== '' && $code !== '0') {
             $this->setAttribute('data-restrictToCountryCode', $code);
         }
+
         $this->setAttribute('data-linkLabelToViewMap', Convert::raw2att(_t('GoogleAddressField.LINK_LABEL_TO_VIEW_MAP', 'view map')));
         $this->setAttribute('data-defaultAddress', Convert::raw2att(str_replace("'", '', (string) $this->Value())));
         //right title
