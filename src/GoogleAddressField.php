@@ -237,7 +237,7 @@ class GoogleAddressField extends TextField
         }
 
         $this->setAttribute('data-linkLabelToViewMap', Convert::raw2att(_t('GoogleAddressField.LINK_LABEL_TO_VIEW_MAP', 'view map')));
-        $this->setAttribute('data-defaultAddress', Convert::raw2att(str_replace("'", '', (string) $this->Value())));
+        $this->setAttribute('data-defaultAddress', Convert::raw2att(str_replace("'", '', (string) $this->getValue())));
         //right title
         $this->RightTitle();
 
