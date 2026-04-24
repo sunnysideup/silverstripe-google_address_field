@@ -2,6 +2,7 @@
 
 namespace Sunnysideup\GoogleAddressField;
 
+use Override;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Convert;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
@@ -194,6 +195,7 @@ class GoogleAddressField extends TextField
         return $this->restrictToCountryCode;
     }
 
+    #[Override]
     public function hasData(): bool
     {
         return false;
@@ -204,6 +206,7 @@ class GoogleAddressField extends TextField
      *
      * @return DBHTMLText
      */
+    #[Override]
     public function Field($properties = [])
     {
         $this->addExtraClass('text');
@@ -248,6 +251,7 @@ class GoogleAddressField extends TextField
     /**
      * parent returns strings....
      */
+    #[Override]
     public function RightTitle()
     {
         $rightTitle = $this->renderWith('Sunnysideup/GoogleAddressField/GoogleAddressFieldRightTitle');
